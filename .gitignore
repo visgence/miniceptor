@@ -1,0 +1,7 @@
+node_modules/
+static/dist/
+
+webpack-stats.json
+
+
+*.DS_Store
