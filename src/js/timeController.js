@@ -10,7 +10,7 @@ export default class timeController {
 
         console.log('hello time');
 
-        $(function () {
+        $(() => {
             $('#startTimePicker').datetimepicker();
             $('#endTimePicker').datetimepicker();
         });

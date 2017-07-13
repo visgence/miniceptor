@@ -12,7 +12,7 @@ angular.module('miniceptor', ['ngRoute'])
     .controller('graphController', graphController)
     .controller('timeController', timeController)
     .controller('treeController', treeController)
-    .config(['$routeProvider', function($routeProvider) {
+    .config(['$routeProvider', ($routeProvider) => {
         $routeProvider
             .when('/', {
                 templateUrl: 'templates/base.html',

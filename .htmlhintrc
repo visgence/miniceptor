@@ -1,6 +1,5 @@
 {
   "attr-value-double-quotes": true,
-  "doctype-first": true,
   "tag-pair": true,
   "spec-char-escape": true,
   "id-unique": true,
@@ -10,9 +9,7 @@
   "tagname-lowercase": true,
   "attr-lowercase": true,
   "tag-self-close": true,
-  "attr-value-not-empty": true,
   "alt-require": true,
-  "doctype-html5": true,
   "id-class-value": "dash",
   "inline-script-disabled": true
 }

@@ -8,7 +8,7 @@
     "webpack": "webpack",
     "build": "npm run clean && webpack",
     "start": "npm run build && python server.py",
-    "htmllint": "./node_modules/.bin/htmlhint .src",
+    "htmllint": "./node_modules/.bin/htmlhint static",
     "csslint": "./node_modules/.bin/csslint src",
     "eslint": "./node_modules/.bin/eslint src",
     "pythonlint": "find ./ -name '*.py' | xargs pep8  --max-line-length=200",
