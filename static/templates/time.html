@@ -1,5 +1,28 @@
 <div class="card">
     <div ng-controller="timeController">
-        This is the time
+        <div class="row">
+          <div class="col-md-3">
+            Start time
+          </div>
+            <div class='col-sm-9'>
+                <div class="form-group">
+                    <input type='text' class="form-control" id='startTimePicker' />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            End time
+          </div>
+            <div class='col-sm-9'>
+                <input type='text' class="form-control" id='endTimePicker' />
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <div class="col-md-12">
+            <button class="btn btn-primary" ng-click="SubmitDates()" style="float: right">Submit</div>
+            </div>
+          </div>
+
     </div>
 </div>
