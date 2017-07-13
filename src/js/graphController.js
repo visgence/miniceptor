@@ -17,7 +17,6 @@ export default class graphController {
             }).then((response) => {
                 const data = response.data;
 
-                console.log($('#my-graph'))
                 let width = $('#my-graph')[0].clientWidth;
                 let height = 500;
 
@@ -90,7 +89,7 @@ export default class graphController {
                 function getTic() {
                     const Ticks = [];
                     const ratio = (max - min) / 6;
-                    for (let i = 0; i < 7; i++) {
+                    for (let i = 0; i < 7; i ++) {
                         Ticks.push(min + (ratio * i));
                     }
                     return Ticks;
@@ -98,8 +97,8 @@ export default class graphController {
 
                 // y axis
                 const yAxis = d3.axisLeft(yScale)
-                    .tickSizeInner(-width)
-                    .tickSizeOuter(-10)
+                    .tickSizeInner(- width)
+                    .tickSizeOuter(- 10)
                     .tickValues(getTic())
                     .tickFormat((d) => {
                         return d;
@@ -113,7 +112,7 @@ export default class graphController {
 
                 // X Axis
                 const xAxis = d3.axisBottom(xScale)
-                    .tickSizeInner(-height + margin.bottom)
+                    .tickSizeInner(- height + margin.bottom)
                     .tickSizeOuter(0)
                     .tickPadding(10)
                     .ticks(12);
@@ -144,7 +143,7 @@ export default class graphController {
                 const meanTimes = [];
                 let lastPoint = (data.readings[0][0]);
 
-                for (j = 0; j < data.readings.length; j++) {
+                for (j = 0; j < data.readings.length; j ++) {
                     meanTimes.push((data.readings[j][0] - lastPoint) * 0.0001);
                     lastPoint = data.readings[j][0];
                 }
