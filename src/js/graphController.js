@@ -17,7 +17,8 @@ export default class graphController {
             }).then((response) => {
                 const data = response.data;
 
-                let width = 1000;
+                console.log($('#my-graph'))
+                let width = $('#my-graph')[0].clientWidth;
                 let height = 500;
 
                 let min = data.readings[0][1];
@@ -25,7 +26,7 @@ export default class graphController {
                 let start = data.readings[0][0];
                 let end = data.readings[data.readings.length - 1][0];
                 let j = 0;
-                for (j = 0; j < data.readings.length; j++) {
+                for (j = 0; j < data.readings.length; j ++) {
                     if (min > data.readings[j][1]) {
                         min = data.readings[j][1];
                     }
