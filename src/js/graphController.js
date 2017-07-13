@@ -1,10 +1,11 @@
 // import 'd3/build/d3.min.js'
 import * as d3 from 'd3';
 
-export default class mainController {
+export default class graphController {
     constructor($http) {
         'ngInject';
         this._$http = $http;
+        console.log('hello graph')
     }
 
     callTele() {

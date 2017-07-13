@@ -4,17 +4,20 @@ import './../css/style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
 
-import mainController from './mainController';
+import graphController from './graphController';
+import treeController from './treeController';
+import timeController from './timeController';
 
 angular.module('miniceptor', ['ngRoute'])
-    .controller('mainController', mainController)
+    .controller('graphController', graphController)
+    .controller('timeController', timeController)
+    .controller('treeController', treeController)
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: 'templates/base.html',
-                controller: 'mainController as ctrl',
             })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/',
             });
     }]);

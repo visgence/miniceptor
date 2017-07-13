@@ -1,7 +1,10 @@
+# folders
 node_modules/
 static/dist/
 
+# node
 webpack-stats.json
+npm-debug.log
 
-
+#OSX
 *.DS_Store
