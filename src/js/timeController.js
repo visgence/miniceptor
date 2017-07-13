@@ -11,13 +11,13 @@ export default class timeController {
         console.log('hello time');
 
         $(() => {
-            $('#startTimePicker').datetimepicker();
-            $('#endTimePicker').datetimepicker();
+            $('#start-time-picker').datetimepicker();
+            $('#end-time-picker').datetimepicker();
         });
 
         $scope.SubmitDates = () => {
-            const startTime = $('#startTimePicker').data('DateTimePicker').date();
-            const endTime = $('#endTimePicker').data('DateTimePicker').date();
+            const startTime = $('#start-time-picker').data('DateTimePicker').date();
+            const endTime = $('#end-time-picker').data('DateTimePicker').date();
 
             console.log(startTime.unix(), endTime.unix());
         };
