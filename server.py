@@ -15,8 +15,12 @@ env = jinja2.Environment(
 class Root(object):
 
     def index(self, *args, **kwargs):
-        webpack = json.load(open(os.path.join(PATH, 'webpack-stats.json')))
-        context = {"bundle": webpack['chunks']['main'][0]['name']}
+        src = json.load(open(os.path.join(PATH, 'webpack-stats.json')))
+        vendor = json.load(open(os.path.join(PATH, 'webpack-stats.json')))
+        context = {
+            "src": src['chunks']['app'][0]['name'],
+            "vendor": vendor['chunks']['vendor'][0]['name']
+        }
         t = env.get_template("index.html")
         return t.render(context)
 

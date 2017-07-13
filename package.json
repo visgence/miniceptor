@@ -8,9 +8,8 @@
     "webpack": "webpack",
     "build": "npm run clean && webpack",
     "start": "npm run build && python server.py",
-
     "htmllint": "./node_modules/.bin/htmlhint .src",
-    "csslint":"./node_modules/.bin/csslint src",
+    "csslint": "./node_modules/.bin/csslint src",
     "eslint": "./node_modules/.bin/eslint src",
     "pythonlint": "find ./ -name '*.py' | xargs pep8  --max-line-length=200",
     "lint": "npm run htmllint && npm run csslint && npm run eslint && npm run pythonlint"
@@ -22,6 +21,7 @@
     "angular-ui-router": "^1.0.3",
     "bootstrap": "3.3.7",
     "d3": "^4.9.1",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "jquery": "2.2.4"
   },
   "devDependencies": {
@@ -45,6 +45,7 @@
     "uglifyjs-webpack-plugin": "0.4.6",
     "url-loader": "0.5.9",
     "webpack": "3.2.0",
-    "webpack-bundle-tracker": "0.2.0"
+    "webpack-bundle-tracker": "0.2.0",
+    "webpack-bundle-analyzer": "2.8.3"
   }
 }
