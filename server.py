@@ -4,6 +4,7 @@ import cherrypy
 import jinja2
 import json
 import requests
+import time
 
 PATH = os.path.abspath(os.path.dirname(__file__))
 STATIC = os.path.join(PATH, 'static')
@@ -27,7 +28,22 @@ class Root(object):
     index.exposed = True
 
     def callTele(self):
-        data = requests.get("http://deserttest.visgence.com/api/readings/?datastream=1&start=1498191400&end=1499896200").json()
+        cherrypy.response.headers['Content-Type'] = 'application/json'
+        try:
+            data = json.loads(cherrypy.request.body.read())
+        except ValueError:
+            data = {}
+        print data
+        startTime = time.time() - 86000
+        endTime = time.time()
+        if 'start' in data:
+            startTime = data['start']
+        if 'end' in data:
+            endTime = data['end']
+        print startTime
+        print endTime
+        url = "http://deserttest.visgence.com/api/readings/?datastream=1&start={}&end={}".format(startTime, endTime)
+        data = requests.get(url).json()
         return json.dumps(data)
     callTele.exposed = True
 

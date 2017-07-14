@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "clean": "rm static/dist/*",
+    "clean": "rm -fr static/dist/",
     "webpack": "webpack",
     "build": "npm run clean && webpack",
     "start": "npm run build && python server.py",

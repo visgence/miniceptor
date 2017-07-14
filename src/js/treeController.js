@@ -1,8 +1,6 @@
 export default class treeController {
-    constructor($http) {
+    constructor() {
         'ngInject';
-        this._$http = $http;
-        console.log('hello tree');
     }
 
 }
