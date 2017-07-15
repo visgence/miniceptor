@@ -6,13 +6,14 @@
   "scripts": {
     "clean": "rm -fr static/dist/",
     "webpack": "webpack",
-    "build": "npm run clean && webpack",
-    "start": "npm run build && python server.py",
+    "watch": "webpack --watch",
+    "build": "npm run clean && npm run watch",
+    "start": "npm run build & python server.py",
     "htmllint": "./node_modules/.bin/htmlhint static",
     "csslint": "./node_modules/.bin/csslint src",
     "eslint": "./node_modules/.bin/eslint src",
     "pythonlint": "find ./ -name '*.py' | xargs pep8  --max-line-length=200",
-    "lint": "npm run htmllint && npm run csslint && npm run eslint && npm run pythonlint"
+    "lint": "npm run htmllint & npm run csslint & npm run eslint & npm run pythonlint"
   },
   "author": "Cyrille Gindreau",
   "dependencies": {

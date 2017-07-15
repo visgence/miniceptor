@@ -20,7 +20,7 @@ module.exports = {
         filename: 'bundle-[chunkhash:8].js',
         path: path.resolve(__dirname, 'static/dist')
     },
-    devtool: 'source-map',
+    devtool: 'eval-cheap-module-source-map',
     module: {
         rules: [{
             test: /\.js$/,
