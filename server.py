@@ -33,15 +33,12 @@ class Root(object):
             data = json.loads(cherrypy.request.body.read())
         except ValueError:
             data = {}
-        print data
-        startTime = time.time() - 86000
-        endTime = time.time()
+        startTime = int(time.time() - 86000)
+        endTime = int(time.time())
         if 'start' in data and data['start'] is not None:
-            startTime = data['start']
+            startTime = int(data['start'])
         if 'end' in data and data['end'] is not None:
-            endTime = data['end']
-        print startTime
-        print endTime
+            endTime = int(data['end'])
         url = "http://deserttest.visgence.com/api/readings/?datastream=1&start={}&end={}".format(startTime, endTime)
         data = requests.get(url).json()
         return json.dumps(data)

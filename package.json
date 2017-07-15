@@ -5,7 +5,7 @@
   "description": "",
   "scripts": {
     "clean": "rm -fr static/dist/",
-    "webpack": "webpack",
+    "webpack": "webpack --progress",
     "watch": "webpack --watch",
     "build": "npm run clean && npm run watch",
     "start": "npm run build & python server.py",
