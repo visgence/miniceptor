@@ -6,13 +6,15 @@ export default class graphController {
         'ngInject';
         this._$http = $http;
 
+        const data = {
+            start: $location.search().start,
+            end: $location.search().end,
+        };
+
         this._$http({
             url: 'callTele',
             method: 'POST',
-            data: {
-                start: $location.search().start,
-                end: $location.search().end,
-            },
+            data: data,
         }).then((response) => {
             const data = response.data;
 

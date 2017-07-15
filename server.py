@@ -36,9 +36,9 @@ class Root(object):
         print data
         startTime = time.time() - 86000
         endTime = time.time()
-        if 'start' in data:
+        if 'start' in data and data['start'] is not None:
             startTime = data['start']
-        if 'end' in data:
+        if 'end' in data and data['end'] is not None:
             endTime = data['end']
         print startTime
         print endTime
