@@ -10,7 +10,8 @@
     "bootstrap": "3.3.7",
     "d3": "4.10.0",
     "eonasdan-bootstrap-datetimepicker": "4.17.47",
-    "jquery": "2.2.4"
+    "jquery": "2.2.4",
+    "bootstrap-treeview": "1.2.0"
   },
   "description": "",
   "devDependencies": {
@@ -20,6 +21,7 @@
     "babel-plugin-angularjs-annotate": "0.8.0",
     "babel-preset-env": "1.6.0",
     "babel-preset-es2015": "6.24.1",
+    "babel-eslint": "7.2.3",
     "css-loader": "0.28.4",
     "csslint": "1.0.5",
     "eslint": "4.2.0",

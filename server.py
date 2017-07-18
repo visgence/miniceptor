@@ -44,17 +44,21 @@ class Root(object):
         if 'end' in data and data['end'] is not None:
             endTime = int(data['end'])
         url = "http://deserttest.visgence.com/api/readings/?datastream=1&start={}&end={}".format(startTime, endTime)
-        print "\nstart"
+        print url
         try:
             data = requests.get(url).json()
         except Exception, e:
             print "\nerror:"
             print e
             data = {"error": str(e)}
-        print "\ndone"
-        print data
         return json.dumps(data)
     callTele.exposed = True
+
+    def getTree(self):
+        url = "http://deserttest.visgence.com/api/datastreams"
+        data = requests.get(url).json()
+        return json.dumps(data)
+    getTree.expose = True
 
 
 def get_cp_config():
