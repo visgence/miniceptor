@@ -40,7 +40,15 @@ class Root(object):
         if 'end' in data and data['end'] is not None:
             endTime = int(data['end'])
         url = "http://deserttest.visgence.com/api/readings/?datastream=1&start={}&end={}".format(startTime, endTime)
-        data = requests.get(url).json()
+        print "\nstart"
+        try:
+            data = requests.get(url).json()
+        except Exception, e:
+            print "\nerror:"
+            print e
+            data = {"error": str(e)}
+        print "\ndone"
+        print data
         return json.dumps(data)
     callTele.exposed = True
 

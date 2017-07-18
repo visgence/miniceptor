@@ -20,7 +20,6 @@
     "comma-spacing": "error",
     "space-infix-ops": "error",
     "key-spacing": "error",
-    "space-unary-ops": ["error", {"nonwords": true}],
     "prefer-arrow-callback": "error",
     "comma-dangle": ["error", {
       "arrays": "always-multiline",

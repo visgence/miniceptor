@@ -3,326 +3,338 @@ import * as d3 from 'd3';
 export default class graphController {
     constructor($http, $location, $scope) {
         'ngInject';
-        this._$http = $http;
+        this.$http = $http;
+        this.$location = $location;
+        this.$scope = $scope;
+        this.getData();
+    }
 
-        const data = {
-            start: $location.search().start,
-            end: $location.search().end,
+    getData() {
+        const req = {
+            start: this.$location.search().start,
+            end: this.$location.search().end,
         };
 
-        this._$http({
+        this.$http({
             url: 'callTele',
             method: 'POST',
-            data: data,
+            data: req,
         }).then((response) => {
-            const data = response.data;
-
-            let width = $('#my-graph')[0].clientWidth;
-            let height = 500;
-
-            let min = data.readings[0][1];
-            let max = data.readings[0][1];
-            let start = data.readings[0][0];
-            let end = data.readings[data.readings.length - 1][0];
-            let j = 0;
-            for (j = 0; j < data.readings.length; j ++) {
-                if (min > data.readings[j][1]) {
-                    min = data.readings[j][1];
-                }
-                if (max < data.readings[j][1]) {
-                    max = data.readings[j][1];
-                }
-
-                if (start > data.readings[j][0]) {
-                    start = data.readings[j][0];
-                }
-                if (end < data.readings[j][0]) {
-                    end = data.readings[j][0];
-                }
+            if (response.data.error !== undefined) {
+                $('#graph-message').toggleClass('alert-danger');
+                $('#graph-message').html('No data could be found.');
+            } else {
+                this.data = response.data;
+                this.drawGraph();
             }
-            start *= 1000;
-            end *= 1000;
+        });
+    }
 
-            const unitSize = 4;
+    drawGraph() {
+        let width = $('#my-graph')[0].clientWidth;
+        let height = 500;
 
-            const margin = {
-                top: 20,
-                right: 10,
-                bottom: 20,
-                left: 10 + (unitSize * 7),
-            };
-            width = width - margin.left - margin.right;
-            if (width < 0) {
-                return;
+        let min = data.readings[0][1];
+        let max = data.readings[0][1];
+        let start = data.readings[0][0];
+        let end = data.readings[data.readings.length - 1][0];
+        let j = 0;
+        for (j = 0; j < data.readings.length; j++) {
+            if (min > data.readings[j][1]) {
+                min = data.readings[j][1];
             }
-            height = height - margin.top - margin.bottom;
-
-            const newChart = d3.select('#my-graph')
-                .append('svg')
-                .attr('class', 'Chart-Container')
-                .attr('width', width + margin.left + margin.right)
-                .attr('height', height + margin.top + margin.bottom)
-                .append('g')
-                .attr('transform', 'translate(' + margin.left + ',' + 0 + ')')
-                .classed('svg-content-responsive', true);
-
-            const xScale = d3.scaleTime()
-                .domain([
-                    new Date(start),
-                    new Date(end),
-                ])
-                .rangeRound([
-                    0,
-                    width,
-                ]);
-
-            const yScale = d3.scaleLinear()
-                .domain([
-                    min,
-                    max + (max - min) * 0.1,
-                ])
-                .rangeRound([
-                    height,
-                    margin.bottom,
-                ]);
-
-            function getTic() {
-                const Ticks = [];
-                const ratio = (max - min) / 6;
-                for (let i = 0; i < 7; i ++) {
-                    Ticks.push(min + (ratio * i));
-                }
-                return Ticks;
+            if (max < data.readings[j][1]) {
+                max = data.readings[j][1];
             }
 
-            // y axis
-            const yAxis = d3.axisLeft(yScale)
-                .tickSizeInner(- width)
-                .tickSizeOuter(- 10)
-                .tickValues(getTic())
-                .tickFormat((d) => {
-                    return d;
-                });
-
-
-            newChart.append('g')
-                .attr('class', 'ChartAxis-Shape')
-                .call(yAxis);
-
-
-            // X Axis
-            const xAxis = d3.axisBottom(xScale)
-                .tickSizeInner(- height + margin.bottom)
-                .tickSizeOuter(0)
-                .tickPadding(10)
-                .ticks(12);
-
-            newChart.append('g')
-                .attr('class', 'ChartAxis-Shape')
-                .attr('transform', 'translate(0,' + height + ')')
-                .call(xAxis);
-
-
-            const xAxisTop = d3.axisBottom(xScale)
-                .ticks(0);
-
-            newChart.append('g')
-                .attr('class', 'ChartAxis-Shape')
-                .attr('transform', 'translate(0, ' + margin.bottom + ')')
-                .call(xAxisTop);
-
-            const yAxisRight = d3.axisLeft(yScale)
-                .ticks(0);
-
-            newChart.append('g')
-                .attr('class', 'ChartAxis-Shape')
-                .attr('transform', 'translate(' + width + ', 0)')
-                .call(yAxisRight);
-
-
-            const meanTimes = [];
-            let lastPoint = (data.readings[0][0]);
-
-            for (j = 0; j < data.readings.length; j ++) {
-                meanTimes.push((data.readings[j][0] - lastPoint) * 0.0001);
-                lastPoint = data.readings[j][0];
+            if (start > data.readings[j][0]) {
+                start = data.readings[j][0];
             }
-            meanTimes.sort();
+            if (end < data.readings[j][0]) {
+                end = data.readings[j][0];
+            }
+        }
+        start *= 1000;
+        end *= 1000;
 
-            const lineFunction = d3.line()
-                .x((d) => {
-                    return isNaN(xScale(d[0] * 1000)) ? 0 : xScale(d[0] * 1000);
-                })
-                .y((d) => {
-                    return yScale(d[1]);
-                });
-            newChart.append('path')
-                .attr('d', lineFunction(data.readings))
-                .attr('stroke', '#FFB90F')
-                .attr('stroke-width', 2)
-                .attr('fill', 'none');
+        const unitSize = 4;
 
-            // TOOL-TIPS
-            // ooltip container
-            const tooltip = newChart.append('g')
-                .style('display', 'none');
+        const margin = {
+            top: 20,
+            right: 10,
+            bottom: 20,
+            left: 10 + (unitSize * 7),
+        };
+        width = width - margin.left - margin.right;
+        if (width < 0) {
+            return;
+        }
+        height = height - margin.top - margin.bottom;
 
-            const circleElements = [];
-            const textElements = [];
+        const newChart = d3.select('#my-graph')
+            .append('svg')
+            .attr('class', 'Chart-Container')
+            .attr('width', width + margin.left + margin.right)
+            .attr('height', height + margin.top + margin.bottom)
+            .append('g')
+            .attr('transform', 'translate(' + margin.left + ',' + 0 + ')')
+            .classed('svg-content-responsive', true);
 
-            // for every stream. create a circle, text,
-            // and horizontal line element and store in an array
-            const newCircle = tooltip.append('circle')
-                .attr('class', 'tooltip-circle')
-                .style('fill', 'none')
-                .style('stroke', 'blue')
-                .attr('r', 4);
-            circleElements.push(newCircle);
+        const xScale = d3.scaleTime()
+            .domain([
+                new Date(start),
+                new Date(end),
+            ])
+            .rangeRound([
+                0,
+                width,
+            ]);
 
-            const newText = tooltip.append('text')
-                .attr('width', 100 * 2)
-                .attr('height', 100 * 0.4)
-                .attr('fill', 'black');
+        const yScale = d3.scaleLinear()
+            .domain([
+                min,
+                max + (max - min) * 0.1,
+            ])
+            .rangeRound([
+                height,
+                margin.bottom,
+            ]);
 
-            textElements.push(newText);
+        function getTic() {
+            const Ticks = [];
+            const ratio = (max - min) / 6;
+            for (let i = 0; i < 7; i++) {
+                Ticks.push(min + (ratio * i));
+            }
+            return Ticks;
+        }
 
-
-            // Y-axis line for tooltip
-            const yLine = tooltip.append('g')
-                .append('line')
-                .attr('class', 'tooltip-line')
-                .style('stroke', 'blue')
-                .style('stroke-dasharray', '3,3')
-                .style('opacity', 0.5)
-                .attr('y1', margin.bottom)
-                .attr('y2', height);
-
-            // Date text
-            const timeText = tooltip.append('text')
-                .attr('x', 0)
-                .attr('y', margin.bottom - 5)
-                .attr('width', 100)
-                .attr('height', 100 * 0.4)
-                .attr('fill', 'black');
-
-            const myData = [];
-            data.readings.forEach((reading) => {
-                myData.push(new Date(reading[0]).getTime() * 1000);
+        // y axis
+        const yAxis = d3.axisLeft(yScale)
+            .tickSizeInner(-width)
+            .tickSizeOuter(-10)
+            .tickValues(getTic())
+            .tickFormat((d) => {
+                return d;
             });
 
-            // Selection box
-            const selectionBox = newChart.append('rect')
-                .attr('fill', 'none')
-                .attr('opacity', 0.5)
-                .attr('x', 0)
-                .attr('y', margin.bottom)
-                .attr('width', 14)
-                .attr('height', height - margin.bottom)
-                .attr('class', 'myselection');
 
-            // Drag behaivors for the selection box.
-            let dragStart = 0;
-            let dragStartPos = 0;
-            let dragEnd = 0;
-            const drag = d3.drag()
-                .on('drag', (d, i) => {
-                    const x0 = xScale.invert(d3.event.x).getTime();
+        newChart.append('g')
+            .attr('class', 'ChartAxis-Shape')
+            .call(yAxis);
 
-                    i = d3.bisect(myData, x0);
-                    const d0 = data.readings[i - 1];
-                    const d1 = data.readings[i];
-                    if (d1 === undefined) {
-                        return;
-                    }
-                    d = x0 - d0[0] * 1000 > d1[0] * 1000 - x0 ? d1 : d0;
-                    if (xScale(d[0] * 1000) > dragStartPos) {
-                        selectionBox.attr('width', (xScale(d[0] * 1000) - dragStartPos));
-                    } else {
-                        selectionBox.attr('width', (dragStartPos - xScale(d[0] * 1000)));
-                        selectionBox.attr('transform', 'translate(' + xScale(d[0] * 1000) + ',0)');
-                    }
-                })
-                .on('end', () => {
-                    dragEnd = d3.event.x;
-                    if (Math.abs(dragStart - dragEnd) < 10) {
-                        return;
-                    }
 
-                    const x0 = xScale.invert(dragStart);
-                    const x1 = xScale.invert(dragEnd);
-                    if (x1 > x0) {
-                        start = x0.getTime();
-                        end = x1.getTime();
-                    } else {
-                        start = x1.getTime();
-                        end = x0.getTime();
-                    }
-                    $scope.$apply(() => {
-                        $location.search('start', parseInt(start / 1000));
-                        $location.search('end', parseInt(end / 1000));
-                    });
-                });
-            // Hit area for selection box
-            newChart.append('rect')
-                .attr('width', width)
-                .attr('height', height)
-                .style('fill', 'none')
-                .style('pointer-events', 'all')
-                .on('mouseover', () => {
-                    tooltip.style('display', null);
-                })
-                .on('mouseout', () => {
-                    tooltip.style('display', 'none');
-                })
-                .on('mousemove', () => {
-                    const x0 = xScale.invert(d3.event.offsetX - margin.left).getTime();
-                    const i = d3.bisect(myData, x0);
-                    const d0 = data.readings[i - 1];
-                    const d1 = data.readings[i];
-                    let d = 0;
-                    if (d0 === undefined && d1 === undefined) {
-                        return;
-                    }
-                    if (d0 === undefined) {
-                        d = d1;
-                    } else if (d1 === undefined) {
-                        d = d0;
-                    } else {
-                        if (x0 - d0[0] * 1000 > d1[0] * 1000 - x0) {
-                            d = d1;
-                        } else {
-                            d = d0;
-                        }
-                    }
-                    if (d[1] < min || d[1] > max) {
-                        return;
-                    }
-                    circleElements[0].attr('transform', 'translate(' + xScale(d[0] * 1000) + ',' + yScale(d[1]) + ')');
-                    yLine.attr('transform', 'translate(' + xScale(d[0] * 1000) + ',' + 0 + ')');
-                    timeText.text(new Date(d[0] * 1000) + ' | ' + d[1]);
+        // X Axis
+        const xAxis = d3.axisBottom(xScale)
+            .tickSizeInner(-height + margin.bottom)
+            .tickSizeOuter(0)
+            .tickPadding(10)
+            .ticks(12);
 
-                    textElements[0]
-                        .text(d[1])
-                        .attr('transform', 'translate(' + (xScale(d[0] * 1000) + 10) + ',' + (yScale(d[1]) - 10) + ')');
+        newChart.append('g')
+            .attr('class', 'ChartAxis-Shape')
+            .attr('transform', 'translate(0,' + height + ')')
+            .call(xAxis);
 
-                })
-                .on('mousedown', () => {
-                    selectionBox.attr('fill', '#b7ff64');
-                    dragStart = d3.event.offsetX - margin.left;
 
-                    const x0 = xScale.invert(d3.event.offsetX - margin.left).getTime();
-                    const i = d3.bisect(myData, x0);
-                    const d0 = data.readings[i - 1];
-                    const d1 = data.readings[i];
-                    if (d1 === undefined) {
-                        return;
-                    }
-                    const d = x0 - d0[0] * 1000 > d1[0] * 1000 - x0 ? d1 : d0;
-                    selectionBox.attr('transform', 'translate(' + xScale(d[0] * 1000) + ',0)');
-                    dragStartPos = xScale(d[0] * 1000);
-                })
-                .call(drag);
+        const xAxisTop = d3.axisBottom(xScale)
+            .ticks(0);
+
+        newChart.append('g')
+            .attr('class', 'ChartAxis-Shape')
+            .attr('transform', 'translate(0, ' + margin.bottom + ')')
+            .call(xAxisTop);
+
+        const yAxisRight = d3.axisLeft(yScale)
+            .ticks(0);
+
+        newChart.append('g')
+            .attr('class', 'ChartAxis-Shape')
+            .attr('transform', 'translate(' + width + ', 0)')
+            .call(yAxisRight);
+
+
+        const meanTimes = [];
+        let lastPoint = (data.readings[0][0]);
+
+        for (j = 0; j < data.readings.length; j++) {
+            meanTimes.push((data.readings[j][0] - lastPoint) * 0.0001);
+            lastPoint = data.readings[j][0];
+        }
+        meanTimes.sort();
+
+        const lineFunction = d3.line()
+            .x((d) => {
+                return isNaN(xScale(d[0] * 1000)) ? 0 : xScale(d[0] * 1000);
+            })
+            .y((d) => {
+                return yScale(d[1]);
+            });
+        newChart.append('path')
+            .attr('d', lineFunction(data.readings))
+            .attr('stroke', '#FFB90F')
+            .attr('stroke-width', 2)
+            .attr('fill', 'none');
+
+        // TOOL-TIPS
+        // ooltip container
+        const tooltip = newChart.append('g')
+            .style('display', 'none');
+
+        const circleElements = [];
+        const textElements = [];
+
+        // for every stream. create a circle, text,
+        // and horizontal line element and store in an array
+        const newCircle = tooltip.append('circle')
+            .attr('class', 'tooltip-circle')
+            .style('fill', 'none')
+            .style('stroke', 'blue')
+            .attr('r', 4);
+        circleElements.push(newCircle);
+
+        const newText = tooltip.append('text')
+            .attr('width', 100 * 2)
+            .attr('height', 100 * 0.4)
+            .attr('fill', 'black');
+
+        textElements.push(newText);
+
+
+        // Y-axis line for tooltip
+        const yLine = tooltip.append('g')
+            .append('line')
+            .attr('class', 'tooltip-line')
+            .style('stroke', 'blue')
+            .style('stroke-dasharray', '3,3')
+            .style('opacity', 0.5)
+            .attr('y1', margin.bottom)
+            .attr('y2', height);
+
+        // Date text
+        const timeText = tooltip.append('text')
+            .attr('x', 0)
+            .attr('y', margin.bottom - 5)
+            .attr('width', 100)
+            .attr('height', 100 * 0.4)
+            .attr('fill', 'black');
+
+        const myData = [];
+        data.readings.forEach((reading) => {
+            myData.push(new Date(reading[0]).getTime() * 1000);
         });
 
-    }
+        // Selection box
+        const selectionBox = newChart.append('rect')
+            .attr('fill', 'none')
+            .attr('opacity', 0.5)
+            .attr('x', 0)
+            .attr('y', margin.bottom)
+            .attr('width', 14)
+            .attr('height', height - margin.bottom)
+            .attr('class', 'myselection');
+
+        // Drag behaivors for the selection box.
+        let dragStart = 0;
+        let dragStartPos = 0;
+        let dragEnd = 0;
+        const drag = d3.drag()
+            .on('drag', (d, i) => {
+                const x0 = xScale.invert(d3.event.x).getTime();
+
+                i = d3.bisect(myData, x0);
+                const d0 = data.readings[i - 1];
+                const d1 = data.readings[i];
+                if (d1 === undefined) {
+                    return;
+                }
+                d = x0 - d0[0] * 1000 > d1[0] * 1000 - x0 ? d1 : d0;
+                if (xScale(d[0] * 1000) > dragStartPos) {
+                    selectionBox.attr('width', (xScale(d[0] * 1000) - dragStartPos));
+                } else {
+                    selectionBox.attr('width', (dragStartPos - xScale(d[0] * 1000)));
+                    selectionBox.attr('transform', 'translate(' + xScale(d[0] * 1000) + ',0)');
+                }
+            })
+            .on('end', () => {
+                dragEnd = d3.event.x;
+                if (Math.abs(dragStart - dragEnd) < 10) {
+                    return;
+                }
+
+                const x0 = xScale.invert(dragStart);
+                const x1 = xScale.invert(dragEnd);
+                if (x1 > x0) {
+                    start = x0.getTime();
+                    end = x1.getTime();
+                } else {
+                    start = x1.getTime();
+                    end = x0.getTime();
+                }
+                this.$scope.$apply(() => {
+                    this.$location.search('start', parseInt(start / 1000));
+                    this.$location.search('end', parseInt(end / 1000));
+                });
+            });
+        // Hit area for selection box
+        newChart.append('rect')
+            .attr('width', width)
+            .attr('height', height)
+            .style('fill', 'none')
+            .style('pointer-events', 'all')
+            .on('mouseover', () => {
+                tooltip.style('display', null);
+            })
+            .on('mouseout', () => {
+                tooltip.style('display', 'none');
+            })
+            .on('mousemove', () => {
+                const x0 = xScale.invert(d3.event.offsetX - margin.left).getTime();
+                const i = d3.bisect(myData, x0);
+                const d0 = data.readings[i - 1];
+                const d1 = data.readings[i];
+                let d = 0;
+                if (d0 === undefined && d1 === undefined) {
+                    return;
+                }
+                if (d0 === undefined) {
+                    d = d1;
+                } else if (d1 === undefined) {
+                    d = d0;
+                } else {
+                    if (x0 - d0[0] * 1000 > d1[0] * 1000 - x0) {
+                        d = d1;
+                    } else {
+                        d = d0;
+                    }
+                }
+                if (d[1] < min || d[1] > max) {
+                    return;
+                }
+                circleElements[0].attr('transform', 'translate(' + xScale(d[0] * 1000) + ',' + yScale(d[1]) + ')');
+                yLine.attr('transform', 'translate(' + xScale(d[0] * 1000) + ',' + 0 + ')');
+                timeText.text(new Date(d[0] * 1000) + ' | ' + d[1]);
+
+                textElements[0]
+                    .text(d[1])
+                    .attr('transform', 'translate(' + (xScale(d[0] * 1000) + 10) + ',' + (yScale(d[1]) - 10) + ')');
+
+            })
+            .on('mousedown', () => {
+                selectionBox.attr('fill', '#b7ff64');
+                dragStart = d3.event.offsetX - margin.left;
+
+                const x0 = xScale.invert(d3.event.offsetX - margin.left).getTime();
+                const i = d3.bisect(myData, x0);
+                const d0 = data.readings[i - 1];
+                const d1 = data.readings[i];
+                if (d1 === undefined) {
+                    return;
+                }
+                const d = x0 - d0[0] * 1000 > d1[0] * 1000 - x0 ? d1 : d0;
+                selectionBox.attr('transform', 'translate(' + xScale(d[0] * 1000) + ',0)');
+                dragStartPos = xScale(d[0] * 1000);
+            })
+            .call(drag);
+    };
 }
