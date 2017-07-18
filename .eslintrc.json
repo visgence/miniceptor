@@ -46,7 +46,6 @@
     "keyword-spacing": "error",
     "arrow-spacing": "error",
     "spaced-comment": ["error", "always", {"block": {"balanced": true}}],
-    "camelcase": "error",
     "no-trailing-spaces": "error",
     "no-restricted-syntax": ["error", "ForInStatement"],
     "one-var": ["error", "never"],
