@@ -12,9 +12,15 @@
     <title>Miniceptor</title>
     <script src="/dist/{{vendor}}"></script>
     <script src="/dist/{{src}}"></script>
+    <script type="text/javascript">
+        var version = "{{version | safe  }}"
+    </script>
 </head>
+
+
 
 <body ng-app="miniceptor">
     <div ng-view />
 </body>
+
 </html>

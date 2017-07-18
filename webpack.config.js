@@ -45,7 +45,7 @@ if (isProd) {
             output: {
                 comments: false,
             },
-        }),
+        })
     );
 }
 
