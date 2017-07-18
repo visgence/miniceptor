@@ -12,6 +12,9 @@ STATIC = os.path.join(PATH, 'static')
 env = jinja2.Environment(
     loader=jinja2.FileSystemLoader(searchpath=os.path.join(PATH, 'static/templates/')), )
 
+with open('config.json') as data_file:
+    VERSION = json.load(data_file)['VERSION']
+
 
 class Root(object):
 
@@ -20,7 +23,8 @@ class Root(object):
         vendor = json.load(open(os.path.join(PATH, 'webpack-stats.json')))
         context = {
             "src": src['chunks']['app'][0]['name'],
-            "vendor": vendor['chunks']['vendor'][0]['name']
+            "vendor": vendor['chunks']['vendor'][0]['name'],
+            "version": VERSION
         }
         t = env.get_template("index.html")
         return t.render(context)
