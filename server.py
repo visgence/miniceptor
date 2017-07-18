@@ -56,7 +56,13 @@ class Root(object):
 
     def getTree(self):
         url = "http://deserttest.visgence.com/api/datastreams"
-        data = requests.get(url).json()
+        try:
+            data = requests.get(url).json()
+        except Exception, e:
+            print "error:"
+            print e
+            data = {"Error": e}
+
         return json.dumps(data)
     getTree.expose = True
 

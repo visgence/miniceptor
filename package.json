@@ -52,7 +52,7 @@
     "incminorversion": "python versionControl.py -minor",
     "lint": "npm run htmllint & npm run csslint & npm run eslint & npm run pythonlint",
     "pythonlint": "find ./ -name '*.py' | xargs pep8  --max-line-length=200",
-    "start": "npm run build & python server.py",
+    "start": "npm run build && python server.py",
     "watch": "webpack --watch",
     "webpack": "webpack --progress"
   },
