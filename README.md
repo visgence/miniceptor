@@ -14,6 +14,11 @@ please wait until webpack has finished its build.
 npm run lint
 runs htmllint, csslint, eslint, and pep8 (configs haven't been completed yet.)
 
+npm run incmajorversion
+npm run incminorversion
+These script are use to increment the version number:
+X.major.minor
+They increment both the config and package.json file to the next number.
 
 Future updates:
 https://github.com/tempusdominus/bootstrap-3 for timepicker (in alpha)
