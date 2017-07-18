@@ -15,9 +15,9 @@ export default class treeController {
             this.$scope.pathSetSelection = 0;
         }
 
-        $('#myTree').on('nodeSelected', (event, data) => {
+        $('#my-tree').on('nodeSelected', (event, data) => {
             if (data.info === undefined) {
-                $('#myTree').treeview('expandNode', [data.nodeId, {
+                $('#my-tree').treeview('expandNode', [data.nodeId, {
                     levels: 2,
                     silent: true,
                 }]);
@@ -26,9 +26,9 @@ export default class treeController {
             }
         });
 
-        $('#myTree').on('nodeUnselected', (event, data) => {
+        $('#my-tree').on('nodeUnselected', (event, data) => {
             if (data.info === undefined) {
-                $('#myTree').treeview('collapseNode', [data.nodeId, {
+                $('#my-tree').treeview('collapseNode', [data.nodeId, {
                     levels: 2,
                     ignoreChildren: false,
                 }]);
@@ -63,7 +63,7 @@ export default class treeController {
             }
             while (!nodeFound && i < 500) {
                 i++;
-                const node = $('#myTree').treeview('getNode', i);
+                const node = $('#my-tree').treeview('getNode', i);
                 if (node.info === undefined) {
                     continue;
                 }
@@ -73,10 +73,10 @@ export default class treeController {
                 if (parseInt(ds) !== parseInt(node.info.id)) {
                     continue;
                 }
-                $('#myTree').treeview('selectNode', [i, {
+                $('#my-tree').treeview('selectNode', [i, {
                     silent: true,
                 }]);
-                $('#myTree').treeview('revealNode', [i, {
+                $('#my-tree').treeview('revealNode', [i, {
                     silent: true,
                 }]);
                 break;
@@ -117,7 +117,7 @@ export default class treeController {
 
         this.$scope.nodeCount = 0;
 
-        $('#myTree').treeview({
+        $('#my-tree').treeview({
             data: GetTree(data),
             showBorder: false,
             color: '#333',
@@ -126,7 +126,7 @@ export default class treeController {
             collapseIcon: 'glyphicon glyphicon-folder-open glyphs',
 
         });
-        $('#myTree').treeview('collapseAll', {
+        $('#my-tree').treeview('collapseAll', {
             silent: true,
         });
 
@@ -139,10 +139,10 @@ export default class treeController {
 
         if (curStream !== undefined) {
             for (let c = 0; c < this.$scope.nodeCount; c++) {
-                const curNode = $('#myTree').treeview('getNode', c);
+                const curNode = $('#my-tree').treeview('getNode', c);
                 if ('info' in curNode && curNode.info.id === parseInt(curStream)) {
-                    $('#myTree').treeview('revealNode', curNode);
-                    $('#myTree').treeview('selectNode', curNode);
+                    $('#my-tree').treeview('revealNode', curNode);
+                    $('#my-tree').treeview('selectNode', curNode);
                     this.SelectTreeNode(curNode.info);
                 }
             }
