@@ -35,3 +35,4 @@ class Reading:
                 (6, 2),
             ]
         })
+        print 'asdf'

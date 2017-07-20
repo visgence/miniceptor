@@ -10,9 +10,11 @@ export default class graphController {
     }
 
     getData() {
-        let datastream = this.$location.search().ds;
+        const datastream = this.$location.search().ds;
         if (datastream === undefined) {
-            datastream = 1;
+            $('#graph-message').toggleClass('alert-warning');
+            $('#graph-message').html('Please select a stream.');
+            return;
         }
         const req = {
             start: this.$location.search().start,

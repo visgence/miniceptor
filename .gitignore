@@ -6,5 +6,6 @@ static/dist/
 webpack-stats.json
 npm-debug.log
 
-#OSX
+#misc
 *.DS_Store
+*.pyc
