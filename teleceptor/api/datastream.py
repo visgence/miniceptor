@@ -14,23 +14,24 @@ class Datastream:
     def GET(self, stream_id=None, *args, **filter_arguments):
         print 'did a get'
         # api/datastream
+        # Note: uuid can be anything, just using these to talk to deserttest in the meantime
         return json.dumps([{
-            'uuid': 'stream1',
+            'uuid': '1',
             'paths': [
                 '/stream/path',
                 '/my/other/path'
             ],
             'sensoruuid': 'sensor1'
         }, {
-            'uuid': 'stream2',
+            'uuid': '2',
             'paths': ['/otherpath/path'],
             'sensoruuid': 'sensor2'
         }, {
-            'uuid': 'stream3',
+            'uuid': '3',
             'paths': ['/stream/path'],
             'sensoruuid': 'sensor3'
         }, {
-            'uuid': 'stream4',
+            'uuid': '4',
             'paths': ['/stream/path'],
             'sensoruuid': 'sensor4'
         }])

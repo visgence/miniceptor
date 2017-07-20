@@ -16,17 +16,10 @@ export default class graphController {
             $('#graph-message').html('Please select a stream.');
             return;
         }
-        const req = {
-            start: this.$location.search().start,
-            end: this.$location.search().end,
-            datastream: datastream,
-        };
 
-        this.$http({
-            url: '/api/reading',
-            method: 'GET',
-            data: req,
-        }).then(
+        const url = '/api/reading/?' + location.href.split('?')[1];
+
+        this.$http.get(url).then(
             (success) => {
                 if (success.error !== undefined) {
                     $('#graph-message').toggleClass('alert-danger');
