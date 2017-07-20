@@ -1,23 +1,35 @@
 <div class="container-fluid">
     <div ng-include="'templates/navbar.html'"> </div>
     <div class="row main">
-        <div class="col-md-4">
+        <div class="col-md-3 left-col">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 left-col">
                     <!--  time controls-->
                     <div ng-include="'templates/time.html'"> </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 left-col">
                     <!-- tree controls -->
                     <div ng-include="'templates/tree.html'"> </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
-            <!--  graph  -->
-            <div ng-include="'templates/graph.html'"> </div>
+        <div class="col-md-9 right-col">
+            <div class="row">
+                <div class="col-md-12 right-col">
+                    <!--  graph  -->
+                    <div ng-include="'templates/graph.html'"> </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 right-col left-col">
+                    <div ng-include="'templates/streamInfo.html'"></div>
+                </div>
+                <div class="col-md-6 right-col">
+                    <div ng-include="'templates/sensorInfo.html'"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

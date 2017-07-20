@@ -4,6 +4,7 @@ const BundleTracker = require('webpack-bundle-tracker');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
+// Note: Change this to NODE_ENV = Production
 const isProd = false;
 
 const plugins = [
@@ -59,6 +60,7 @@ module.exports = {
             'jquery',
             'moment',
             'eonasdan-bootstrap-datetimepicker',
+            // 'bootstrap-datetimepicker'
         ],
     },
     output: {
@@ -69,7 +71,7 @@ module.exports = {
     module: {
         rules: [{
             test: /\.js$/,
-            exclude: /node_modules/,
+            // exclude: /node_modules/,
             loader: 'babel-loader',
             options: {
                 presets: ['es2015'],

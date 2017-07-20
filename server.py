@@ -64,7 +64,7 @@ class Root(object):
             data = {"Error": e}
 
         return json.dumps(data)
-    getTree.expose = True
+    getTree.exposed = True
 
 
 def get_cp_config():

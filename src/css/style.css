@@ -2,6 +2,14 @@
   margin-top: 60px;
 }
 
+.left-col {
+  padding-right: 10px !important;
+}
+
+.right-col {
+  padding-left: 10px !important;
+}
+
 .card {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 -1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   margin-bottom: 10px;
