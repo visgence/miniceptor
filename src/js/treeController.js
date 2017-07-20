@@ -12,51 +12,16 @@ export default class treeController {
 
         this.LoadData();
 
-        $scope.pathSetSelection = $location.search().pathSet;
-        if ($scope.pathSetSelection === undefined) {
-            $scope.pathSetSelection = 0;
-        }
-
         $scope.ChangePath = (e) => {
-            console.log(e);
-            if (e === 'next') {
-                e = $scope.pathSetSelection + 1;
-            }
-            if (e === 'previous') {
-                e = $scope.pathSetSelection - 1;
-            }
-            $scope.pathSetSelection = e;
             $location.search('pathSet', e - 1);
-
             this.LoadData();
         };
-
-        $(() => {
-            $('#my-tree').on('nodeSelected', (event, data) => {
-                if (data.info === undefined) {
-                    $('#my-tree').treeview('expandNode', [data.nodeId, {
-                        levels: 2,
-                        silent: true,
-                    }]);
-                } else {
-                    this.SelectTreeNode(data.info);
-                }
-            });
-
-            $('#my-tree').on('nodeUnselected', (event, data) => {
-                if (data.info === undefined) {
-                    $('#my-tree').treeview('collapseNode', [data.nodeId, {
-                        levels: 2,
-                        ignoreChildren: false,
-                    }]);
-                }
-            });
-        });
     }
 
     LoadData() {
         let pathSetId = parseInt(this.$location.search().pathSet) - 1;
-        if (pathSetId === undefined) {
+        console.log(pathSetId)
+        if (isNaN(pathSetId)) {
             pathSetId = 0;
         }
         this.$http.get('/api/datastream').then(
@@ -114,8 +79,31 @@ export default class treeController {
                 emptyIcon: 'glyphicon glyphicon-minus',
                 collapseIcon: 'glyphicon glyphicon-folder-open glyphs',
             });
+
             $('#my-tree').treeview('collapseAll', {
                 silent: true,
+            });
+
+            $('#my-tree').on('nodeSelected', (event, data) => {
+                console.log(event);
+                console.log(data);
+                if (data.info === undefined) {
+                    $('#my-tree').treeview('expandNode', [data.nodeId, {
+                        levels: 2,
+                        silent: true,
+                    }]);
+                } else {
+                    this.SelectTreeNode(data.info);
+                }
+            });
+
+            $('#my-tree').on('nodeUnselected', (event, data) => {
+                if (data.info === undefined) {
+                    $('#my-tree').treeview('collapseNode', [data.nodeId, {
+                        levels: 2,
+                        ignoreChildren: false,
+                    }]);
+                }
             });
         });
 
@@ -143,13 +131,8 @@ export default class treeController {
     }
 
     SelectTreeNode(info) {
-        if (info === undefined) {
-            return;
-        }
-        this.$timeout(() => {
-            this.$scope.$apply(() => {
-                this.$location.search('ds', info.id);
-            });
+        this.$scope.$apply(() => {
+            this.$location.search('ds', info.uuid);
         });
     }
 
@@ -185,7 +168,7 @@ export default class treeController {
         });
 
         let currentSet = parseInt(this.$location.search().pathSet);
-        if (currentSet === undefined) {
+        if (isNaN(currentSet)) {
             currentSet = 1;
         }
         for (let i = 1; i <= count; i++) {
