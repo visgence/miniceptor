@@ -18,6 +18,7 @@ export default class treeController {
         }
 
         $scope.ChangePath = (e) => {
+            console.log(e);
             if (e === 'next') {
                 e = $scope.pathSetSelection + 1;
             }
@@ -25,9 +26,9 @@ export default class treeController {
                 e = $scope.pathSetSelection - 1;
             }
             $scope.pathSetSelection = e;
-            $location.search('pathSet', e);
+            $location.search('pathSet', e - 1);
 
-            this.RequestTree();
+            this.LoadData();
         };
 
         $(() => {
@@ -54,18 +55,20 @@ export default class treeController {
     }
 
     LoadData() {
-        let pathSetId = this.$location.search().pathSet - 1;
-        if (isNaN(pathSetId)) {
+        let pathSetId = parseInt(this.$location.search().pathSet) - 1;
+        if (pathSetId === undefined) {
             pathSetId = 0;
         }
         this.$http.get('/api/datastream').then(
             (success) => {
                 const streams = success.data;
                 let data = {};
+                let count = 0;
                 streams.forEach((a) => {
+                    count = count > a.paths.length ? count : a.paths.length;
                     for (let i = 0; i < a.paths.length; i++) {
                         if (i !== pathSetId) {
-                            return;
+                            continue;
                         }
                         const curUrl = a.paths[i].split('/');
 
@@ -73,8 +76,7 @@ export default class treeController {
                         data = this.MakeTreeStructure(data, a, curUrl, a.paths[i]);
                     };
                 });
-                console.log(data)
-                this.BuildPathSetWidget(data);
+                this.BuildPathSetWidget(count);
                 this.RenderTree(data);
             },
             (error) => {
@@ -172,12 +174,8 @@ export default class treeController {
         return arr;
     }
 
-    BuildPathSetWidget(data) {
-        const val = Object.keys(data).length;
+    BuildPathSetWidget(count) {
 
-        if (val <= 1) {
-            return;
-        }
 
         const wrapper = $('<nav>', {
             'aria-label': 'Page navigation',
@@ -186,11 +184,11 @@ export default class treeController {
             class: 'pagination clearfix',
         });
 
-        let currentSet = this.$location.search().pathSet;
+        let currentSet = parseInt(this.$location.search().pathSet);
         if (currentSet === undefined) {
             currentSet = 1;
         }
-        for (let i = 0; i < val; i++) {
+        for (let i = 1; i <= count; i++) {
             if (i > 7) {
                 // make arrows and break;
                 break;
@@ -200,8 +198,8 @@ export default class treeController {
                 'class': 'btn btn-default',
                 'ng-click': 'ChangePath(' + (i + 1) + ')',
             });
-            newButton.html(i)
-            if (currentSet - 1 === i) {
+            newButton.html(i);
+            if (currentSet === i) {
                 newButton.toggleClass('active');
             }
             const li = $('<li>');
@@ -209,8 +207,6 @@ export default class treeController {
             menu.append(li);
         }
         wrapper.append(menu);
-        // $('#path-set-paginator').html('hello');
-        console.log(wrapper);
-        $('#path-set-paginator').html(wrapper);
+        $('#path-set-paginator').html(this.$compile(wrapper)(this.$scope));
     }
 }
