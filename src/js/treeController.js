@@ -20,7 +20,6 @@ export default class treeController {
 
     LoadData() {
         let pathSetId = parseInt(this.$location.search().pathSet) - 1;
-        console.log(pathSetId)
         if (isNaN(pathSetId)) {
             pathSetId = 0;
         }
@@ -85,8 +84,6 @@ export default class treeController {
             });
 
             $('#my-tree').on('nodeSelected', (event, data) => {
-                console.log(event);
-                console.log(data);
                 if (data.info === undefined) {
                     $('#my-tree').treeview('expandNode', [data.nodeId, {
                         levels: 2,
@@ -109,18 +106,17 @@ export default class treeController {
 
         const curStream = this.$location.search().ds;
 
-        let currentPathSet = this.$location.search().pathSet;
-        if (currentPathSet === undefined) {
+        let currentPathSet = parseInt(this.$location.search().pathSet);
+        if (isNaN(currentPathSet)) {
             currentPathSet = 1;
         }
 
         if (curStream !== undefined) {
             for (let c = 0; c < this.$scope.nodeCount; c++) {
                 const curNode = $('#my-tree').treeview('getNode', c);
-                if ('info' in curNode && curNode.info.id === parseInt(curStream)) {
+                if ('info' in curNode && curNode.info.uuid === curStream) {
                     $('#my-tree').treeview('revealNode', curNode);
                     $('#my-tree').treeview('selectNode', curNode);
-                    this.SelectTreeNode(curNode.info);
                 }
             }
         }
@@ -131,6 +127,9 @@ export default class treeController {
     }
 
     SelectTreeNode(info) {
+        if (this.$location.search().ds === info.uuid) {
+            return;
+        }
         this.$scope.$apply(() => {
             this.$location.search('ds', info.uuid);
         });
