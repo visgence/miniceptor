@@ -5,6 +5,7 @@ import jinja2
 import json
 import requests
 import time
+from teleceptor.api import ResourceApi
 
 PATH = os.path.abspath(os.path.dirname(__file__))
 STATIC = os.path.join(PATH, 'static')
@@ -17,6 +18,7 @@ with open('config.json') as data_file:
 
 
 class Root(object):
+    api = ResourceApi()
 
     def index(self, *args, **kwargs):
         src = json.load(open(os.path.join(PATH, 'webpack-stats.json')))
