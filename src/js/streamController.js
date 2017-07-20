@@ -61,7 +61,7 @@ export default class streamController {
             if (hasErrors) {
                 return;
             }
-            const url = 'datastreams/' + updateData.id;
+            const url = 'datastream/' + updateData.id;
             $http.put(url, updateData).then(
                 (response) => {
                     $scope.editing = false;
@@ -79,7 +79,7 @@ export default class streamController {
         if (stream === undefined) {
             stream = '1';
         }
-        this.$http.get('/api/streams' + stream).then(
+        this.$http.get('/api/datastream/' + stream).then(
             (response) => {
                 const dataToDisplay = {};
                 // for (var i in v) {
@@ -96,8 +96,8 @@ export default class streamController {
                 //         dataToDisplay[i] = v[i];
                 //     }
                 // }
-                $scope.stream = dataToDisplay;
-                $scope.ShowInfo = true;
+                this.$scope.stream = dataToDisplay;
+                this.$scope.ShowInfo = true;
                 return;
             },
             (response) => {

@@ -1,4 +1,4 @@
-// import 'bootstrap-treeview';
+require('./../../node_modules/bootstrap-treeview/dist/bootstrap-treeview.min.js');
 
 export default class treeController {
     constructor($scope, $location, $http, $compile, $timeout) {
@@ -12,77 +12,44 @@ export default class treeController {
 
         this.LoadData();
 
-        this.$scope.pathSetSelection = this.$location.search().pathSet;
-        if (this.$scope.pathSetSelection === undefined) {
-            this.$scope.pathSetSelection = 0;
+        $scope.pathSetSelection = $location.search().pathSet;
+        if ($scope.pathSetSelection === undefined) {
+            $scope.pathSetSelection = 0;
         }
 
-        $('#my-tree').on('nodeSelected', (event, data) => {
-            if (data.info === undefined) {
-                $('#my-tree').treeview('expandNode', [data.nodeId, {
-                    levels: 2,
-                    silent: true,
-                }]);
-            } else {
-                this.SelectTreeNode(data.info);
-            }
-        });
-
-        $('#my-tree').on('nodeUnselected', (event, data) => {
-            if (data.info === undefined) {
-                $('#my-tree').treeview('collapseNode', [data.nodeId, {
-                    levels: 2,
-                    ignoreChildren: false,
-                }]);
-            }
-        });
-
-        this.$scope.ChangePath = (e) => {
+        $scope.ChangePath = (e) => {
             if (e === 'next') {
-                e = this.$scope.pathSetSelection + 1;
+                e = $scope.pathSetSelection + 1;
             }
             if (e === 'previous') {
-                e = this.$scope.pathSetSelection - 1;
+                e = $scope.pathSetSelection - 1;
             }
-            this.$scope.pathSetSelection = e;
-            this.$location.search('pathSet', e);
+            $scope.pathSetSelection = e;
+            $location.search('pathSet', e);
 
             this.RequestTree();
         };
 
+        $(() => {
+            $('#my-tree').on('nodeSelected', (event, data) => {
+                if (data.info === undefined) {
+                    $('#my-tree').treeview('expandNode', [data.nodeId, {
+                        levels: 2,
+                        silent: true,
+                    }]);
+                } else {
+                    this.SelectTreeNode(data.info);
+                }
+            });
 
-        this.$scope.$on('$routeUpdate', () => {
-            const nodeFound = false;
-            let i = 0;
-            const ds = this.$location.search().ds;
-            if (ds === undefined) {
-                this.$location.search('ds', 1);
-                return;
-            }
-            const source = this.$location.search().source;
-            if (ds === undefined && source === undefined) {
-                return;
-            }
-            while (!nodeFound && i < 500) {
-                i++;
-                const node = $('#my-tree').treeview('getNode', i);
-                if (node.info === undefined) {
-                    continue;
+            $('#my-tree').on('nodeUnselected', (event, data) => {
+                if (data.info === undefined) {
+                    $('#my-tree').treeview('collapseNode', [data.nodeId, {
+                        levels: 2,
+                        ignoreChildren: false,
+                    }]);
                 }
-                if (source !== node.info.source) {
-                    continue;
-                }
-                if (parseInt(ds) !== parseInt(node.info.id)) {
-                    continue;
-                }
-                $('#my-tree').treeview('selectNode', [i, {
-                    silent: true,
-                }]);
-                $('#my-tree').treeview('revealNode', [i, {
-                    silent: true,
-                }]);
-                break;
-            }
+            });
         });
     }
 
@@ -91,29 +58,30 @@ export default class treeController {
         if (isNaN(pathSetId)) {
             pathSetId = 0;
         }
-        this.$http.get('getTree').then((response) => {
-            const streams = response.data.datastreams;
+        this.$http.get('/api/datastream').then(
+            (success) => {
+                const streams = success.data;
+                let data = {};
+                streams.forEach((a) => {
+                    for (let i = 0; i < a.paths.length; i++) {
+                        if (i !== pathSetId) {
+                            return;
+                        }
+                        const curUrl = a.paths[i].split('/');
 
-            let data = {};
-            streams.forEach((a) => {
-                for (let i = 0; i < a.paths.length; i ++) {
-                    if (i !== pathSetId) {
-                        return;
-                    }
-                    const curUrl = a.paths[i].split('/');
-
-                    curUrl.shift();
-                    data = this.MakeTreeStructure(data, a, curUrl, a.paths[i]);
-                };
+                        curUrl.shift();
+                        data = this.MakeTreeStructure(data, a, curUrl, a.paths[i]);
+                    };
+                });
+                console.log(data)
+                this.BuildPathSetWidget(data);
+                this.RenderTree(data);
+            },
+            (error) => {
+                console.log(error);
+                $('#tree-message').toggleClass('alert-danger');
+                $('#tree-message').html('Something went wrong gettin data from the server, check the console for details.');
             });
-            console.log(data)
-            this.RenderTree(data);
-        },
-        (error) => {
-            console.log(error);
-            $('#tree-message').toggleClass('alert-danger');
-            $('#tree-message').html('Something went wrong gettin data from the server, check the console for details.');
-        });
     }
 
     MakeTreeStructure(data, stream, curUrl, pathId) {
@@ -143,7 +111,6 @@ export default class treeController {
                 expandIcon: 'glyphicon glyphicon-folder-close glyphs',
                 emptyIcon: 'glyphicon glyphicon-minus',
                 collapseIcon: 'glyphicon glyphicon-folder-open glyphs',
-
             });
             $('#my-tree').treeview('collapseAll', {
                 silent: true,
@@ -167,11 +134,10 @@ export default class treeController {
                 }
             }
         }
-        if (streams.length === 0) {
+        if (data.length === 0) {
             $('#graph-message').toggleClass('alert-danger');
             $('#graph-message').html('There are currently no streams available.');
         }
-        this.BuildPathSetWidget(response.data.datastreams);
     }
 
     SelectTreeNode(info) {
@@ -192,13 +158,13 @@ export default class treeController {
             const newObj = {
                 color: '#333',
             };
-            if (data.constructor === String) {
-                newObj.info = i;
-                newObj.text = i.name;
+            if (data.constructor === Array) {
+                newObj.info = data[i];
+                newObj.text = data[i].uuid;
                 newObj.selectable = true;
             } else {
                 newObj.text = i;
-                newObj.nodes = this.GetTree(i);
+                newObj.nodes = this.GetTree(data[i]);
                 newObj.selectable = false;
             }
             arr.push(newObj);
@@ -207,16 +173,19 @@ export default class treeController {
     }
 
     BuildPathSetWidget(data) {
-        let val = 0;
-        data.forEach((a) => {
-            if (a.paths.length > val) {
-                val = a.paths.length;
-            }
-        });
+        const val = Object.keys(data).length;
+
         if (val <= 1) {
             return;
         }
-        let wrapper = '<nav aria-label="Page navigation"><ul class="pagination">';
+
+        const wrapper = $('<nav>', {
+            'aria-label': 'Page navigation',
+        });
+        const menu = $('<ul>', {
+            class: 'pagination clearfix',
+        });
+
         let currentSet = this.$location.search().pathSet;
         if (currentSet === undefined) {
             currentSet = 1;
@@ -226,15 +195,22 @@ export default class treeController {
                 // make arrows and break;
                 break;
             }
-            let newButton = '<li><button class="btn btn-default';
-            if (currentSet - 1 === i) {
-                newButton += ' active';
-            }
-            newButton += '" ng-click=ChangePath(' + (i + 1) + ')>' + (i + 1) + '</button></li>';
-            wrapper += newButton;
-        }
-        angular.element('#path-set-paginator').html('');
 
-        angular.element('#pathSetPaginator').append(this.$compile(wrapper)($scope));
+            const newButton = $('<a>', {
+                'class': 'btn btn-default',
+                'ng-click': 'ChangePath(' + (i + 1) + ')',
+            });
+            newButton.html(i)
+            if (currentSet - 1 === i) {
+                newButton.toggleClass('active');
+            }
+            const li = $('<li>');
+            li.append(newButton);
+            menu.append(li);
+        }
+        wrapper.append(menu);
+        // $('#path-set-paginator').html('hello');
+        console.log(wrapper);
+        $('#path-set-paginator').html(wrapper);
     }
 }

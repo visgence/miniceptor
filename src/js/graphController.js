@@ -10,29 +10,39 @@ export default class graphController {
     }
 
     getData() {
+        let datastream = this.$location.search().ds;
+        if (datastream === undefined) {
+            datastream = 1;
+        }
         const req = {
             start: this.$location.search().start,
             end: this.$location.search().end,
+            datastream: datastream,
         };
 
         this.$http({
-            url: 'callTele',
-            method: 'POST',
+            url: '/api/reading',
+            method: 'GET',
             data: req,
-        }).then((response) => {
-            if (response.data.error !== undefined) {
-                $('#graph-message').toggleClass('alert-danger');
-                $('#graph-message').html('No data could be found.');
-            } else {
-                this.data = response.data;
-                this.drawGraph();
-            }
-        });
+        }).then(
+            (success) => {
+                if (success.error !== undefined) {
+                    $('#graph-message').toggleClass('alert-danger');
+                    $('#graph-message').html('No data could be found.');
+                } else {
+                    this.drawGraph(success.data);
+                }
+            },
+            (error) => {
+                console.log('error');
+                console.log(error);
+            },
+        );
     }
 
-    drawGraph() {
+    drawGraph(data) {
         let width = $('#my-graph')[0].clientWidth;
-        let height = 500;
+        let height = 300;
 
         let min = data.readings[0][1];
         let max = data.readings[0][1];

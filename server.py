@@ -33,41 +33,6 @@ class Root(object):
 
     index.exposed = True
 
-    def callTele(self):
-        cherrypy.response.headers['Content-Type'] = 'application/json'
-        try:
-            data = json.loads(cherrypy.request.body.read())
-        except ValueError:
-            data = {}
-        startTime = int(time.time() - 86000)
-        endTime = int(time.time())
-        if 'start' in data and data['start'] is not None:
-            startTime = int(data['start'])
-        if 'end' in data and data['end'] is not None:
-            endTime = int(data['end'])
-        url = "http://deserttest.visgence.com/api/readings/?datastream=1&start={}&end={}".format(startTime, endTime)
-        print url
-        try:
-            data = requests.get(url).json()
-        except Exception, e:
-            print "\nerror:"
-            print e
-            data = {"error": str(e)}
-        return json.dumps(data)
-    callTele.exposed = True
-
-    def getTree(self):
-        url = "http://deserttest.visgence.com/api/datastreams"
-        try:
-            data = requests.get(url).json()
-        except Exception, e:
-            print "error:"
-            print e
-            data = {"Error": e}
-
-        return json.dumps(data)
-    getTree.exposed = True
-
 
 def get_cp_config():
     config = {
@@ -75,6 +40,9 @@ def get_cp_config():
             'tools.staticdir.on': True,
             'tools.staticdir.dir': STATIC,
             'tools.sessions.on': True
+        },
+        '/api': {
+            'request.dispatch': cherrypy.dispatch.MethodDispatcher()
         }
     }
     return config

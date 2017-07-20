@@ -186,15 +186,12 @@ export default class sensorController { // ', ['frapontillo.bootstrap-switch',])
     }
 
     LoadSensor() {
-        const stream = this.$location.search().ds;
-        this.$http.get('api/sensors?datastream=' + stream).then(
+        let stream = this.$location.search().ds;
+        if (stream === undefined) {
+            stream = 1;
+        }
+        this.$http.get('api/sensor?datastream=' + stream).then(
             (success) => {
-
-                success.data.forEach((i) => {
-                    if (i === null) {
-                        i = '-';
-                    }
-                });
                 this.$scope.sensor = success.data;
                 this.$scope.ShowInfo = true;
 

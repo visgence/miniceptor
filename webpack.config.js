@@ -8,7 +8,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const isProd = false;
 
 const plugins = [
-    // new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin(),
     new BundleTracker({
         filename: './webpack-stats.json',
     }),
@@ -47,7 +47,7 @@ if (isProd) {
                 comments: false,
             },
         })
-    );
+    )
 }
 
 module.exports = {
@@ -60,7 +60,6 @@ module.exports = {
             'jquery',
             'moment',
             'eonasdan-bootstrap-datetimepicker',
-            // 'bootstrap-datetimepicker'
         ],
     },
     output: {
@@ -71,7 +70,7 @@ module.exports = {
     module: {
         rules: [{
             test: /\.js$/,
-            // exclude: /node_modules/,
+            exclude: /node_modules/,
             loader: 'babel-loader',
             options: {
                 presets: ['es2015'],
