@@ -25,7 +25,7 @@ export default class treeController {
         }
         this.$http.get('/api/datastream').then(
             (success) => {
-                const streams = success.data;
+                const streams = success.data.datastreams;
                 let data = {};
                 let count = 0;
                 streams.forEach((a) => {
@@ -114,7 +114,7 @@ export default class treeController {
         if (curStream !== undefined) {
             for (let c = 0; c < this.$scope.nodeCount; c++) {
                 const curNode = $('#my-tree').treeview('getNode', c);
-                if ('info' in curNode && curNode.info.uuid === curStream) {
+                if ('info' in curNode && curNode.info.id === curStream) {
                     $('#my-tree').treeview('revealNode', curNode);
                     $('#my-tree').treeview('selectNode', curNode);
                 }
@@ -127,11 +127,11 @@ export default class treeController {
     }
 
     SelectTreeNode(info) {
-        if (this.$location.search().ds === info.uuid) {
+        if (this.$location.search().ds === info.id) {
             return;
         }
         this.$scope.$apply(() => {
-            this.$location.search('ds', info.uuid);
+            this.$location.search('ds', info.id);
         });
     }
 
@@ -144,7 +144,7 @@ export default class treeController {
             };
             if (data.constructor === Array) {
                 newObj.info = data[i];
-                newObj.text = data[i].uuid;
+                newObj.text = data[i].name;
                 newObj.selectable = true;
             } else {
                 newObj.text = i;
@@ -157,8 +157,6 @@ export default class treeController {
     }
 
     BuildPathSetWidget(count) {
-
-
         const wrapper = $('<nav>', {
             'aria-label': 'Page navigation',
         });
