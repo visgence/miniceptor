@@ -190,7 +190,7 @@ export default class sensorController { // ', ['frapontillo.bootstrap-switch',])
         if (stream === undefined) {
             stream = 1;
         }
-        this.$http.get('api/sensor?datastream=' + stream).then(
+        this.$http.get('api/sensors').then(
             (success) => {
                 this.$scope.sensor = success.data;
                 this.$scope.ShowInfo = true;
