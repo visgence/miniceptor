@@ -10,15 +10,30 @@ export default class treeController {
         this.$timeout = $timeout;
 
         $scope.treeLoaded = false;
-
         $scope.searchFilter = 'Stream';
 
-        $scope.SetSearchFilter = (type) => {
-          console.log('sert')
-            $scope.searchFilter = type;
-        }
-
         this.LoadData();
+
+        $scope.searchInput = () => {
+            const data = {
+                word: $scope.searchWords,
+                filter: $scope.searchFilter,
+            }
+            $http({
+              url: '/api/datastream/?word=' + data.word + '&filter=' + data.filter,
+              method: 'GET',
+            }).then(
+                (success) => {
+                    console.log(success)
+                    const treeStructure = this.MakeTreeStructure(success.data);
+                    this.RenderTree(treeStructure);
+                },
+                (error) => {
+                    console.log('error')
+                    console.log(error);
+                },
+            );
+        }
     }
 
     LoadData() {

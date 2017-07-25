@@ -2,6 +2,7 @@ import json
 import logging
 from teleceptor import USE_DEBUG
 import requests
+import cherrypy
 
 
 class Datastream:
@@ -14,11 +15,24 @@ class Datastream:
 
     def GET(self, stream_id=None, *args, **filter_arguments):
         print 'get request to stream'
-        # api/datastream
-        # To get the tree list
+
+        print filter_arguments
         data = requests.get('http://deserttest.visgence.com/api/datastreams').json()
         paths = []
         for i in data['datastreams']:
+            if 'filter' in filter_arguments:
+                if filter_arguments['filter'] == 'Sensor':
+                    if not "{}".format(i['sensor']).startswith('{}'.format(filter_arguments['word'])):
+                        continue
+                if filter_arguments['filter'] == 'Stream':
+                    if not "{}".format(i['name']).startswith('{}'.format(filter_arguments['word'])):
+                        continue
             for j in i['paths']:
+                if 'filter' in filter_arguments:
+                    if filter_arguments['filter'] == 'Folder':
+                        print j
+                        if not "{}".format(j).startswith('/{}'.format(filter_arguments['word'])):
+                            continue
                 paths.append(['{}/{}'.format(j, i['name']), i['id'], i['sensor']])
         return json.dumps(paths)
+        print data
