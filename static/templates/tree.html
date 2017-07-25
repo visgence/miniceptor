@@ -1,6 +1,32 @@
 <div class="card">
     <div ng-controller="treeController">
         <div class="alert hidden" id="tree-message"> </div>
-        <div id="my-tree"></div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{searchFilter}}<span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><div class="dropdown-btn" ng-click=SetSearchFilter('Stream')>Stream</div></li>
+                            <li><div class="dropdown-btn" ng-click=SetSearchFilter('Sensor')>Sensor</div></li>
+                            <li><div class="dropdown-btn" ng-click=SetSearchFilter('Folder')>Folder</div></li>
+                        </ul>
+                    </div>
+                    <input type="text" class="form-control" aria-label="..." placeholder="Search...">
+                </div>
+            </div>
+          </div>
+
+
+
+            <div class="row">
+                <div class="col-md-12" style="padding: 10px;">
+                    <div id="my-tree"></div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>

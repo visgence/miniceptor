@@ -11,6 +11,13 @@ export default class treeController {
 
         $scope.treeLoaded = false;
 
+        $scope.searchFilter = 'Stream';
+
+        $scope.SetSearchFilter = (type) => {
+          console.log('sert')
+            $scope.searchFilter = type;
+        }
+
         this.LoadData();
     }
 
@@ -106,7 +113,6 @@ export default class treeController {
 
         $('#my-tree').on('nodeUnselected', (event, data) => {
             console.log('unselected');
-
         });
 
         const curStream = parseInt(this.$location.search().ds);
