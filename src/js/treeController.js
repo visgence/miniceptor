@@ -1,47 +1,25 @@
 require('./../../node_modules/bootstrap-treeview/dist/bootstrap-treeview.min.js');
 
 export default class treeController {
-    constructor($scope, $location, $http, $compile, $timeout) {
+    constructor($scope, $location, $http, $timeout) {
         'ngInject';
 
         this.$scope = $scope;
         this.$location = $location;
         this.$http = $http;
-        this.$compile = $compile;
         this.$timeout = $timeout;
 
-        this.LoadData();
+        $scope.treeLoaded = false;
 
-        $scope.ChangePath = (e) => {
-            $location.search('pathSet', e - 1);
-            this.LoadData();
-        };
+        this.LoadData();
     }
 
     LoadData() {
-        let pathSetId = parseInt(this.$location.search().pathSet) - 1;
-        if (isNaN(pathSetId)) {
-            pathSetId = 0;
-        }
         this.$http.get('/api/datastream').then(
             (success) => {
-                const streams = success.data.datastreams;
-                let data = {};
-                let count = 0;
-                streams.forEach((a) => {
-                    count = count > a.paths.length ? count : a.paths.length;
-                    for (let i = 0; i < a.paths.length; i++) {
-                        if (i !== pathSetId) {
-                            continue;
-                        }
-                        const curUrl = a.paths[i].split('/');
-
-                        curUrl.shift();
-                        data = this.MakeTreeStructure(data, a, curUrl, a.paths[i]);
-                    };
-                });
-                this.BuildPathSetWidget(count);
-                this.RenderTree(data);
+                const paths = success.data;
+                const treeStructure = this.MakeTreeStructure(paths);
+                this.RenderTree(treeStructure);
             },
             (error) => {
                 console.log(error);
@@ -50,71 +28,92 @@ export default class treeController {
             });
     }
 
-    MakeTreeStructure(data, stream, curUrl, pathId) {
-        if (curUrl.length <= 1) {
-            if (!(curUrl[0] in data)) {
-                data[curUrl[0]] = [];
+
+    MakeTreeStructure(pathsArr) {
+        let nodeArray = [];
+        this.$scope.nodeCount = 0;
+        pathsArr.forEach((path) => {
+            const pathArray = path[0].split('/');
+            if (pathArray[0] === '') {
+                pathArray.shift();
             }
-            stream.pathId = pathId;
-            data[curUrl[0]].push(stream);
-            return data;
+            nodeArray = this.InsertNode(pathArray, path[1], path[2], nodeArray);
+        });
+        return nodeArray;
+    }
+
+    InsertNode(pathArray, streamId, sensorId, nodeArray) {
+        if (pathArray.length === 1) {
+            nodeArray.push({
+                text: pathArray[0],
+                selectable: true,
+                color: '#333',
+                id: streamId,
+                sensor: sensorId,
+            });
+            return nodeArray;
         }
-        if (!(curUrl[0] in data)) {
-            data[curUrl[0]] = {};
+        let nodeFound = false;
+        for (let i = 0; i < nodeArray.length; i ++) {
+            if (pathArray[0] === nodeArray[i].text) {
+                pathArray.shift();
+                if (nodeArray[i].nodes === undefined) {
+                    nodeArray[i].nodes = [];
+                }
+
+                nodeArray[i].nodes = this.InsertNode(pathArray, streamId, sensorId, nodeArray[i].nodes);
+                nodeFound = true;
+            }
         }
-        const temp = curUrl.shift();
-        data[temp] = this.MakeTreeStructure(data[temp], stream, curUrl, pathId);
-        return data;
+
+        if (nodeFound === false) {
+            name = pathArray.shift();
+            nodeArray.push({
+                text: name,
+                selectable: false,
+                color: '#333',
+                nodes: this.InsertNode(pathArray, streamId, sensorId, []),
+            });
+            return nodeArray;
+        }
+        return nodeArray;
     }
 
     RenderTree(data) {
-        this.$scope.nodeCount = 0;
-        $(() => {
-            $('#my-tree').treeview({
-                data: this.GetTree(data),
-                showBorder: false,
-                color: '#333',
-                expandIcon: 'glyphicon glyphicon-folder-close glyphs',
-                emptyIcon: 'glyphicon glyphicon-minus',
-                collapseIcon: 'glyphicon glyphicon-folder-open glyphs',
-            });
-
-            $('#my-tree').treeview('collapseAll', {
-                silent: true,
-            });
-
-            $('#my-tree').on('nodeSelected', (event, data) => {
-                if (data.info === undefined) {
-                    $('#my-tree').treeview('expandNode', [data.nodeId, {
-                        levels: 2,
-                        silent: true,
-                    }]);
-                } else {
-                    this.SelectTreeNode(data.info);
-                }
-            });
-
-            $('#my-tree').on('nodeUnselected', (event, data) => {
-                if (data.info === undefined) {
-                    $('#my-tree').treeview('collapseNode', [data.nodeId, {
-                        levels: 2,
-                        ignoreChildren: false,
-                    }]);
-                }
-            });
+        $('#my-tree').treeview({
+            data: data,
+            showBorder: false,
+            color: '#333',
+            expandIcon: 'glyphicon glyphicon-folder-close glyphs',
+            emptyIcon: 'glyphicon glyphicon-minus',
+            collapseIcon: 'glyphicon glyphicon-folder-open glyphs',
         });
 
-        const curStream = this.$location.search().ds;
+        $('#my-tree').treeview('collapseAll', {
+            silent: true,
+        });
 
-        let currentPathSet = parseInt(this.$location.search().pathSet);
-        if (isNaN(currentPathSet)) {
-            currentPathSet = 1;
-        }
+        $('#my-tree').on('nodeSelected', (event, data) => {
+            if (this.$scope.treeLoaded === false) {
+                return;
+            }
+            this.$scope.$apply(() => {
+                console.log(data)
+                this.$location.search('ds', data.id);
+            });
 
-        if (curStream !== undefined) {
-            for (let c = 0; c < this.$scope.nodeCount; c++) {
-                const curNode = $('#my-tree').treeview('getNode', c);
-                if ('info' in curNode && curNode.info.id === curStream) {
+        });
+
+        $('#my-tree').on('nodeUnselected', (event, data) => {
+            console.log('unselected');
+
+        });
+
+        const curStream = parseInt(this.$location.search().ds);
+        if (! isNaN(curStream)) {
+            for (let i = 0; i < this.$scope.nodeCount; i++) {
+                const curNode = $('#my-tree').treeview('getNode', i);
+                if ('info' in curNode && curNode.id === curStream) {
                     $('#my-tree').treeview('revealNode', curNode);
                     $('#my-tree').treeview('selectNode', curNode);
                 }
@@ -124,69 +123,9 @@ export default class treeController {
             $('#graph-message').toggleClass('alert-danger');
             $('#graph-message').html('There are currently no streams available.');
         }
-    }
-
-    SelectTreeNode(info) {
-        if (this.$location.search().ds === info.id) {
-            return;
-        }
-        this.$scope.$apply(() => {
-            this.$location.search('ds', info.id);
-        });
-    }
-
-    GetTree(data) {
-        const arr = [];
-        Object.keys(data).forEach((i) => {
-            this.$scope.nodeCount++;
-            const newObj = {
-                color: '#333',
-            };
-            if (data.constructor === Array) {
-                newObj.info = data[i];
-                newObj.text = data[i].name;
-                newObj.selectable = true;
-            } else {
-                newObj.text = i;
-                newObj.nodes = this.GetTree(data[i]);
-                newObj.selectable = false;
-            }
-            arr.push(newObj);
-        });
-        return arr;
-    }
-
-    BuildPathSetWidget(count) {
-        const wrapper = $('<nav>', {
-            'aria-label': 'Page navigation',
-        });
-        const menu = $('<ul>', {
-            class: 'pagination clearfix',
-        });
-
-        let currentSet = parseInt(this.$location.search().pathSet);
-        if (isNaN(currentSet)) {
-            currentSet = 1;
-        }
-        for (let i = 1; i <= count; i++) {
-            if (i > 7) {
-                // make arrows and break;
-                break;
-            }
-
-            const newButton = $('<a>', {
-                'class': 'btn btn-default',
-                'ng-click': 'ChangePath(' + (i + 1) + ')',
-            });
-            newButton.html(i);
-            if (currentSet === i) {
-                newButton.toggleClass('active');
-            }
-            const li = $('<li>');
-            li.append(newButton);
-            menu.append(li);
-        }
-        wrapper.append(menu);
-        $('#path-set-paginator').html(this.$compile(wrapper)(this.$scope));
+        // Currently just used to stop a digest cycle for selected nodes,
+        // This is also the point at which all other graphs can be loaded.
+        // TODO: make this a function that spawns the other widgets.
+        this.$scope.treeLoaded = true;
     }
 }

@@ -13,6 +13,12 @@ class Datastream:
         logging.basicConfig(format='%(levelname)s:%(asctime)s %(message)s', level=logging.INFO)
 
     def GET(self, stream_id=None, *args, **filter_arguments):
-        print 'did a get'
+        print 'get request to stream'
         # api/datastream
-        return json.dumps(requests.get('http://deserttest.visgence.com/api/datastreams').json())
+        # To get the tree list
+        data = requests.get('http://deserttest.visgence.com/api/datastreams').json()
+        paths = []
+        for i in data['datastreams']:
+            for j in i['paths']:
+                paths.append(['{}/{}'.format(j, i['name']), i['id'], i['sensor']])
+        return json.dumps(paths)
