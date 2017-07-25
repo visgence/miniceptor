@@ -10,8 +10,30 @@ export default class treeController {
         this.$timeout = $timeout;
 
         $scope.treeLoaded = false;
+        $scope.searchFilter = 'Stream';
 
         this.LoadData();
+
+        $scope.searchInput = () => {
+            const data = {
+                word: $scope.searchWords,
+                filter: $scope.searchFilter,
+            }
+            $http({
+              url: '/api/datastream/?word=' + data.word + '&filter=' + data.filter,
+              method: 'GET',
+            }).then(
+                (success) => {
+                    console.log(success)
+                    const treeStructure = this.MakeTreeStructure(success.data);
+                    this.RenderTree(treeStructure);
+                },
+                (error) => {
+                    console.log('error')
+                    console.log(error);
+                },
+            );
+        }
     }
 
     LoadData() {
@@ -43,6 +65,7 @@ export default class treeController {
     }
 
     InsertNode(pathArray, streamId, sensorId, nodeArray) {
+        this.$scope.nodeCount += 1;
         if (pathArray.length === 1) {
             nodeArray.push({
                 text: pathArray[0],
@@ -89,9 +112,13 @@ export default class treeController {
             collapseIcon: 'glyphicon glyphicon-folder-open glyphs',
         });
 
-        $('#my-tree').treeview('collapseAll', {
-            silent: true,
-        });
+        console.log(this.$scope.nodeCount);
+        if (this.$scope.nodeCount > 20) {
+
+            $('#my-tree').treeview('collapseAll', {
+                silent: true,
+            });
+        }
 
         $('#my-tree').on('nodeSelected', (event, data) => {
             if (this.$scope.treeLoaded === false) {
@@ -106,7 +133,6 @@ export default class treeController {
 
         $('#my-tree').on('nodeUnselected', (event, data) => {
             console.log('unselected');
-
         });
 
         const curStream = parseInt(this.$location.search().ds);

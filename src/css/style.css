@@ -26,3 +26,20 @@
   font-size: 13pt;
   text-align: center;
 }
+
+
+
+.dropdown-btn {
+
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42;
+    white-space: nowrap;
+}
+
+.dropdown-btn:hover{
+  background-color: #337ab7;
+  cursor: pointer;
+}
