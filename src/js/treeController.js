@@ -16,6 +16,8 @@ export default class treeController {
             $location.search('pathSet', e - 1);
             this.LoadData();
         };
+
+        this.Safegaurd = 0;
     }
 
     LoadData() {
@@ -25,23 +27,9 @@ export default class treeController {
         }
         this.$http.get('/api/datastream').then(
             (success) => {
-                const streams = success.data.datastreams;
-                let data = {};
-                let count = 0;
-                streams.forEach((a) => {
-                    count = count > a.paths.length ? count : a.paths.length;
-                    for (let i = 0; i < a.paths.length; i++) {
-                        if (i !== pathSetId) {
-                            continue;
-                        }
-                        const curUrl = a.paths[i].split('/');
-
-                        curUrl.shift();
-                        data = this.MakeTreeStructure(data, a, curUrl, a.paths[i]);
-                    };
-                });
-                this.BuildPathSetWidget(count);
-                this.RenderTree(data);
+                const paths = success.data;
+                const treeStructure = this.MakeTreeStructure(paths);
+                this.RenderTree(treeStructure);
             },
             (error) => {
                 console.log(error);
@@ -50,28 +38,68 @@ export default class treeController {
             });
     }
 
-    MakeTreeStructure(data, stream, curUrl, pathId) {
-        if (curUrl.length <= 1) {
-            if (!(curUrl[0] in data)) {
-                data[curUrl[0]] = [];
+
+    MakeTreeStructure(pathsArr) {
+        let tree = [];
+        pathsArr.forEach((path) => {
+            tree = this.InsertNode(path.split('/'), tree);
+        });
+        return tree;
+    }
+
+    InsertNode(node, obj) {
+        let tookParent = false;
+        if (obj.text === undefined) {
+            obj.text = node[0];
+            tookParent = true;
+        }
+        if (node.length === 1) {
+            return {
+                text: node[0],
+                info: 'something',
+                selectable: true,
+                color: '#333',
+            };
+        }
+        if (obj.nodes === undefined) {
+            obj.nodes = [];
+            obj.selectable = false;
+            obj.color = '#333';
+        }
+
+        let nodeFound = false;
+
+        if (node[0] === obj.text) {
+            for (let i = 0; i < obj.nodes.length; i ++) {
+                if (node[1] === obj.nodes[i].text) {
+                    nodeFound = true;
+                    obj.nodes[i] = this.InsertNode(node, obj.nodes[i]);
+                }
             }
-            stream.pathId = pathId;
-            data[curUrl[0]].push(stream);
-            return data;
         }
-        if (!(curUrl[0] in data)) {
-            data[curUrl[0]] = {};
+        if (nodeFound === false) {
+            name = node.shift();
+            if (tookParent === true) {
+                obj.nodes = [this.InsertNode(node, {})];
+            } else if (name === obj.text) {
+                obj.nodes.push(this.InsertNode(node, {}));
+            } else {
+                obj.nodes.push({
+                    text: name,
+                    nodes: [this.InsertNode(node, {})],
+                    selectable: false,
+                    color: '#333',
+                });
+            }
         }
-        const temp = curUrl.shift();
-        data[temp] = this.MakeTreeStructure(data[temp], stream, curUrl, pathId);
-        return data;
+        return obj;
     }
 
     RenderTree(data) {
         this.$scope.nodeCount = 0;
         $(() => {
             $('#my-tree').treeview({
-                data: this.GetTree(data),
+                data: [data],
                 showBorder: false,
                 color: '#333',
                 expandIcon: 'glyphicon glyphicon-folder-close glyphs',
@@ -84,6 +112,7 @@ export default class treeController {
             });
 
             $('#my-tree').on('nodeSelected', (event, data) => {
+                console.log(event, data);
                 if (data.info === undefined) {
                     $('#my-tree').treeview('expandNode', [data.nodeId, {
                         levels: 2,
@@ -95,6 +124,7 @@ export default class treeController {
             });
 
             $('#my-tree').on('nodeUnselected', (event, data) => {
+                console.log('unselected');
                 if (data.info === undefined) {
                     $('#my-tree').treeview('collapseNode', [data.nodeId, {
                         levels: 2,
@@ -135,58 +165,5 @@ export default class treeController {
         });
     }
 
-    GetTree(data) {
-        const arr = [];
-        Object.keys(data).forEach((i) => {
-            this.$scope.nodeCount++;
-            const newObj = {
-                color: '#333',
-            };
-            if (data.constructor === Array) {
-                newObj.info = data[i];
-                newObj.text = data[i].name;
-                newObj.selectable = true;
-            } else {
-                newObj.text = i;
-                newObj.nodes = this.GetTree(data[i]);
-                newObj.selectable = false;
-            }
-            arr.push(newObj);
-        });
-        return arr;
-    }
 
-    BuildPathSetWidget(count) {
-        const wrapper = $('<nav>', {
-            'aria-label': 'Page navigation',
-        });
-        const menu = $('<ul>', {
-            class: 'pagination clearfix',
-        });
-
-        let currentSet = parseInt(this.$location.search().pathSet);
-        if (isNaN(currentSet)) {
-            currentSet = 1;
-        }
-        for (let i = 1; i <= count; i++) {
-            if (i > 7) {
-                // make arrows and break;
-                break;
-            }
-
-            const newButton = $('<a>', {
-                'class': 'btn btn-default',
-                'ng-click': 'ChangePath(' + (i + 1) + ')',
-            });
-            newButton.html(i);
-            if (currentSet === i) {
-                newButton.toggleClass('active');
-            }
-            const li = $('<li>');
-            li.append(newButton);
-            menu.append(li);
-        }
-        wrapper.append(menu);
-        $('#path-set-paginator').html(this.$compile(wrapper)(this.$scope));
-    }
 }

@@ -15,4 +15,13 @@ class Datastream:
     def GET(self, stream_id=None, *args, **filter_arguments):
         print 'did a get'
         # api/datastream
-        return json.dumps(requests.get('http://deserttest.visgence.com/api/datastreams').json())
+        data = requests.get('http://deserttest.visgence.com/api/datastreams').json();
+        paths = []
+        # print data
+        print 'here'
+        for i in data['datastreams']:
+            for j in i['paths']:
+                paths.append('{}/{}'.format(j, i['name']))
+        print paths
+        paths = ['test/stream1', 'test/stream2']
+        return json.dumps(paths)
