@@ -65,6 +65,7 @@ export default class treeController {
     }
 
     InsertNode(pathArray, streamId, sensorId, nodeArray) {
+        this.$scope.nodeCount += 1;
         if (pathArray.length === 1) {
             nodeArray.push({
                 text: pathArray[0],
@@ -111,9 +112,13 @@ export default class treeController {
             collapseIcon: 'glyphicon glyphicon-folder-open glyphs',
         });
 
-        $('#my-tree').treeview('collapseAll', {
-            silent: true,
-        });
+        console.log(this.$scope.nodeCount);
+        if (this.$scope.nodeCount > 20) {
+
+            $('#my-tree').treeview('collapseAll', {
+                silent: true,
+            });
+        }
 
         $('#my-tree').on('nodeSelected', (event, data) => {
             if (this.$scope.treeLoaded === false) {
