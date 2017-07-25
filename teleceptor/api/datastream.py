@@ -15,11 +15,10 @@ class Datastream:
     def GET(self, stream_id=None, *args, **filter_arguments):
         print 'get request to stream'
         # api/datastream
-        data = requests.get('http://deserttest.visgence.com/api/datastreams').json();
+        # To get the tree list
+        data = requests.get('http://deserttest.visgence.com/api/datastreams').json()
         paths = []
-        # print data
         for i in data['datastreams']:
             for j in i['paths']:
-                paths.append(['{}/{}'.format(j, i['name']), i['id']])
-        paths = [['test/stream1', 1], ['test/stream2', 2]]
+                paths.append(['{}/{}'.format(j, i['name']), i['id'], i['sensor']])
         return json.dumps(paths)

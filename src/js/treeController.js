@@ -30,69 +30,58 @@ export default class treeController {
 
 
     MakeTreeStructure(pathsArr) {
-        let tree = [];
+        let nodeArray = [];
         this.$scope.nodeCount = 0;
         pathsArr.forEach((path) => {
-            tree = this.InsertNode(path[0].split('/'), path[1], tree);
+            const pathArray = path[0].split('/');
+            if (pathArray[0] === '') {
+                pathArray.shift();
+            }
+            nodeArray = this.InsertNode(pathArray, path[1], path[2], nodeArray);
         });
-        // this.$scope.nodeCount = pathsArr.length;
-        return tree;
+        return nodeArray;
     }
 
-    InsertNode(node, id, obj) {
-        this.$scope.nodeCount += 1;
-        let tookParent = false;
-        if (obj.text === undefined) {
-            obj.text = node[0];
-            tookParent = true;
-        }
-        if (node.length === 1) {
-            return {
-                text: node[0],
-                info: 'something',
+    InsertNode(pathArray, streamId, sensorId, nodeArray) {
+        if (pathArray.length === 1) {
+            nodeArray.push({
+                text: pathArray[0],
                 selectable: true,
                 color: '#333',
-                id: id,
-            };
+                id: streamId,
+                sensor: sensorId,
+            });
+            return nodeArray;
         }
-        if (obj.nodes === undefined) {
-            obj.nodes = [];
-            obj.selectable = false;
-            obj.color = '#333';
-        }
-
         let nodeFound = false;
-
-        if (node[0] === obj.text) {
-            for (let i = 0; i < obj.nodes.length; i ++) {
-                if (node[1] === obj.nodes[i].text) {
-                    nodeFound = true;
-                    obj.nodes[i] = this.InsertNode(node, id, obj.nodes[i]);
+        for (let i = 0; i < nodeArray.length; i ++) {
+            if (pathArray[0] === nodeArray[i].text) {
+                pathArray.shift();
+                if (nodeArray[i].nodes === undefined) {
+                    nodeArray[i].nodes = [];
                 }
+
+                nodeArray[i].nodes = this.InsertNode(pathArray, streamId, sensorId, nodeArray[i].nodes);
+                nodeFound = true;
             }
         }
+
         if (nodeFound === false) {
-            name = node.shift();
-            if (tookParent === true) {
-                obj.nodes = [this.InsertNode(node, id, {})];
-            } else if (name === obj.text) {
-                this.$scope.nodeCount --;
-                obj.nodes.push(this.InsertNode(node, id, {}));
-            } else {
-                obj.nodes.push({
-                    text: name,
-                    nodes: [this.InsertNode(node, id, {})],
-                    selectable: false,
-                    color: '#333',
-                });
-            }
+            name = pathArray.shift();
+            nodeArray.push({
+                text: name,
+                selectable: false,
+                color: '#333',
+                nodes: this.InsertNode(pathArray, streamId, sensorId, []),
+            });
+            return nodeArray;
         }
-        return obj;
+        return nodeArray;
     }
 
     RenderTree(data) {
         $('#my-tree').treeview({
-            data: [data],
+            data: data,
             showBorder: false,
             color: '#333',
             expandIcon: 'glyphicon glyphicon-folder-close glyphs',
@@ -109,6 +98,7 @@ export default class treeController {
                 return;
             }
             this.$scope.$apply(() => {
+                console.log(data)
                 this.$location.search('ds', data.id);
             });
 
@@ -133,6 +123,9 @@ export default class treeController {
             $('#graph-message').toggleClass('alert-danger');
             $('#graph-message').html('There are currently no streams available.');
         }
+        // Currently just used to stop a digest cycle for selected nodes,
+        // This is also the point at which all other graphs can be loaded.
+        // TODO: make this a function that spawns the other widgets.
         this.$scope.treeLoaded = true;
     }
 }
