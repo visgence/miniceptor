@@ -13,15 +13,13 @@ class Datastream:
         logging.basicConfig(format='%(levelname)s:%(asctime)s %(message)s', level=logging.INFO)
 
     def GET(self, stream_id=None, *args, **filter_arguments):
-        print 'did a get'
+        print 'get request to stream'
         # api/datastream
         data = requests.get('http://deserttest.visgence.com/api/datastreams').json();
         paths = []
         # print data
-        print 'here'
         for i in data['datastreams']:
             for j in i['paths']:
-                paths.append('{}/{}'.format(j, i['name']))
-        print paths
-        paths = ['test/stream1', 'test/stream2']
+                paths.append(['{}/{}'.format(j, i['name']), i['id']])
+        paths = [['test/stream1', 1], ['test/stream2', 2]]
         return json.dumps(paths)
