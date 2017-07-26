@@ -2,16 +2,19 @@ export default class generateJsonController {
     constructor($scope) {
         'ngInject';
 
+        this.$scope = $scope;
 
-        $scope.addInput = () => {
+    }
+    $onInit() {
+        this.$scope.addInput = () => {
             $('#input-section').append(this.createSensorInput());
         };
 
-        $scope.addOutput = () => {
+        this.$scope.addOutput = () => {
             $('#output-section').append(this.createSensorOutput());
         };
 
-        $scope.submit = () => {
+        this.$scope.submit = () => {
             const jsonData = {};
 
             jsonData.uuid = $('#uuid').val();

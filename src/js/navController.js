@@ -1,6 +1,10 @@
 export default class graphController {
     constructor($scope) {
         'ngInject';
-        $scope.versionNumber = window.version;
+        this.$scope = $scope;
+    }
+
+    $onInit() {
+        this.$scope.versionNumber = window.version;
     }
 }

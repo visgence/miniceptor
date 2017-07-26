@@ -8,16 +8,19 @@ export default class treeController {
         this.$location = $location;
         this.$http = $http;
         this.$timeout = $timeout;
+    }
 
-        $scope.treeLoaded = false;
-        $scope.searchFilter = 'Stream';
+    $onInit() {
+
+        this.$scope.treeLoaded = false;
+        this.$scope.searchFilter = 'Stream';
 
         this.LoadData();
 
-        $scope.searchInput = () => {
+        this.$scope.searchInput = () => {
             const data = {
-                word: $scope.searchWords,
-                filter: $scope.searchFilter,
+                word: this.$scope.searchWords,
+                filter: this.$scope.searchFilter,
             };
             $http({
                 url: '/api/datastream/?word=' + data.word + '&filter=' + data.filter,

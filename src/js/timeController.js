@@ -6,29 +6,32 @@ export default class timeController {
     constructor($scope, $location) {
         'ngInject';
 
-        $(() => {
-            const startTime = parseInt($location.search().start) || Date.now() / 1000 - 3600;
-            const endTime = parseInt($location.search().end) || Date.now() / 1000;
-            $('#start-time-picker').datetimepicker({
-                defaultDate: startTime * 1000,
-            });
-            $('#end-time-picker').datetimepicker({
-                defaultDate: endTime * 1000,
-            });
+        this.$scope = $scope;
+        this.$location = $location;
+    }
+    $onInit() {
+        const startTime = parseInt(this.$location.search().start) || Date.now() / 1000 - 3600;
+        const endTime = parseInt(this.$location.search().end) || Date.now() / 1000;
+        $('#start-time-picker').datetimepicker({
+            defaultDate: startTime * 1000,
+        });
+        $('#end-time-picker').datetimepicker({
+            defaultDate: endTime * 1000,
         });
 
-        $scope.SubmitDates = () => {
+
+        this.$scope.SubmitDates = () => {
             const startTime = $('#start-time-picker').data('DateTimePicker').date();
             const endTime = $('#end-time-picker').data('DateTimePicker').date();
             if (startTime !== null) {
-                $location.search('start', startTime.unix());
+                this.$location.search('start', startTime.unix());
             } else {
-                $location.search('start', null);
+                this.$location.search('start', null);
             }
             if (endTime !== null) {
-                $location.search('end', endTime.unix());
+                this.$location.search('end', endTime.unix());
             } else {
-                $location.search('end', null);
+                this.$location.search('end', null);
             }
         };
     }
