@@ -1,4 +1,4 @@
-require('./../../node_modules/bootstrap-treeview/dist/bootstrap-treeview.min.js');
+require('./../../../node_modules/bootstrap-treeview/dist/bootstrap-treeview.min.js');
 
 export default class treeController {
     constructor($scope, $location, $http, $timeout) {

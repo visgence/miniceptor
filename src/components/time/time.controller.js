@@ -1,6 +1,6 @@
 import 'eonasdan-bootstrap-datetimepicker';
 // Hack until tempusdominus comes out of alpha, see readme for link.
-import './../css/bootstrap-datetimepicker.min.css';
+import './../../css/bootstrap-datetimepicker.min.css';
 
 export default class timeController {
 

@@ -52,7 +52,7 @@ if (isProd) {
 
 module.exports = {
     entry: {
-        app: './src/js/app.js',
+        app: './src/app.js',
         vendor: [
             'angular',
             'd3',
@@ -75,6 +75,9 @@ module.exports = {
             options: {
                 presets: ['es2015'],
             },
+        }, {
+            test: /\.html$/,
+            loader: 'html-loader',
         }, {
             test: /bootstrap\/dist\/js\/umd\//,
             loader: 'imports?jQuery=jquery',
