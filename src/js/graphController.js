@@ -6,6 +6,7 @@ export default class graphController {
         this.$http = $http;
         this.$location = $location;
         this.$scope = $scope;
+        console.log('hello')
     }
 
     $onInit() {

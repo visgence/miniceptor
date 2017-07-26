@@ -4,7 +4,7 @@ import './../css/style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
 
-import graphController from './graphController';
+import graphcomponent from './graph.component';
 import treeController from './treeController';
 import timeController from './timeController';
 import navController from './navController';
@@ -13,7 +13,7 @@ import sensorController from './sensorController';
 import generateJsonController from './generateJsonController';
 
 angular.module('miniceptor', ['ngRoute'])
-    .controller('graphController', graphController)
+    .component('graphcomponent', graphcomponent)
     .controller('timeController', timeController)
     .controller('treeController', treeController)
     .controller('navController', navController)
