@@ -10,6 +10,7 @@ import timeController from './timeController';
 import navController from './navController';
 import streamController from './streamController';
 import sensorController from './sensorController';
+import generateJsonController from './generateJsonController';
 
 angular.module('miniceptor', ['ngRoute'])
     .controller('graphController', graphController)
@@ -18,10 +19,14 @@ angular.module('miniceptor', ['ngRoute'])
     .controller('navController', navController)
     .controller('streamController', streamController)
     .controller('sensorController', sensorController)
+    .controller('generateJsonController', generateJsonController)
     .config(['$routeProvider', ($routeProvider) => {
         $routeProvider
             .when('/', {
                 templateUrl: 'templates/base.html',
+            })
+            .when('/generate_json', {
+                templateUrl: 'templates/generate_json.html',
             })
             .otherwise({
                 redirectTo: '/',

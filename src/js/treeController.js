@@ -18,22 +18,21 @@ export default class treeController {
             const data = {
                 word: $scope.searchWords,
                 filter: $scope.searchFilter,
-            }
+            };
             $http({
-              url: '/api/datastream/?word=' + data.word + '&filter=' + data.filter,
-              method: 'GET',
+                url: '/api/datastream/?word=' + data.word + '&filter=' + data.filter,
+                method: 'GET',
             }).then(
                 (success) => {
-                    console.log(success)
                     const treeStructure = this.MakeTreeStructure(success.data);
                     this.RenderTree(treeStructure);
                 },
                 (error) => {
-                    console.log('error')
+                    console.log('error');
                     console.log(error);
                 },
             );
-        }
+        };
     }
 
     LoadData() {
@@ -77,7 +76,7 @@ export default class treeController {
             return nodeArray;
         }
         let nodeFound = false;
-        for (let i = 0; i < nodeArray.length; i ++) {
+        for (let i = 0; i < nodeArray.length; i++) {
             if (pathArray[0] === nodeArray[i].text) {
                 pathArray.shift();
                 if (nodeArray[i].nodes === undefined) {
@@ -112,9 +111,7 @@ export default class treeController {
             collapseIcon: 'glyphicon glyphicon-folder-open glyphs',
         });
 
-        console.log(this.$scope.nodeCount);
         if (this.$scope.nodeCount > 20) {
-
             $('#my-tree').treeview('collapseAll', {
                 silent: true,
             });
@@ -125,7 +122,6 @@ export default class treeController {
                 return;
             }
             this.$scope.$apply(() => {
-                console.log(data)
                 this.$location.search('ds', data.id);
             });
 
@@ -136,7 +132,7 @@ export default class treeController {
         });
 
         const curStream = parseInt(this.$location.search().ds);
-        if (! isNaN(curStream)) {
+        if (!isNaN(curStream)) {
             for (let i = 0; i < this.$scope.nodeCount; i++) {
                 const curNode = $('#my-tree').treeview('getNode', i);
                 if ('info' in curNode && curNode.id === curStream) {
