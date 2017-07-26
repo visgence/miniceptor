@@ -69,20 +69,20 @@ export default class generateJsonController {
             name: name,
             type: 'text',
             placeholder: name,
-            'class': 'form-control input-md'
+            class: 'form-control input-md',
         });
 
         label = $('<label/>', {
-            'class': 'col-md-5 control-label',
-            //'for': id
+            class: 'col-md-5 control-label',
+            // 'for': id
         }).html(label);
 
         const group = $('<div/>', {
-            'class': 'form-group'
+            class: 'form-group',
         });
 
         const col = $('<div/>', {
-            'class': 'col-md-4'
+            class: 'col-md-4',
         });
 
         group.append(label);
@@ -94,24 +94,24 @@ export default class generateJsonController {
 
     createButton(desc, name, toRemove) {
         const button = $('<button/>', {
-            //id: uuid,
+            // id: uuid,
             name: name,
-            'class': 'btn btn-danger'
+            class: 'btn btn-danger',
         }).html(desc);
 
         const label = $('<label/>', {
-            'class': 'col-md-5 control-label',
-            //'for': id
+            class: 'col-md-5 control-label',
+            // 'for': id
         }).html(desc);
 
         const group = $('<div/>', {
-            'class': 'form-group'
+            class: 'form-group',
         });
 
         const col = $('<div/>', {
-            'class': 'col-md-4'
+            class: 'col-md-4',
         });
-        button.click(function() {
+        button.click(() => {
             console.log('button click');
             toRemove.remove();
             return false;
@@ -124,8 +124,8 @@ export default class generateJsonController {
 
     createSensorInput() {
         const sensor = $('<div/>', {
-            'class': 'sensor-input',
-            'style': 'padding-bottom: 30px'
+            class: 'sensor-input',
+            style: 'padding-bottom: 30px',
         });
         sensor.append(this.createInput('Name', 'name'));
         sensor.append(this.createInput('Type', 'sensor_type'));
@@ -137,8 +137,8 @@ export default class generateJsonController {
 
     createSensorOutput() {
         const sensor = $('<div/>', {
-            'class': 'sensor-output',
-            'style': 'padding-bottom: 30px'
+            class: 'sensor-output',
+            style: 'padding-bottom: 30px',
         });
         sensor.append(this.createInput('Name', 'name'));
         sensor.append(this.createInput('Type', 'sensor_type'));
