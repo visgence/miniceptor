@@ -112,9 +112,7 @@ export default class treeController {
             collapseIcon: 'glyphicon glyphicon-folder-open glyphs',
         });
 
-        console.log(this.$scope.nodeCount);
         if (this.$scope.nodeCount > 20) {
-
             $('#my-tree').treeview('collapseAll', {
                 silent: true,
             });
