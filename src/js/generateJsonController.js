@@ -57,9 +57,9 @@ export default class generateJsonController {
             if ($('#escape').is(':checked')) {
                 json = this.escape(json);
             }
-            $('#jsonLength').html(jsonLength);
-            $('#jsonData').html(json);
-            $('#jsonModal').modal('show');
+            $('#json-length').html(jsonLength);
+            $('#json-data').html(json);
+            $('#json-modal').modal('show');
             return false;
         };
     }

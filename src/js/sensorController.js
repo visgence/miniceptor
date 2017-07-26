@@ -35,7 +35,7 @@ export default class sensorController { // ', ['frapontillo.bootstrap-switch',])
         // this.$scope.SendData = () => {
         //     const sensorInfo = infoService.getSensorInfo();
         //     const id = sensorInfo.uuid;
-        //     const newValue = angular.element('#manualEntry')[0].value;
+        //     const newValue = angular.element('#manual-entry')[0].value;
         //     const time = (new Date()).getTime() / 1000;
         //
         //     const sensorReading = {
@@ -259,7 +259,7 @@ export default class sensorController { // ', ['frapontillo.bootstrap-switch',])
     //     const sensorInfo = infoService.getSensorInfo();
     //     // p ost new value to commands api
     //     const payload = {
-    //         message: angular.element('#bsSwitch')[0].value,
+    //         message: angular.element('#bs-switch')[0].value,
     //         duration: 60000,
     //         sensor_id: sensorInfo.uuid,
     //     };
