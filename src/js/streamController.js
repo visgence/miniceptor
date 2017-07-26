@@ -64,14 +64,15 @@ export default class streamController {
                 return;
             }
             const url = 'datastream/' + updateData.id;
-            this.$http.put(url, updateData).then(
-                (response) => {
+            this.$http.put(url, updateData)
+                .then((success) => {
                     this.$scope.editing = false;
                     location.reload();
-                }, (response) => {
-                    console.log('Error Occured: ', response.data);
-                },
-            );
+                })
+                .catch((error) => {
+                    console.log('Error');
+                    console.log(error);
+                });
         };
         this.LoadStream();
     }
@@ -81,8 +82,8 @@ export default class streamController {
         if (stream === undefined) {
             stream = '1';
         }
-        this.$http.get('/api/datastream/' + stream).then(
-            (response) => {
+        this.$http.get('/api/datastream/' + stream)
+            .then((success) => {
                 const dataToDisplay = {};
                 // for (var i in v) {
                 //     if (v[i] === null) {
@@ -101,11 +102,10 @@ export default class streamController {
                 this.$scope.stream = dataToDisplay;
                 this.$scope.ShowInfo = true;
                 return;
-            },
-            (response) => {
+            })
+            .catch((error) => {
                 console.log('error');
                 console.log(response);
-            },
-        );
+            });
     }
 }

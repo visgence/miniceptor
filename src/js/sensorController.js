@@ -194,8 +194,8 @@ export default class sensorController { // ', ['frapontillo.bootstrap-switch',])
         if (stream === undefined) {
             stream = 1;
         }
-        this.$http.get('api/sensor').then(
-            (success) => {
+        this.$http.get('api/sensor')
+            .then((success) => {
                 this.$scope.sensor = success.data;
                 this.$scope.ShowInfo = true;
 
@@ -203,12 +203,11 @@ export default class sensorController { // ', ['frapontillo.bootstrap-switch',])
                     this.$scope.isActive = true;
                     // We need to set the preliminary state
                 }
-            },
-            (error) => {
+            })
+            .catch((error) => {
                 console.log('error');
                 console.log(error);
-            },
-        );
+            });
     }
 
     // exportData(readings) {

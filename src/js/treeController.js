@@ -25,27 +25,24 @@ export default class treeController {
             $http({
                 url: '/api/datastream/?word=' + data.word + '&filter=' + data.filter,
                 method: 'GET',
-            }).then(
-                (success) => {
-                    const treeStructure = this.MakeTreeStructure(success.data);
-                    this.RenderTree(treeStructure);
-                },
-                (error) => {
-                    console.log('error');
-                    console.log(error);
-                },
-            );
+            }).then((success) => {
+                const treeStructure = this.MakeTreeStructure(success.data);
+                this.RenderTree(treeStructure);
+            }).catch((error) => {
+                console.log('error');
+                console.log(error);
+            });
         };
     }
 
     LoadData() {
-        this.$http.get('/api/datastream').then(
-            (success) => {
+        this.$http.get('/api/datastream')
+            .then((success) => {
                 const paths = success.data;
                 const treeStructure = this.MakeTreeStructure(paths);
                 this.RenderTree(treeStructure);
-            },
-            (error) => {
+            })
+            .catch((error) => {
                 console.log(error);
                 $('#tree-message').toggleClass('alert-danger');
                 $('#tree-message').html('Something went wrong gettin data from the server, check the console for details.');
