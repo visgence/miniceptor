@@ -5,21 +5,21 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
 
 import graphcomponent from './graph.component';
-import treeController from './treeController';
-import timeController from './timeController';
-import navController from './navController';
-import streamController from './streamController';
-import sensorController from './sensorController';
-import generateJsonController from './generateJsonController';
+import treecomponent from './tree.component';
+import timecomponent from './time.component';
+import navcomponent from './nav.component';
+import streamcomponent from './stream.component';
+import sensorcomponent from './sensor.component';
+import generateJsoncomponent from './generateJson.component';
 
 angular.module('miniceptor', ['ngRoute'])
     .component('graphcomponent', graphcomponent)
-    .controller('timeController', timeController)
-    .controller('treeController', treeController)
-    .controller('navController', navController)
-    .controller('streamController', streamController)
-    .controller('sensorController', sensorController)
-    .controller('generateJsonController', generateJsonController)
+    .component('timecomponent', timecomponent)
+    .component('treecomponent', treecomponent)
+    .component('navcomponent', navcomponent)
+    .component('streamcomponent', streamcomponent)
+    .component('sensorcomponent', sensorcomponent)
+    .component('jsoncomponent', generateJsoncomponent)
     .config(['$routeProvider', ($routeProvider) => {
         $routeProvider
             .when('/', {

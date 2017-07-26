@@ -1,31 +1,29 @@
 <div class="card">
-    <div ng-controller="treeController">
-        <div class="alert hidden" id="tree-message"> </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="input-group">
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{searchFilter}}<span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <div class="dropdown-btn" ng-click="searchFilter = 'Stream'">Stream</div>
-                            </li>
-                            <li>
-                                <div class="dropdown-btn" ng-click="searchFilter = 'Sensor'">Sensor</div>
-                            </li>
-                            <li>
-                                <div class="dropdown-btn" ng-click="searchFilter = 'Folder'">Folder</div>
-                            </li>
-                        </ul>
-                    </div>
-                    <input type="text" class="form-control" ng-model="searchWords" ng-change="searchInput()" aria-label="..." placeholder="Search..." />
+    <div class="alert hidden" id="tree-message"> </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{searchFilter}}<span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="dropdown-btn" ng-click="searchFilter = 'Stream'">Stream</div>
+                        </li>
+                        <li>
+                            <div class="dropdown-btn" ng-click="searchFilter = 'Sensor'">Sensor</div>
+                        </li>
+                        <li>
+                            <div class="dropdown-btn" ng-click="searchFilter = 'Folder'">Folder</div>
+                        </li>
+                    </ul>
                 </div>
+                <input type="text" class="form-control" ng-model="searchWords" ng-change="searchInput()" aria-label="..." placeholder="Search..." />
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12" style="padding: 10px;">
-                <div id="my-tree"></div>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="padding: 10px;">
+            <div id="my-tree"></div>
         </div>
     </div>
 </div>
