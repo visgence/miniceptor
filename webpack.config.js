@@ -46,8 +46,8 @@ if (isProd) {
             output: {
                 comments: false,
             },
-        })
-    )
+        }),
+    );
 }
 
 module.exports = {

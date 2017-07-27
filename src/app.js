@@ -1,6 +1,6 @@
 import angular from 'angular';
 import angularRoute from 'angular-route'; // eslint-disable-line
-import './css/style.css';
+import './pages/base.style.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
 
