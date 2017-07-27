@@ -1,11 +1,12 @@
 import * as d3 from 'd3';
 
 export default class graphController {
-    constructor($http, $location, $scope) {
+    constructor(infoService, apiService, $location, $scope) {
         'ngInject';
-        this.$http = $http;
         this.$location = $location;
         this.$scope = $scope;
+        this.infoService = infoService;
+        this.apiService = apiService;
     }
 
     $onInit() {
@@ -20,15 +21,16 @@ export default class graphController {
             return;
         }
 
-        const url = '/api/reading/?' + location.href.split('?')[1];
+        const url = 'reading/?' + location.href.split('?')[1];
 
-        this.$http.get(url)
+        this.apiService.get(url)
             .then((success) => {
                 if (success.error !== undefined) {
                     $('#graph-message').toggleClass('alert-danger');
                     $('#graph-message').html('No data could be found.');
                 } else {
                     this.drawGraph(success.data);
+                    this.infoService.setReadings(success.data);
                 }
             })
             .catch((error) => {
@@ -206,7 +208,6 @@ export default class graphController {
             .attr('fill', 'black');
 
         textElements.push(newText);
-
 
         // Y-axis line for tooltip
         const yLine = tooltip.append('g')
