@@ -1,13 +1,17 @@
+.tree-container{
+  padding: 10px;
+}
+
 .dropdown-btn {
-    display: block;
-    padding: 3px 20px;
-    clear: both;
-    font-weight: 400;
-    line-height: 1.42;
-    white-space: nowrap;
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42;
+  white-space: nowrap;
 }
 
 .dropdown-btn:hover{
-  background-color: #337ab7;
+  background-color: #337AB7;
   cursor: pointer;
 }

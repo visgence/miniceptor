@@ -1,8 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const BundleTracker = require('webpack-bundle-tracker');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin'); // eslint-disable-line
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // eslint-disable-line
 
 // Note: Change this to NODE_ENV = Production
 const isProd = false;
@@ -46,8 +46,8 @@ if (isProd) {
             output: {
                 comments: false,
             },
-        }),
-    );
+        })
+    )
 }
 
 module.exports = {

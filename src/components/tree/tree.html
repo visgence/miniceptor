@@ -4,7 +4,9 @@
         <div class="col-md-12">
             <div class="input-group">
                 <div class="input-group-btn">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{searchFilter}}<span class="caret"></span></button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{searchFilter}}<span class="caret"></span>
+                    </button>
                     <ul class="dropdown-menu">
                         <li>
                             <div class="dropdown-btn" ng-click="searchFilter = 'Stream'">Stream</div>
@@ -22,7 +24,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12" style="padding: 10px;">
+        <div class="col-md-12 tree-container">
             <div id="my-tree"></div>
         </div>
     </div>

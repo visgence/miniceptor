@@ -11,5 +11,8 @@
   "tag-self-close": true,
   "alt-require": true,
   "id-class-value": "dash",
-  "inline-script-disabled": true
+  "inline-script-disabled": true,
+  "style-disabled": true,
+  "inline-style-disabled": true
+
 }
