@@ -1,4 +1,4 @@
 {
-    "VERSION": "1.7.3",
-    "USE_DEBUG": false
+    "USE_DEBUG": false,
+    "VERSION": "1.8.0"
 }

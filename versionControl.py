@@ -18,7 +18,7 @@ if __name__ == "__main__":
             if minor:
                 newVersion = "{}.{}.{}".format(version[0], version[1], int(version[2]) + 1)
             else:
-                newVersion = "{}.{}.{}".format(version[0], int(version[1]) + 1, version[2])
+                newVersion = "{}.{}.0".format(version[0], int(version[1]) + 1)
             print "New Version: {}".format(newVersion)
             data['VERSION'] = newVersion
         os.remove('config.json')

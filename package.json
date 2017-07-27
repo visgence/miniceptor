@@ -8,10 +8,10 @@
     "angularjs-datepicker": "2.1.23",
     "angularjs-datetime-picker": "0.1.16",
     "bootstrap": "3.3.7",
+    "bootstrap-treeview": "1.2.0",
     "d3": "4.10.0",
     "eonasdan-bootstrap-datetimepicker": "4.17.47",
-    "jquery": "2.2.4",
-    "bootstrap-treeview": "1.2.0"
+    "jquery": "2.2.4"
   },
   "description": "",
   "devDependencies": {
@@ -46,16 +46,16 @@
   "scripts": {
     "build": "npm run clean && npm run watch",
     "clean": "rm -fr static/dist/",
-    "scsslint": "./node_modules/.bin/sass-lint src '**/*.scss' -v -q",
     "eslint": "./node_modules/.bin/eslint src",
     "htmllint": "./node_modules/.bin/htmlhint --config .htmlhintrc src",
     "incmajorversion": "python versionControl.py -major",
     "incminorversion": "python versionControl.py -minor",
-    "lint": "npm run htmllint & npm run csslint & npm run eslint & npm run pythonlint",
+    "lint": "npm run htmllint & npm run scsslint & npm run eslint & npm run pythonlint",
     "pythonlint": "find ./teleceptor -name '*.py' | xargs pep8 --max-line-length=200",
+    "scsslint": "./node_modules/.bin/sass-lint src '**/*.scss' -v -q",
     "start": "npm run build & python server.py",
     "watch": "webpack --watch --progress",
     "webpack": "webpack --progress"
   },
-  "version": "2.1.11"
+  "version": "1.8.0"
 }
