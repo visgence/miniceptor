@@ -79,11 +79,20 @@ module.exports = {
             test: /\.html$/,
             loader: 'html-loader',
         }, {
+            test: /\.css$/,
+            loader: 'style-loader!css-loader',
+        }, {
             test: /bootstrap\/dist\/js\/umd\//,
             loader: 'imports?jQuery=jquery',
         }, {
-            test: /\.css$/,
-            loader: 'style-loader!css-loader',
+            test: /\.scss$/,
+            use: [{
+                loader: 'style-loader',
+            }, {
+                loader: 'css-loader',
+            }, {
+                loader: 'sass-loader',
+            }],
         }, {
             test: /\.png$/,
             loader: 'url-loader?publicPath=/static/dist/&limit=100000',
