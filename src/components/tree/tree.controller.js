@@ -1,13 +1,13 @@
 require('./../../../node_modules/bootstrap-treeview/dist/bootstrap-treeview.min.js');
 
 export default class treeController {
-    constructor($scope, $location, $http, $timeout) {
+    constructor(apiService, $scope, $location, $timeout) {
         'ngInject';
 
         this.$scope = $scope;
         this.$location = $location;
-        this.$http = $http;
         this.$timeout = $timeout;
+        this.apiService = apiService;
     }
 
     $onInit() {
@@ -22,21 +22,19 @@ export default class treeController {
                 word: this.$scope.searchWords,
                 filter: this.$scope.searchFilter,
             };
-            $http({
-                url: '/api/datastream/?word=' + data.word + '&filter=' + data.filter,
-                method: 'GET',
-            }).then((success) => {
-                const treeStructure = this.MakeTreeStructure(success.data);
-                this.RenderTree(treeStructure);
-            }).catch((error) => {
-                console.log('error');
-                console.log(error);
-            });
+            this.apiService.get('datastream/?word=' + data.word + '&filter=' + data.filter)
+                .then((success) => {
+                    const treeStructure = this.MakeTreeStructure(success.data);
+                    this.RenderTree(treeStructure);
+                }).catch((error) => {
+                    console.log('error');
+                    console.log(error);
+                });
         };
     }
 
     LoadData() {
-        this.$http.get('/api/datastream')
+        this.apiService.get('datastream')
             .then((success) => {
                 const paths = success.data;
                 const treeStructure = this.MakeTreeStructure(paths);

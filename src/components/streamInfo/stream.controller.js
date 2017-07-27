@@ -1,10 +1,10 @@
 export default class streamController {
 
-    constructor($scope, $http, $location) {
+    constructor(apiService, $scope, $location) {
         'ngInject';
         this.$scope = $scope;
-        this.$http = $http;
         this.$location = $location;
+        this.apiService = apiService;
     }
 
     $onInit() {
@@ -64,7 +64,7 @@ export default class streamController {
                 return;
             }
             const url = 'datastream/' + updateData.id;
-            this.$http.put(url, updateData)
+            this.apiService.post(url, updateData)
                 .then((success) => {
                     this.$scope.editing = false;
                     location.reload();
@@ -82,7 +82,7 @@ export default class streamController {
         if (stream === undefined) {
             stream = '1';
         }
-        this.$http.get('/api/datastream/' + stream)
+        this.apiService.get('datastream/' + stream)
             .then((success) => {
                 const dataToDisplay = {};
                 // for (var i in v) {

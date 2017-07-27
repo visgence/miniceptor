@@ -1,11 +1,11 @@
 export default class sensorController { // ', ['frapontillo.bootstrap-switch',])
 
-    constructor($scope, $http, $location) {
+    constructor(apiService, $scope, $location) {
         'ngInject';
 
         this.$scope = $scope;
-        this.$http = $http;
         this.$location = $location;
+        this.apiService = apiService;
     }
 
     $onInit() {
@@ -194,7 +194,7 @@ export default class sensorController { // ', ['frapontillo.bootstrap-switch',])
         if (stream === undefined) {
             stream = 1;
         }
-        this.$http.get('api/sensor')
+        this.apiService.get('sensor')
             .then((success) => {
                 this.$scope.sensor = success.data;
                 this.$scope.ShowInfo = true;
