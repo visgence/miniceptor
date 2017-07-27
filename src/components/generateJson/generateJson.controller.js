@@ -2,16 +2,19 @@ export default class generateJsonController {
     constructor($scope) {
         'ngInject';
 
+        this.$scope = $scope;
 
-        $scope.addInput = () => {
+    }
+    $onInit() {
+        this.$scope.addInput = () => {
             $('#input-section').append(this.createSensorInput());
         };
 
-        $scope.addOutput = () => {
+        this.$scope.addOutput = () => {
             $('#output-section').append(this.createSensorOutput());
         };
 
-        $scope.submit = () => {
+        this.$scope.submit = () => {
             const jsonData = {};
 
             jsonData.uuid = $('#uuid').val();
@@ -54,9 +57,9 @@ export default class generateJsonController {
             if ($('#escape').is(':checked')) {
                 json = this.escape(json);
             }
-            $('#jsonLength').html(jsonLength);
-            $('#jsonData').html(json);
-            $('#jsonModal').modal('show');
+            $('#json-length').html(jsonLength);
+            $('#json-data').html(json);
+            $('#json-modal').modal('show');
             return false;
         };
     }

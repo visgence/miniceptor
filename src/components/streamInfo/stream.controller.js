@@ -2,34 +2,36 @@ export default class streamController {
 
     constructor($scope, $http, $location) {
         'ngInject';
-
         this.$scope = $scope;
         this.$http = $http;
         this.$location = $location;
+    }
 
-        $scope.stream = {};
-        $scope.editing = false;
-        $scope.ShowInfo = false;
+    $onInit() {
 
-        $scope.EditFields = () => {
+        this.$scope.stream = {};
+        this.$scope.editing = false;
+        this.$scope.ShowInfo = false;
+
+        this.$scope.EditFields = () => {
             $('#warning-message').css('display', 'none');
-            $scope.editing = true;
+            this.$scope.editing = true;
         };
 
-        $scope.CancelFields = () => {
-            $scope.editing = false;
+        this.$scope.CancelFields = () => {
+            this.$scope.editing = false;
         };
 
-        $scope.AddPath = () => {
-            $scope.stream.paths.push({
+        this.$scope.AddPath = () => {
+            this.$scope.stream.paths.push({
                 url: '/new_path_' + $scope.stream.paths.length,
             });
         };
 
-        $scope.SaveFields = () => {
+        this.$scope.SaveFields = () => {
             const updateData = {};
             let hasErrors = false;
-            $scope.stream.forEach((i) => {
+            this.$scope.stream.forEach((i) => {
                 if (i === '-' || i === '') {
                     updateData[i] = null;
                 } else if (i === 'paths') {
@@ -62,14 +64,15 @@ export default class streamController {
                 return;
             }
             const url = 'datastream/' + updateData.id;
-            $http.put(url, updateData).then(
-                (response) => {
-                    $scope.editing = false;
+            this.$http.put(url, updateData)
+                .then((success) => {
+                    this.$scope.editing = false;
                     location.reload();
-                }, (response) => {
-                    console.log('Error Occured: ', response.data);
-                },
-            );
+                })
+                .catch((error) => {
+                    console.log('Error');
+                    console.log(error);
+                });
         };
         this.LoadStream();
     }
@@ -79,8 +82,8 @@ export default class streamController {
         if (stream === undefined) {
             stream = '1';
         }
-        this.$http.get('/api/datastream/' + stream).then(
-            (response) => {
+        this.$http.get('/api/datastream/' + stream)
+            .then((success) => {
                 const dataToDisplay = {};
                 // for (var i in v) {
                 //     if (v[i] === null) {
@@ -99,11 +102,10 @@ export default class streamController {
                 this.$scope.stream = dataToDisplay;
                 this.$scope.ShowInfo = true;
                 return;
-            },
-            (response) => {
+            })
+            .catch((error) => {
                 console.log('error');
                 console.log(response);
-            },
-        );
+            });
     }
 }
