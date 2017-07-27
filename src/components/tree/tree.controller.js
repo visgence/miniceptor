@@ -1,4 +1,4 @@
-require('./../../node_modules/bootstrap-treeview/dist/bootstrap-treeview.min.js');
+require('./../../../node_modules/bootstrap-treeview/dist/bootstrap-treeview.min.js');
 
 export default class treeController {
     constructor($scope, $location, $http, $timeout) {
@@ -8,41 +8,41 @@ export default class treeController {
         this.$location = $location;
         this.$http = $http;
         this.$timeout = $timeout;
+    }
 
-        $scope.treeLoaded = false;
-        $scope.searchFilter = 'Stream';
+    $onInit() {
+
+        this.$scope.treeLoaded = false;
+        this.$scope.searchFilter = 'Stream';
 
         this.LoadData();
 
-        $scope.searchInput = () => {
+        this.$scope.searchInput = () => {
             const data = {
-                word: $scope.searchWords,
-                filter: $scope.searchFilter,
+                word: this.$scope.searchWords,
+                filter: this.$scope.searchFilter,
             };
             $http({
                 url: '/api/datastream/?word=' + data.word + '&filter=' + data.filter,
                 method: 'GET',
-            }).then(
-                (success) => {
-                    const treeStructure = this.MakeTreeStructure(success.data);
-                    this.RenderTree(treeStructure);
-                },
-                (error) => {
-                    console.log('error');
-                    console.log(error);
-                },
-            );
+            }).then((success) => {
+                const treeStructure = this.MakeTreeStructure(success.data);
+                this.RenderTree(treeStructure);
+            }).catch((error) => {
+                console.log('error');
+                console.log(error);
+            });
         };
     }
 
     LoadData() {
-        this.$http.get('/api/datastream').then(
-            (success) => {
+        this.$http.get('/api/datastream')
+            .then((success) => {
                 const paths = success.data;
                 const treeStructure = this.MakeTreeStructure(paths);
                 this.RenderTree(treeStructure);
-            },
-            (error) => {
+            })
+            .catch((error) => {
                 console.log(error);
                 $('#tree-message').toggleClass('alert-danger');
                 $('#tree-message').html('Something went wrong gettin data from the server, check the console for details.');

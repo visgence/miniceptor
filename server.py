@@ -11,7 +11,7 @@ PATH = os.path.abspath(os.path.dirname(__file__))
 STATIC = os.path.join(PATH, 'static')
 
 env = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(searchpath=os.path.join(PATH, 'static/templates/')), )
+    loader=jinja2.FileSystemLoader(searchpath=os.path.join(PATH, 'static/')), )
 
 with open('config.json') as data_file:
     VERSION = json.load(data_file)['VERSION']

@@ -6,6 +6,9 @@ export default class graphController {
         this.$http = $http;
         this.$location = $location;
         this.$scope = $scope;
+    }
+
+    $onInit() {
         this.getData();
     }
 
@@ -19,20 +22,19 @@ export default class graphController {
 
         const url = '/api/reading/?' + location.href.split('?')[1];
 
-        this.$http.get(url).then(
-            (success) => {
+        this.$http.get(url)
+            .then((success) => {
                 if (success.error !== undefined) {
                     $('#graph-message').toggleClass('alert-danger');
                     $('#graph-message').html('No data could be found.');
                 } else {
                     this.drawGraph(success.data);
                 }
-            },
-            (error) => {
+            })
+            .catch((error) => {
                 console.log('error');
                 console.log(error);
-            },
-        );
+            });
     }
 
     drawGraph(data) {

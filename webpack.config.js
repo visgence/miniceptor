@@ -1,8 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const BundleTracker = require('webpack-bundle-tracker');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin'); // eslint-disable-line
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // eslint-disable-line
 
 // Note: Change this to NODE_ENV = Production
 const isProd = false;
@@ -52,7 +52,7 @@ if (isProd) {
 
 module.exports = {
     entry: {
-        app: './src/js/app.js',
+        app: './src/app.js',
         vendor: [
             'angular',
             'd3',
@@ -76,11 +76,23 @@ module.exports = {
                 presets: ['es2015'],
             },
         }, {
-            test: /bootstrap\/dist\/js\/umd\//,
-            loader: 'imports?jQuery=jquery',
+            test: /\.html$/,
+            loader: 'html-loader',
         }, {
             test: /\.css$/,
             loader: 'style-loader!css-loader',
+        }, {
+            test: /bootstrap\/dist\/js\/umd\//,
+            loader: 'imports?jQuery=jquery',
+        }, {
+            test: /\.scss$/,
+            use: [{
+                loader: 'style-loader',
+            }, {
+                loader: 'css-loader',
+            }, {
+                loader: 'sass-loader',
+            }],
         }, {
             test: /\.png$/,
             loader: 'url-loader?publicPath=/static/dist/&limit=100000',

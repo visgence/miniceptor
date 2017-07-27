@@ -1,17 +1,17 @@
 <div class="container-fluid">
-    <div ng-include="'templates/navbar.html'"> </div>
+    <navcomponent></navcomponent>
     <div class="row main">
         <div class="col-md-3 left-col">
             <div class="row">
                 <div class="col-md-12 left-col">
                     <!--  time controls-->
-                    <div ng-include="'templates/time.html'"> </div>
+                    <timecomponent></timecomponent>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12 left-col">
                     <!-- tree controls -->
-                    <div ng-include="'templates/tree.html'"> </div>
+                    <treecomponent></treecomponent>
                 </div>
             </div>
         </div>
@@ -19,15 +19,15 @@
             <div class="row">
                 <div class="col-md-12 right-col">
                     <!--  graph  -->
-                    <div ng-include="'templates/graph.html'"> </div>
+                    <graphcomponent></graphcomponent>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 right-col left-col">
-                    <div ng-include="'templates/streamInfo.html'"></div>
+                    <streamcomponent></streamcomponent>
                 </div>
                 <div class="col-md-6 right-col">
-                    <div ng-include="'templates/sensorInfo.html'"></div>
+                    <sensorcomponent></sensorcomponent>
                 </div>
             </div>
         </div>
