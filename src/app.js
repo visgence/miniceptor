@@ -12,6 +12,7 @@ import streamcomponent from './components/streamInfo/stream.component';
 import sensorcomponent from './components/sensorInfo/sensor.component';
 import jsoncomponent from './components/generateJson/generateJson.component';
 import apiService from './services/api.service';
+import infoService from './services/info.service';
 import basePage from './pages/base.html';
 import GenerateJson from './pages/generateJson.html';
 
@@ -25,6 +26,7 @@ angular.module('miniceptor', ['ngRoute'])
     .component('sensorcomponent', sensorcomponent)
     .component('jsoncomponent', jsoncomponent)
     .service('apiService', apiService)
+    .service('infoService', infoService)
     .config(['$routeProvider', ($routeProvider) => {
         $routeProvider
             .when('/', {

@@ -1,11 +1,12 @@
 import * as d3 from 'd3';
 
 export default class graphController {
-    constructor(apiService, $location, $scope) {
+    constructor(infoApi, apiService, $location, $scope) {
         'ngInject';
-        this.apiService = apiService;
         this.$location = $location;
         this.$scope = $scope;
+        this.infoApi = infoApi;
+        this.apiService = apiService;
     }
 
     $onInit() {
@@ -29,6 +30,7 @@ export default class graphController {
                     $('#graph-message').html('No data could be found.');
                 } else {
                     this.drawGraph(success.data);
+                    this.apiService.setReadings(success.data);
                 }
             })
             .catch((error) => {

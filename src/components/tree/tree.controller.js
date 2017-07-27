@@ -24,6 +24,7 @@ export default class treeController {
             };
             this.apiService.get('datastream/?word=' + data.word + '&filter=' + data.filter)
                 .then((success) => {
+                    // needs reset of info service?
                     const treeStructure = this.MakeTreeStructure(success.data);
                     this.RenderTree(treeStructure);
                 }).catch((error) => {

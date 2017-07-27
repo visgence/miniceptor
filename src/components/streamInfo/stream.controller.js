@@ -1,10 +1,11 @@
 export default class streamController {
 
-    constructor(apiService, $scope, $location) {
+    constructor(infoService, apiService, $scope, $location) {
         'ngInject';
         this.$scope = $scope;
         this.$location = $location;
         this.apiService = apiService;
+        this.infoService = infoService;
     }
 
     $onInit() {
@@ -78,34 +79,35 @@ export default class streamController {
     }
 
     LoadStream() {
-        let stream = this.$location.search().ds;
-        if (stream === undefined) {
-            stream = '1';
+        let curStream = this.$location.search().ds;
+        if (curStream === undefined) {
+            curStream = '1';
         }
-        this.apiService.get('datastream/' + stream)
+        this.apiService.get('datastream/' + curStream)
             .then((success) => {
                 const dataToDisplay = {};
-                // for (var i in v) {
-                //     if (v[i] === null) {
-                //         dataToDisplay[i] = "-";
-                //     } else if (i === 'paths') {
-                //         dataToDisplay.paths = [];
-                //         for (var j in v[i]) {
-                //             dataToDisplay.paths.push({
-                //                 url: v[i][j],
-                //             });
-                //         }
-                //     } else {
-                //         dataToDisplay[i] = v[i];
-                //     }
-                // }
+                const stream = success.data.stream;
+                Object.keys(stream).forEach((key) => {
+                    if (stream[key] === null) {
+                        dataToDisplay[key] = '-';
+                    } else if (key === 'paths') {
+                        dataToDisplay.paths = [];
+                        stream[key].forEach((path) => {
+                            dataToDisplay.paths.push({
+                                url: path,
+                            });
+                        });
+                    } else {
+                        dataToDisplay[key] = stream[key];
+                    }
+                });
                 this.$scope.stream = dataToDisplay;
                 this.$scope.ShowInfo = true;
-                return;
+                this.infoService.setStream(stream);
             })
             .catch((error) => {
                 console.log('error');
-                console.log(response);
+                console.log(error);
             });
     }
 }
