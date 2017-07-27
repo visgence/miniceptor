@@ -7,6 +7,16 @@ export default class sensorController { // ', ['frapontillo.bootstrap-switch',])
         this.$location = $location;
         this.apiService = apiService;
         this.infoService = infoService;
+
+        this.$scope.$watch(() => this.infoService.getStream(), (nv, ov) => {
+            if (nv === undefined) {
+                return;
+            }
+            if (nv.sensor === undefined) {
+                return;
+            }
+            this.LoadSensor(nv.sensor);
+        });
     }
 
     $onInit() {
@@ -187,15 +197,13 @@ export default class sensorController { // ', ['frapontillo.bootstrap-switch',])
         $('#sendCommand').on('click', () => {
             this.sendCommand();
         });
-
-        this.LoadSensor();
     }
 
     // This needs to wait for stream info to be set, then make request by sensor uuid
-    LoadSensor() {
-        this.apiService.get('sensor')
+    LoadSensor(sensor) {
+        this.apiService.get('sensor/' + sensor)
             .then((success) => {
-                this.$scope.sensor = success.data;
+                this.$scope.sensor = success.data.sensor;
                 this.$scope.ShowInfo = true;
 
                 if (success.data.sensor_type === 'output') {

@@ -12,8 +12,8 @@ class Sensor:
     else:
         logging.basicConfig(format='%(levelname)s:%(asctime)s %(message)s', level=logging.INFO)
 
-    def GET(self, sensors=None, *args, **filter_arguments):
-        print 'did a get'
+    def GET(self, sensor=None, *args, **filter_arguments):
+        print 'did a get to sensor'
 
         # /api/sensor/sensorname
-        return json.dumps(requests.get('http://deserttest.visgence.com/api/sensors').json())
+        return json.dumps(requests.get('http://deserttest.visgence.com/api/sensors/{}'.format(sensor)).json())
