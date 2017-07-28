@@ -5,7 +5,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
 
 require ("./../node_modules/angular-material/angular-material.min.css");
-import "angular-material"
+
+import 'angular-material';
 
 import graphcomponent from './components/graph/graph.component';
 import treecomponent from './components/tree/tree.component';
