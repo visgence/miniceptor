@@ -4,7 +4,6 @@ import './pages/base.style.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
 import 'angular-material'; // eslint-disable-line
-
 import graphcomponent from './components/graph/graph.component';
 import treecomponent from './components/tree/tree.component';
 import timecomponent from './components/time/time.component';

@@ -30,9 +30,12 @@
                     <div class="info-static">{{sensor.units}}</div>
                     <div class="info-static">{{sensor.last_calibration.timestamp}}</div>
                     <div class="info-static">{{sensor.last_calibration.coefficients}}</div>
-                    <button type="button " class="btn btn-primary btn-sm" ng-click="EditFields(title)">
-                              <span class="glyphicon glyphicon-pencil " /> Edit
+                    <div class = "my-button">
+                    <button class="md-button md-raised md-primary  md-ink-ripple" ng-click="EditFields(title)">
+                              <span class="ng-span" /> Edit
+                                <div class = "md-ripple-container"></div>
                           </button>
+                        </div>
                 </div>
                 <div ng-if="editing" class="edit-field">
                     <div class="info-static">{{sensor.uuid}}</div>
@@ -54,12 +57,14 @@
         <div class="row">
             <div ng-if="editing">
                 <div class=" edit-buttons">
-                    <button type="button " class="btn btn-success btn-sm" ng-click="SaveFields()">
-                              <span class="glyphicon glyphicon-ok" /> Save
-                          </button>
-                    <button type="button " class="btn btn-default btn-sm" ng-click="CancelFields()">
-                              <span class="glyphicon glyphicon-remove " /> Cancel
-                          </button>
+                  <button class="md-raised md-primary md-button md-ink-ripple" ng-click="SaveFields()">
+                            <span class="ng-span" /> Save
+                              <div class = "md-ripple-container"></div>
+                        </button>
+                  <button class="md-raised md-primary md-button md-ink-ripple" ng-click="CancelFields()">
+                            <span class="ng-span" /> Cancel
+                              <div class = "md-ripple-container"></div>
+                        </button>
                 </div>
             </div>
         </div>
