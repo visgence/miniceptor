@@ -8,7 +8,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const isProd = false;
 
 const plugins = [
-    // new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin(),
     new BundleTracker({
         filename: './webpack-stats.json',
     }),

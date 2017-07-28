@@ -25,9 +25,11 @@
                 <div ng-repeat="path in stream.paths">
                     <div class="info-static">{{path.url}}</div>
                 </div>
-                <button type="button " class="btn btn-primary btn-sm" ng-click="EditFields()">
-                            <span class="glyphicon glyphicon-pencil " /> Edit
+                <button class="md-raised md-button md-ink-ripple" type = "button" ng-click="EditFields()">
+                            <span class="ng-scope"/> Edit
+
                         </button>
+
             </div>
             <div ng-if="editing">
                 <div class="info-static">{{stream.id}}</div>
