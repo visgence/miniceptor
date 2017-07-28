@@ -1,5 +1,4 @@
 import streamController from './stream.controller';
-
 import stream from './stream.html';
 import './stream.style.scss';
 

@@ -3,9 +3,7 @@ import angularRoute from 'angular-route'; // eslint-disable-line
 import './pages/base.style.scss';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
-
-require ("./../node_modules/angular-material/angular-material.min.css");
-import "angular-material"
+import 'angular-material'; // eslint-disable-line
 
 import graphcomponent from './components/graph/graph.component';
 import treecomponent from './components/tree/tree.component';
@@ -19,6 +17,7 @@ import infoService from './services/info.service';
 import basePage from './pages/base.html';
 import GenerateJson from './pages/generateJson.html';
 
+require ('./../node_modules/angular-material/angular-material.min.css');
 
 angular.module('miniceptor', ['ngRoute'])
     .component('graphcomponent', graphcomponent)
