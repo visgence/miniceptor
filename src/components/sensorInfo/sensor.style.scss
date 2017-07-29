@@ -1,16 +1,21 @@
 .edit-fields {
-  margin-top: 9px;
+  margin-top: 7px;
 }
 
-.edit-button {
-  margin-left: 3px;
+.edit-buttons {
+  //margin-left: 3px;
+  color: rgb(16, 108, 200);
+  padding-top: 20px;
+  padding-right: 20px;
+  float: right;
 }
 
 .new-data-input {
   margin-top: 7px;
 }
 
-.my-button{
+.edit-button{
+  padding-top: 20px;
   color: rgb(16, 108, 200);
   //background-color:  rgb(16, 108, 200);
   float:right;
