@@ -1,5 +1,4 @@
-$blue: rgb(16, 108, 200);
-$white: rgb(16, 108, 200);
+@import '../constants';
 
 .sensor-card-header {
     background-color: $blue;

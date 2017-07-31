@@ -1,5 +1,4 @@
-$white: rgb(255, 255, 255);
-$blue: rgb(16, 108, 200);
+@import '../constants';
 
 .submit-button {
     color: $blue;
