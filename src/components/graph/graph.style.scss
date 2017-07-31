@@ -1,8 +1,12 @@
-.tick line {
-  stroke: #DADADA
+$grey: #dadada;
+
+.tick {
+    line {
+        stroke: $grey;
+    }
 }
 
 .graph-title {
-  font-size: 13pt;
-  text-align: center;
+    font-size: 13pt;
+    text-align: center;
 }

@@ -1,47 +1,40 @@
+$blue: rgb(16, 108, 200);
+$white: rgb(16, 108, 200);
 
-
-
-.sensor-card{
-
+.sensor-card-header {
+    background-color: $blue;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 10px 10px 10px 15px;
 }
 
-.sensor-card-header{
-  background-color: rgb(16, 108, 200);
-  padding: 10px;
-  padding-left: 15px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+.sensor-card-content {
+    background-color: $white;
+    border: 4px;
+    overflow: hidden;
+    padding: 10px 10px 10px 15px;
 }
 
-.sensor-card-content{
-  background-color: rgb(255, 255, 255);
-  border: 4px;
-  padding: 10px;
-  overflow: hidden;
-  padding-left: 15px;
-}
-
-.sensor-tab-content{
-  padding:10px;
+.sensor-tab-content {
+    padding: 10px;
 }
 
 .edit-fields {
-  margin-top: 7px;
+    margin-top: 7px;
 }
 
-.config-edit-button{
-  float: right;
-
+.config-edit-button {
+    float: right;
 }
-.config-save-button{
-  float: right;
 
+.config-save-button {
+    float: right;
 }
-.config-cancel-button{
-  float: right;
 
+.config-cancel-button {
+    float: right;
 }
 
 .new-data-input {
-  margin-top: 7px;
+    margin-top: 7px;
 }
