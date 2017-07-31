@@ -25,9 +25,12 @@
                 <div ng-repeat="path in stream.paths">
                     <div class="info-static">{{path.url}}</div>
                 </div>
-                <button type="button " class="btn btn-primary btn-sm" ng-click="EditFields()">
-                            <span class="glyphicon glyphicon-pencil " /> Edit
+                <button class="md-raised md-primary md-button md-ink-ripple" type = "button" ng-click="EditFields()">
+                            <span class="ng-scope"/> Edit
+                            <div class = "md-ripple-container"></div>
+
                         </button>
+
             </div>
             <div ng-if="editing">
                 <div class="info-static">{{stream.id}}</div>
@@ -57,12 +60,14 @@
     </div>
     <div ng-if="editing">
         <div class=" edit-buttons">
-            <button type="button " class="btn btn-success btn-sm" ng-click="SaveFields()">
-                        <span class="glyphicon glyphicon-ok" /> Save
+            <button class="md-raised md-primary md-button md-ink-ripple"  ng-click="SaveFields()">
+                        <span class="ng-scope" /> Save
+                        <div class = "md-ripple-container"></div>
                     </button>
 
-            <button type="button " class="btn btn-default btn-sm" ng-click="CancelFields()">
-                        <span class="glyphicon glyphicon-remove " /> Cancel
+            <button class="md-raised md-primary md-button md-ink-ripple" ng-click="CancelFields()">
+                        <span class="ng-scope"/> Cancel
+                        <div class = "md-ripple-container"></div>
                     </button>
         </div>
     </div>
