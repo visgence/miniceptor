@@ -1,25 +1,30 @@
-<div class="card">
-    <div class="row">
-        <div class="col-md-3">
-            Start time
-        </div>
-        <div class="col-sm-9">
-            <div class="form-group">
-                <input type="text" class="form-control" id="start-time-picker" />
-            </div>
-        </div>
+<md-card class="time-card">
+  <md-toolbar class="time-card-header demo-toolbar md-primary">
+    <h3 class="time-card-header-text">Time</h3>
+  </md-toolbar>
+  <md-content class="time-card-content">
+
+    <div class="col-md-3">
+      Start time
     </div>
-    <div class="row">
-        <div class="col-md-3">
-            End time
-        </div>
-        <div class="col-sm-9">
-            <input type="text" class="form-control" id="end-time-picker" />
-        </div>
+    <div class="col-sm-9">
+      <div class="form-group">
+        <input type="text" class="form-control" id="start-time-picker" />
+      </div>
     </div>
-    <div class="row clearfix">
-        <div class="col-md-12 submit-button">
-            <button class="btn btn-primary" ng-click="SubmitDates()" >Submit</button>
-        </div>
+
+    <div class="col-md-3">
+      End time
     </div>
-</div>
+    <div class="col-sm-9">
+      <input type="text" class="form-control" id="end-time-picker" />
+    </div>
+
+    <div class="submit-button">
+      <button class="md-button md-raised md-primary  md-ink-ripple" ng-click="SubmitDates()">
+                <span class="ng-span" /> Submit
+                  <div class = "md-ripple-container"></div>
+            </button>
+    </div>
+  </md-content>
+</md-card>

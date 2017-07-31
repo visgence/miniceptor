@@ -1,5 +1,5 @@
 .tree-container{
-  padding: 10px;
+  padding: 15px;
 }
 
 .dropdown-btn {
@@ -11,7 +11,18 @@
   white-space: nowrap;
 }
 
+.tree-card-header {
+  background-color: rgb(16, 108, 200);
+  padding-left: 15px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.tree-content{
+  padding:10px;
+}
+
 .dropdown-btn:hover{
-  background-color: #337AB7;
+  background-color: rgb(16, 108, 200);
   cursor: pointer;
 }

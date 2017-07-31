@@ -19,6 +19,7 @@ export default class graphController {
             $('#graph-message').toggleClass('alert-warning');
             $('#graph-message').html('Please select a stream.');
             return;
+
         }
 
         const url = 'reading/?' + location.href.split('?')[1];
