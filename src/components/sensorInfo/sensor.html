@@ -31,13 +31,13 @@
                 <div class="info-static">{{sensor.last_calibration.timestamp}}</div>
                 <div class="info-static">{{sensor.last_calibration.coefficients}}</div>
                 <div class="edit-button">
-                  <md-button class="config-edit-button md-button md-raised md-primary  md-ink-ripple" ng-click="EditFields(title)">
+                  <md-button class="config-button md-button md-raised md-primary  md-ink-ripple" ng-click="EditFields(title)">
                               <span class="ng-span" /> Edit
                                 <div class = "md-ripple-container"></div>
                           </md-button>
                 </div>
               </div>
-              <div ng-if="editing" class="edit-field">
+              <div ng-if="editing">
                 <div class="info-static">{{sensor.uuid}}</div>
                 <div class="info-static">{{sensor.model}}</div>
                 <div class="info-static">{{sensor.name}}</div>
@@ -57,11 +57,11 @@
           <div class="row">
             <div ng-if="editing">
               <div class=" edit-buttons">
-                <md-button class="config-save-button md-raised md-primary md-button md-ink-ripple" ng-click="SaveFields()">
+                <md-button class="config-button md-raised md-primary md-button md-ink-ripple" ng-click="SaveFields()">
                             <span class="ng-span" /> Save
                               <div class = "md-ripple-container"></div>
                         </md-button>
-                <md-button class="config-cancel-button md-button md-default-theme md-ink-ripple" ng-click="CancelFields()">
+                <md-button class="config-button md-button md-default-theme md-ink-ripple" ng-click="CancelFields()">
                             <span class="ng-span" /> Cancel
                               <div class = "md-ripple-container"></div>
                         </md-button>
