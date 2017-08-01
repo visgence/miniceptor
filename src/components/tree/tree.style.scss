@@ -1,28 +1,30 @@
-.tree-container{
-  padding: 15px;
+@import '../constants';
+
+.tree-container {
+    padding: 15px;
 }
 
 .dropdown-btn {
-  display: block;
-  padding: 3px 20px;
-  clear: both;
-  font-weight: 400;
-  line-height: 1.42;
-  white-space: nowrap;
+    clear: both;
+    display: block;
+    font-weight: 400;
+    line-height: 1.42;
+    padding: 3px 20px;
+    white-space: nowrap;
+
+    &:hover {
+        background-color: $blue;
+        cursor: pointer;
+    }
 }
 
 .tree-card-header {
-  background-color: rgb(16, 108, 200);
-  padding-left: 15px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+    background-color: $blue;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding-left: 15px;
 }
 
-.tree-content{
-  padding:10px;
-}
-
-.dropdown-btn:hover{
-  background-color: rgb(16, 108, 200);
-  cursor: pointer;
+.tree-content {
+    padding: 10px;
 }
