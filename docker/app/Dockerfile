@@ -16,7 +16,18 @@ RUN pip install -r requirements.txt
 RUN wget https://nodejs.org/download/release/v6.10.2/node-v6.10.2-linux-x64.tar.gz
 RUN tar --strip-components 1 -xzvf node-v* -C /usr/local
 
+
+
+# bower needs to be able to be run by root.
+RUN npm install -g bower
+RUN touch /root/.bowerrc
+RUN echo "{ \"allow_root\": true}" >> /root/.bowerrc
+
+RUN adduser miniceptor
+USER miniceptor
+
 VOLUME ["/home/miniceptor"]
 WORKDIR /home/miniceptor
+
 
 expose 8000

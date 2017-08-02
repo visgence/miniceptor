@@ -1,12 +1,17 @@
 # folders
 node_modules/
 static/dist/
+.cache/
+.config/
 
 # node
 webpack-stats.json
 npm-debug.log
+.npm/
 
 #misc
 *.DS_Store
 *.pyc
 .gitignore~
+.bash_history
+
