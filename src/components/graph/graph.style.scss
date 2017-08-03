@@ -4,6 +4,12 @@
     height:100%;
 }
 
+.graph-card-header {
+    padding-left: 15px;
+    background-color: $blue;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
 .tick {
     line {
         stroke: $grey;
