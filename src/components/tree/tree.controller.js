@@ -1,12 +1,11 @@
 require('./../../../node_modules/bootstrap-treeview/dist/bootstrap-treeview.min.js');
 
 export default class treeController {
-    constructor(apiService, $scope, $location, $timeout) {
+    constructor(apiService, $scope, $location) {
         'ngInject';
 
         this.$scope = $scope;
         this.$location = $location;
-        this.$timeout = $timeout;
         this.apiService = apiService;
     }
 

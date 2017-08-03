@@ -8,6 +8,9 @@ export default class infoService {
 
     // Used by stream info
     getStream() {
+        if (this === undefined) {
+            return '';
+        }
         return this.stream;
     }
 
