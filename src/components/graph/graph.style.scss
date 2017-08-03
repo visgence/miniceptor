@@ -1,5 +1,9 @@
 @import '../constants';
 
+.graph-card {
+    height:100%;
+}
+
 .tick {
     line {
         stroke: $grey;
