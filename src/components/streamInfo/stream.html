@@ -1,75 +1,80 @@
-<div class="card clear-fix">
-    <div class="card-title">
-        Stream Info
-    </div>
+<md-card stream-card md-theme="default">
+  <!--Encases entire layout in material card container-->
+
+  <md-toolbar class="stream-card-header demo-toolbar md-primary">
+    <h3 class="stream-card-header-text">Stream Information</h3>
+    <!--"toolbar" used as card header-->
+  </md-toolbar>
+  <md-content class="stream-card-content md ">
+    <!-- under header, define text content defined as medium -->
     <div class="alert alert-warning warning-message" id="warning-message"> </div>
     <div class="row">
-        <div class="col-md-6">
-            <!-- float right, do bold -->
-            <div class="info-title">ID</div>
-            <div class="info-title"> Name</div>
-            <div class="info-title">Description</div>
-            <div class="info-title">Minimum Value</div>
-            <div class="info-title">Maximum Value</div>
-            <div class="info-title">Sensor Name</div>
-            <div class="info-title">Paths</div>
+      <div class="col-md-6">
+        <!-- float right, do bold -->
+        <div class="info-title">ID</div>
+        <div class="info-title"> Name</div>
+        <div class="info-title">Description</div>
+        <div class="info-title">Minimum Value</div>
+        <div class="info-title">Maximum Value</div>
+        <div class="info-title">Sensor Name</div>
+        <div class="info-title">Paths</div>
+      </div>
+
+      <div class="col-md-6">
+        <div ng-if="!editing">
+          <div class="info-static">{{stream.id}}</div>
+          <div class="info-static">{{stream.name}}</div>
+          <div class="info-static">{{stream.description}}</div>
+          <div class="info-static">{{stream.min_value}}</div>
+          <div class="info-static">{{stream.max_value}}</div>
+          <div class="info-static">{{stream.sensor}}</div>
+          <div ng-repeat="path in stream.paths">
+            <div class="info-static">{{path.url}}</div>
+          </div>
+          <md-button class="stream-button md-raised md-primary md-ink-ripple" ng-click="EditFields()">
+            <span class="ng-scope" /> Edit
+            <div class="md-ripple-container"></div>
+          </md-button>
         </div>
-        <div class="col-md-6">
-            <div ng-if="!editing">
-                <div class="info-static">{{stream.id}}</div>
-                <div class="info-static">{{stream.name}}</div>
-                <div class="info-static">{{stream.description}}</div>
-                <div class="info-static">{{stream.min_value}}</div>
-                <div class="info-static">{{stream.max_value}}</div>
-                <div class="info-static">{{stream.sensor}}</div>
-                <div ng-repeat="path in stream.paths">
-                    <div class="info-static">{{path.url}}</div>
-                </div>
-                <button class="md-raised md-primary md-button md-ink-ripple" type = "button" ng-click="EditFields()">
-                            <span class="ng-scope"/> Edit
-                            <div class = "md-ripple-container"></div>
-
-                        </button>
-
+        <div ng-if="editing">
+          <div class="info-static">{{stream.id}}</div>
+          <div class="info-edit">
+            <input ng-model="stream.name" value="{{stream.name}}" />
+          </div>
+          <div class="info-edit">
+            <input ng-model="stream.description" value="{{stream.description}}" />
+          </div>
+          <div class="info-edit">
+            <input ng-model="stream.min_value" value="{{stream.min_value}}" />
+          </div>
+          <div class="info-edit">
+            <input ng-model="stream.max_value" value="{{stream.max_value}}" />
+          </div>
+          <div class="info-static">{{stream.sensor}}</div>
+          <div ng-repeat="path in stream.paths">
+            <div class="info-edit">
+              <input ng-model="path.url" />
             </div>
-            <div ng-if="editing">
-                <div class="info-static">{{stream.id}}</div>
-                <div class="info-edit">
-                    <input ng-model="stream.name" value="{{stream.name}}" />
-                </div>
-                <div class="info-edit">
-                    <input ng-model="stream.description" value="{{stream.description}}" />
-                </div>
-                <div class="info-edit">
-                    <input ng-model="stream.min_value" value="{{stream.min_value}}" />
-                </div>
-                <div class="info-edit">
-                    <input ng-model="stream.max_value" value="{{stream.max_value}}" />
-                </div>
-                <div class="info-static">{{stream.sensor}}</div>
-                <div ng-repeat="path in stream.paths">
-                    <div class="info-edit">
-                        <input ng-model="path.url" />
-                    </div>
-                </div>
-                <button type="button " class="btn btn-sm" ng-click="AddPath()">
+          </div>
+          <button type="button " class="btn btn-sm" ng-click="AddPath()">
                             <span class="glyphicon glyphicon-plus" />
-                        </button>
-            </div>
+          </button>
         </div>
+      </div>
     </div>
+
     <div ng-if="editing">
-        <div class=" edit-buttons">
-            <button class="md-raised md-primary md-button md-ink-ripple"  ng-click="SaveFields()">
-                        <span class="ng-scope" /> Save
-                        <div class = "md-ripple-container"></div>
-                    </button>
+      <md-button class="stream-button md-raised md-primary md-ink-ripple" ng-click="SaveFields()">
+        <span class="ng-scope" /> Save
+        <div class="md-ripple-container"></div>
+      </md-button>
 
-            <button class="md-raised md-primary md-button md-ink-ripple" ng-click="CancelFields()">
-                        <span class="ng-scope"/> Cancel
-                        <div class = "md-ripple-container"></div>
-                    </button>
-        </div>
+      <md-button class="stream-button" ng-click="CancelFields()">
+        <span class="ng-scope" /> Cancel
+        <div class="md-ripple-container"></div>
+      </md-button>
     </div>
 
-</div>
+  </md-content>
+</md-card>
+<!-- </div> -->

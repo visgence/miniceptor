@@ -18,7 +18,7 @@ import GenerateJson from './pages/generateJson.html';
 
 require ('./../node_modules/angular-material/angular-material.min.css');
 
-angular.module('miniceptor', ['ngRoute'])
+angular.module('miniceptor', ['ngRoute', 'ngMaterial'])
     .component('graphcomponent', graphcomponent)
     .component('timecomponent', timecomponent)
     .component('treecomponent', treecomponent)

@@ -1,3 +1,27 @@
+@import '../constants';
+
 .warning-message {
-  display: none;
+    display: none;
+}
+
+.stream-card-header {
+    background-color: $blue;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 10px 10px 10px 15px;
+}
+
+.stream-card-content {
+    background-color: $white;
+    border: 4px;
+    overflow: hidden;
+    padding: 10px 10px 10px 15px;
+
+}
+
+.stream-button {
+    background-color: $blue;
+    color: $blue;
+    float: right;
+    padding-top: 10px;
 }

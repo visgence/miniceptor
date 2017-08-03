@@ -1,0 +1,3 @@
+requests==2.10.0
+jinja2==2.8
+cherrypy==8.1.0

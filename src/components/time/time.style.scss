@@ -1,4 +1,22 @@
+@import '../constants';
+
 .submit-button {
-  margin-top: 10px;
-  float: right;
+    color: $blue;
+    float: right;
+    padding-left: 10px;
+    padding-top: 20px;
+}
+
+.time-card-content {
+    background-color: $white;
+    border: 4px;
+    overflow: hidden;
+    padding: 10px 10px 10px 15px;
+}
+
+.time-card-header {
+    background-color: $blue;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding-left: 15px;
 }

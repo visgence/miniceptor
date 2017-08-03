@@ -1,7 +1,10 @@
-<div class="card">
+<md-card>
+  <md-toolbar class="tree-card-header demo-toolbar md-primary">
+    <h3 class="tree-card-header-text">Search</h3>
+  </md-toolbar>
     <div class="alert hidden" id="tree-message"> </div>
-    <div class="row">
-        <div class="col-md-12">
+    <md-content class="tree-content">
+        <div class="col-md-11">
             <div class="input-group">
                 <div class="input-group-btn">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -22,10 +25,8 @@
                 <input type="text" class="form-control" ng-model="searchWords" ng-change="searchInput()" aria-label="..." placeholder="Search..." />
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 tree-container">
+        <div class="col-md-11 tree-container">
             <div id="my-tree"></div>
-        </div>
-    </div>
-</div>
+          </div>
+    </md-content>
+</md-card>

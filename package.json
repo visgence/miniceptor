@@ -4,12 +4,9 @@
     "angular": "1.6.5",
     "angular-animate": "1.6.5",
     "angular-aria": "1.6.5",
-    "angular-bootstrap-datetimepicker": "1.1.4",
     "angular-material": "1.1.4",
     "angular-route": "1.6.5",
     "angular-ui-router": "1.0.3",
-    "angularjs-datepicker": "2.1.23",
-    "angularjs-datetime-picker": "0.1.16",
     "bootstrap": "3.3.7",
     "bootstrap-treeview": "1.2.0",
     "d3": "4.10.0",
@@ -59,7 +56,8 @@
     "scsslint": "./node_modules/.bin/sass-lint src '**/*.scss' -v -q",
     "start": "npm run build & python server.py",
     "watch": "webpack --watch --progress",
-    "webpack": "webpack --progress"
+    "webpack": "webpack --progress",
+    "postinstall": "npm --prefix ./node_modules/node-sass/ run install"
   },
   "version": "1.8.0"
 }
