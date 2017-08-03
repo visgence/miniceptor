@@ -1,10 +1,11 @@
 import * as d3 from 'd3';
 
 export default class graphController {
-    constructor(infoService, apiService, $location, $scope) {
+    constructor(infoService, apiService, $location, $scope, $timeout) {
         'ngInject';
         this.$location = $location;
         this.$scope = $scope;
+        this.$timeout = $timeout;
         this.infoService = infoService;
         this.apiService = apiService;
     }
@@ -19,7 +20,6 @@ export default class graphController {
             $('#graph-message').toggleClass('alert-warning');
             $('#graph-message').html('Please select a stream.');
             return;
-
         }
 
         const url = 'reading/?' + location.href.split('?')[1];
@@ -28,6 +28,7 @@ export default class graphController {
             .then((success) => {
                 if (success.error !== undefined) {
                     $('#graph-message').toggleClass('alert-danger');
+                    $('#graph-message').toggleClass('graph-message');
                     $('#graph-message').html('No data could be found.');
                 } else {
                     this.drawGraph(success.data);
@@ -41,9 +42,8 @@ export default class graphController {
     }
 
     drawGraph(data) {
-        console.log('drawing')
-        let width = $('#my-graph')[0].clientWidth;
-        let height = 300;
+        let width = $('#graph-svg')[0].clientWidth;
+        let height = $('#graph-svg')[0].clientHeight;
 
         let min = data.readings[0][1];
         let max = data.readings[0][1];
@@ -78,11 +78,15 @@ export default class graphController {
         };
         width = width - margin.left - margin.right;
         if (width < 0) {
+            console.log('drawing')
+            this.retryCounter ++;
+            if( retryCounter < 10) {
+                this.$timeout(this.drawGraph(data), 1000);
+            }
             return;
         }
         height = height - margin.top - margin.bottom;
-
-        const newChart = d3.select('#my-graph')
+        const newChart = d3.select('#graph-svg')
             .append('svg')
             .attr('class', 'Chart-Container')
             .attr('width', width + margin.left + margin.right)
