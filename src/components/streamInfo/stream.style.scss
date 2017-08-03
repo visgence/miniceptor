@@ -1,7 +1,7 @@
 @import '../constants';
 
-.warning-message {
-    display: none;
+.stream-card {
+    visibility: hidden;
 }
 
 .stream-card-header {
@@ -24,4 +24,8 @@
     color: $blue;
     float: right;
     padding-top: 10px;
+}
+
+.warning-message {
+    display: none;
 }

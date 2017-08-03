@@ -1,35 +1,37 @@
-<div class="container-fluid">
-    <navcomponent></navcomponent>
-    <div class="row main">
-        <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-12 left-col">
-                    <!--  time controls-->
-                    <timecomponent></timecomponent>
-                </div>
+<!-- <navcomponent></navcomponent> -->
+
+<div flex>
+    <md-grid-list md-cols-gt-md="15" md-row-height="250px">
+
+        <md-grid-tile md-colspan="3" md-rowspan="1">
+            <div class="stretch">
+                <timecomponent></timecomponent>
             </div>
-            <div class="row">
-                <div class="col-md-12 left-col">
-                    <!-- tree controls -->
-                    <treecomponent></treecomponent>
-                </div>
+        </md-grid-tile>
+
+        <md-grid-tile md-colspan="12" md-rowspan="2">
+            <div class="stretch">
+                <graphcomponent></graphcomponent>
             </div>
-        </div>
-        <div class="col-md-9">
-            <div class="row">
-                <div class="col-md-12 right-col">
-                    <!--  graph  -->
-                    <graphcomponent></graphcomponent>
-                </div>
+        </md-grid-tile>
+
+        <md-grid-tile md-colspan="3" md-rowspan="3">
+            <div class="stretch">
+                <treecomponent></treecomponent>
             </div>
-            <div class="row">
-                <div class="col-md-6 right-col left-col">
-                    <streamcomponent></streamcomponent>
-                </div>
-                <div class="col-md-6 right-col">
-                    <sensorcomponent></sensorcomponent>
-                </div>
+        </md-grid-tile>
+
+        <md-grid-tile md-colspan="6" md-rowspan="1">
+            <div class="stretch">
+                <streamcomponent></streamcomponent>
             </div>
-        </div>
-    </div>
+        </md-grid-tile>
+
+        <md-grid-tile md-colspan="6" md-rowspan="1">
+            <div class="stretch">
+                <sensorcomponent></sensorcomponent>
+            </div>
+        </md-grid-tile>
+
+    </md-grid-list>
 </div>

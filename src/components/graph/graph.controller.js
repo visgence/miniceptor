@@ -41,6 +41,7 @@ export default class graphController {
     }
 
     drawGraph(data) {
+        console.log('drawing')
         let width = $('#my-graph')[0].clientWidth;
         let height = 300;
 

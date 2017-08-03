@@ -79,9 +79,9 @@ export default class streamController {
     }
 
     LoadStream() {
-        let curStream = this.$location.search().ds;
+        const curStream = this.$location.search().ds;
         if (curStream === undefined) {
-            curStream = '1';
+            return;
         }
         this.apiService.get('datastream/' + curStream)
             .then((success) => {
@@ -104,6 +104,7 @@ export default class streamController {
                 this.$scope.stream = dataToDisplay;
                 this.$scope.ShowInfo = true;
                 this.infoService.setStream(stream);
+                $('#stream-card').css('visibility', 'visible');
             })
             .catch((error) => {
                 console.log('error');

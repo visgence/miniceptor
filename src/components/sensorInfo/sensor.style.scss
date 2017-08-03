@@ -1,5 +1,9 @@
 @import '../constants';
 
+.sensor-card {
+    visibility: hidden;
+}
+
 .sensor-card-header {
     background-color: $blue;
     border-top-left-radius: 4px;
