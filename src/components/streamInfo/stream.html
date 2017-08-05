@@ -51,12 +51,64 @@
             </md-list>
 
             <md-button class="stream-edit-button md-raised md-primary md-ink-ripple" ng-click="EditFields()">
-              <span class="ng-scope" /> Edit
+              <span class="ng-scope"/> Edit
               <div class="md-ripple-container"></div>
             </md-button>
           </div>
           <div ng-if="editing">
-            <div class="info-static">{{stream.id}}</div>
+            <md-list class="stream-list">
+              <md-list-item>
+                <h5>ID:</h5> <span flex></span>
+                <h5>{{stream.id}}</h5>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+                <h5>Name:</h5> <span flex></span>
+                <md-input-container>
+                  <input name = "name" ng-model = "stream.name"/>
+                  <div class = "hint">Enter a new stream name</div>
+                </md-input-container>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+                <h5>Description:</h5> <span flex></span>
+                <md-input-container>
+                  <input name = "description" ng-model = "stream.description"/>
+                  <div class = "hint">Enter a new description</div>
+                </md-input-container>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+                <h5>Minimum Value:</h5> <span flex></span>
+                <md-input-container>
+                  <input name = "minimum" ng-model = "stream.min_value"/>
+                  <div class = "hint">Enter a new minimum value</div>
+                </md-input-container>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+              <h5>Maximum Value:</h5><span flex></span>
+              <md-input-container>
+                <input name = "maximum" ng-model = "stream.max_value"/>
+                <div class = "hint">Enter a new maximum value</div>
+              </md-input-container>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item>
+                <h5>Sensor Name:</h5> <span flex></span>
+                <h5>{{stream.sensor}}</h5>
+              </md-list-item>
+              <md-divider></md-divider>
+              <md-list-item ng-repeat="path in stream.paths">
+                <h5>Paths:</h5> <span flex></span>
+                <md-input-container>
+                  <input name = "path" ng-model = "path.url"/>
+                  <div class = "hint">Enter a new path URL</div>
+                </md-input-container>
+              </md-list-item>
+              <md-divider></md-divider>
+            </md-list>
+            <!-- <div class="info-static">{{stream.id}}</div>
             <div class="info-edit">
               <input ng-model="stream.name" value="{{stream.name}}" />
             </div>
@@ -77,23 +129,19 @@
             </div>
             <button type="button " class="btn btn-sm" ng-click="AddPath()">
                             <span class="glyphicon glyphicon-plus" />
-          </button>
+          </button> -->
+          <md-button class="stream-save-button md-raised md-primary md-ink-ripple" ng-click="SaveFields()">
+            <span class="ng-scope" /> Save
+            <div class="md-ripple-container"></div>
+          </md-button>
+
+          <md-button class="stream-cancel-button" ng-click="CancelFields()">
+            <span class="ng-scope" /> Cancel
+            <div class="md-ripple-container"></div>
+          </md-button>
           </div>
         </div>
       </md-list>
-
-      <div ng-if="editing">
-        <md-button class="stream-save-button md-raised md-primary md-ink-ripple" ng-click="SaveFields()">
-          <span class="ng-scope" /> Save
-          <div class="md-ripple-container"></div>
-        </md-button>
-
-        <md-button class="stream-cancel-button" ng-click="CancelFields()">
-          <span class="ng-scope" /> Cancel
-          <div class="md-ripple-container"></div>
-        </md-button>
-      </div>
-
     </md-content>
   </div>
 </md-card>

@@ -56,8 +56,65 @@
                 </div>
               </md-list>
             </div>
-            <div ng-if="editing">
-              <div class="info-static">{{sensor.uuid}}</div>
+              <div ng-if="editing">
+                <md-list class="stream-list">
+                  <md-list-item class="list-entry">
+                    <h5>UUID:</h5> <span flex></span>
+                    <h5>{{sensor.uuid}}</h5>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item>
+                    <h5>Model:</h5> <span flex></span>
+                    <h5>{{sensor.model}}</h5>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item>
+                    <h5>Name:</h5> <span flex></span>
+                    <h5>{{sensor.name}}</h5>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item>
+                    <h5>Description:</h5> <span flex></span>
+                    <md-input-container>
+                      <input name = "description" ng-model = "sensor.description"/>
+                      <div class = "hint">Enter a new description</div>
+                    </md-input-container>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item>
+                    <h5>Units:</h5> <span flex></span>
+                    <md-input-container>
+                      <input name = "units" ng-model = "sensor.units"/>
+                      <div class = "hint">Enter new units</div>
+                    </md-input-container>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item>
+                    <h5>Last Calibration:</h5> <span flex></span>
+                    <h5>{{sensor.last_calibration.timestamp}}</h5>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                  <md-list-item>
+                    <h5>Calibration:</h5> <span flex></span>
+                    <md-input-container>
+                      <input required type = "number" name = "last_calibration_coefficients" ng-model = "sensor.last_calibration_coefficients"/>
+                      <div class = "hint">Enter calibration coefficients</div>
+                    </md-input-container>
+                  </md-list-item>
+                  <md-divider></md-divider>
+                </md-list>
+
+              <md-button class="config-save-button md-raised md-primary md-ink-ripple" ng-click="SaveFields()">
+                <span class="ng-scope" /> Save
+                <div class="md-ripple-container"></div>
+              </md-button>
+
+              <md-button class="config-cancel-button" ng-click="CancelFields()">
+                <span class="ng-scope" /> Cancel
+                <div class="md-ripple-container"></div>
+              </md-button>
+              </div>
+              <!-- <div class="info-static">{{sensor.uuid}}</div>
               <div class="info-static">{{sensor.model}}</div>
               <div class="info-static">{{sensor.name}}</div>
               <div class="info-edit">
@@ -70,7 +127,6 @@
               <div class="info-edit">
                 <input ng-model="sensor.last_calibration.coefficients" value="{{sensor.last_calibration.coefficients}}" />
               </div>
-            </div>
             <div class="row">
               <div ng-if="editing">
                 <div class=" edit-buttons">
@@ -84,7 +140,7 @@
                   </md-button>
                 </div>
               </div>
-            </div>
+            </div> -->
           </md-tab-body>
         </md-tab>
         <!-- End of config tab content -->
