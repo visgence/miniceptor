@@ -8,10 +8,10 @@
   <md-content class="stream-card-content md ">
     <!-- under header, define text content defined as medium -->
     <div class="alert alert-warning warning-message" id="warning-message"> </div>
-    <div class="row">
+    <md-list class="stream-list">
       <div class="col-md-6">
         <!-- float right, do bold -->
-        <div class="info-title">ID</div>
+        <md-list-item class="info-title">ID</md-list-item>
         <div class="info-title"> Name</div>
         <div class="info-title">Description</div>
         <div class="info-title">Minimum Value</div>
@@ -61,7 +61,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </md-list>
 
     <div ng-if="editing">
       <md-button class="stream-save-button md-raised md-primary md-ink-ripple" ng-click="SaveFields()">
