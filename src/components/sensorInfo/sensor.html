@@ -1,19 +1,19 @@
 <md-card sensor-card md-theme="default">
+  <div flex>
+    <md-toolbar class="sensor-card-header demo-toolbar md-primary">
+      <h3 class="stream-card-header-text">Sensor Information</h3>
+      <!--"toolbar" used as card header-->
+    </md-toolbar>
 
-  <md-toolbar class="sensor-card-header demo-toolbar md-primary">
-    <h3 class="stream-card-header-text">Sensor Information</h3>
-    <!--"toolbar" used as card header-->
-  </md-toolbar>
-
-  <md-content class="sensor-card-content md">
-    <md-tabs md-dynamic-height md-border-bottom class="ng-isolate-scope md-dynamic height">
-      <md-tab id="config-tab" aria-controls="Config">
-        <md-tab-label>Config</md-tab-label>
-        <md-tab-body class="sensor-tab-content">
-          <!-- Tab content -->
-          <div ng-if="!editing">
-              <md-list>
-                <md-list-item class = "list-entry">
+    <md-content class="sensor-card-content md">
+      <md-tabs md-dynamic-height md-border-bottom class="ng-isolate-scope md-dynamic height">
+        <md-tab id="config-tab" aria-controls="Config">
+          <md-tab-label>Config</md-tab-label>
+          <md-tab-body class="sensor-tab-content">
+            <!-- Tab content -->
+            <div ng-if="!editing">
+              <md-list class="stream-list">
+                <md-list-item class="list-entry">
                   <h5>UUID:</h5> <span flex></span>
                   <h5>{{sensor.uuid}}</h5>
                 </md-list-item>
@@ -47,7 +47,7 @@
                   <h5>Calibration:</h5> <span flex></span>
                   <h5>{{sensor.last_calibration.coefficients}}</h5>
                 </md-list-item>
-                  <md-divider></md-divider>
+                <md-divider></md-divider>
                 <div class="edit-button">
                   <md-button class="config-button md-button md-raised md-primary  md-ink-ripple" ng-click="EditFields(title)">
                     <span class="ng-span" /> Edit
@@ -55,59 +55,85 @@
                   </md-button>
                 </div>
               </md-list>
-          </div>
-          <div ng-if="editing">
-            <div class="info-static">{{sensor.uuid}}</div>
-            <div class="info-static">{{sensor.model}}</div>
-            <div class="info-static">{{sensor.name}}</div>
-            <div class="info-edit">
-              <input ng-model="sensor.description" value="{{sensor.description}}" />
             </div>
-            <div class="info-edit">
-              <input ng-model="sensor.units" value="{{sensor.units}}" />
-            </div>
-            <div class="info-static">{{sensor.last_calibration.timestamp}}</div>
-            <div class="info-edit">
-              <input ng-model="sensor.last_calibration.coefficients" value="{{sensor.last_calibration.coefficients}}" />
-            </div>
-          </div>
-          <div class="row">
             <div ng-if="editing">
-              <div class=" edit-buttons">
-                <md-button class="config-save-button md-raised md-primary md-button md-ink-ripple" ng-click="SaveFields()">
-                            <span class="ng-span" /> Save
-                              <div class = "md-ripple-container"></div>
-                        </md-button>
-                <md-button class="config-cancel-button md-button md-default-theme md-ink-ripple" ng-click="CancelFields()">
-                            <span class="ng-span" /> Cancel
-                              <div class = "md-ripple-container"></div>
-                        </md-button>
-              </div>
-            </div>
-          </div>
-        </md-tab-body>
-      </md-tab>
-      <!-- End of config tab content -->
-
-      <md-tab id="entry-tab" aria-controls="Entry">
-        <md-tab-label>Entry</md-tab-label>
-        <md-tab-body class="sensor-tab-content">
-          <!-- Tab content -->
-          <div class="row">
-            <div class="col-md-6">
-              <div class="info-title">New Data</div>
-            </div>
-            <div class="col-md-6 new-data-input">
+              <div class="info-static">{{sensor.uuid}}</div>
+              <div class="info-static">{{sensor.model}}</div>
+              <div class="info-static">{{sensor.name}}</div>
               <div class="info-edit">
-                <input id="manual-entry" placeholder="Enter new data point" />
+                <input ng-model="sensor.description" value="{{sensor.description}}" />
+              </div>
+              <div class="info-edit">
+                <input ng-model="sensor.units" value="{{sensor.units}}" />
+              </div>
+              <div class="info-static">{{sensor.last_calibration.timestamp}}</div>
+              <div class="info-edit">
+                <input ng-model="sensor.last_calibration.coefficients" value="{{sensor.last_calibration.coefficients}}" />
               </div>
             </div>
-          </div>
-          <button type="button" ng-click="SendData()" class="btn btn-success btn-sm edit-button">
+            <div class="row">
+              <div ng-if="editing">
+                <div class=" edit-buttons">
+                  <md-button class="config-save-button md-raised md-primary md-button md-ink-ripple" ng-click="SaveFields()">
+                    <span class="ng-span" /> Save
+                    <div class="md-ripple-container"></div>
+                  </md-button>
+                  <md-button class="config-cancel-button md-button md-default-theme md-ink-ripple" ng-click="CancelFields()">
+                    <span class="ng-span" /> Cancel
+                    <div class="md-ripple-container"></div>
+                  </md-button>
+                </div>
+              </div>
+            </div>
+          </md-tab-body>
+        </md-tab>
+        <!-- End of config tab content -->
+
+        <md-tab id="entry-tab" aria-controls="Entry">
+          <md-tab-label>Entry</md-tab-label>
+          <md-tab-body class="sensor-tab-content">
+            <!-- Tab content -->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="info-title">New Data</div>
+              </div>
+              <div class="col-md-6 new-data-input">
+                <div class="info-edit">
+                  <input id="manual-entry" placeholder="Enter new data point" />
+                </div>
+              </div>
+            </div>
+            <button type="button" ng-click="SendData()" class="btn btn-success btn-sm edit-button">
               <span class="glyphicon glyphicon-send" /> Send
           </button>
 
-          <div ng-if="tab == 'export'">
+            <div ng-if="tab == 'export'">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="info-title">Export</div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <button type="button" class="btn btn-success btn-sm btn-row" ng-click="ExportSQL()">
+                          <span class="glyphicon glyphicon-send" /> SQL
+                      </button>
+                  </div>
+                  <div class="row">
+                    <button type="button" class="btn btn-success btn-sm btn-row" ng-click="ExportES()">
+                                <span class="glyphicon glyphicon-ok" />Elastic Search
+                      </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </md-tab-body>
+        </md-tab>
+        <!-- End of entry tab -->
+
+        <md-tab id="export-tab" aria-controls="Export">
+          <md-tab-label>Export</md-tab-label>
+          <md-tab-body class="sensor-tab-content">
+            <!-- Tab content -->
             <div class="row">
               <div class="col-md-6">
                 <div class="info-title">Export</div>
@@ -115,86 +141,61 @@
               <div class="col-md-6">
                 <div class="row">
                   <button type="button" class="btn btn-success btn-sm btn-row" ng-click="ExportSQL()">
-                          <span class="glyphicon glyphicon-send" /> SQL
-                      </button>
+                      <span class="glyphicon glyphicon-send" /> SQL
+                  </button>
                 </div>
                 <div class="row">
                   <button type="button" class="btn btn-success btn-sm btn-row" ng-click="ExportES()">
-                                <span class="glyphicon glyphicon-ok" />Elastic Search
-                      </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </md-tab-body>
-      </md-tab>
-      <!-- End of entry tab -->
-
-      <md-tab id="export-tab" aria-controls="Export">
-        <md-tab-label>Export</md-tab-label>
-        <md-tab-body class="sensor-tab-content">
-          <!-- Tab content -->
-          <div class="row">
-            <div class="col-md-6">
-              <div class="info-title">Export</div>
-            </div>
-            <div class="col-md-6">
-              <div class="row">
-                <button type="button" class="btn btn-success btn-sm btn-row" ng-click="ExportSQL()">
-                      <span class="glyphicon glyphicon-send" /> SQL
-                  </button>
-              </div>
-              <div class="row">
-                <button type="button" class="btn btn-success btn-sm btn-row" ng-click="ExportES()">
                             <span class="glyphicon glyphicon-ok" />Elastic Search
                   </button>
+                </div>
               </div>
             </div>
-          </div>
-        </md-tab-body>
-      </md-tab>
-      <!-- End of Export tab -->
+          </md-tab-body>
+        </md-tab>
+        <!-- End of Export tab -->
 
-      <md-tab id="command-tab" aria-controls="Command">
-        <md-tab-label>Command</md-tab-label>
-        <md-tab-body class="sensor-tab-content">
-          <!-- Tab content -->
-          <div class="row">
-            <div class="col-md-6">
-              <div class="info-title">{{sensor.name}}</div>
-            </div>
-            <div class="col-md-6">
-              <div class="btn-row">
-                <bs-switch id="bs-swistch" ng-model="isSelected" switch-active="{{ isActive }}" type="checkbox" switch-on-text="On" switch-off-text="Off" switch-animate="true" switch-change="CommandSwitch()" />
-              </div>
-            </div>
-          </div>
-        </md-tab-body>
-      </md-tab>
-      <!-- End of Command Tab -->
-
-      <md-tab id="metadata-tab" aria-controls="Metadata">
-        <md-tab-label>Metadata</md-tab-label>
-        <md-tab-body class="sensor-tab-content">
-          <!-- Tab content -->
-          <div ng-if="tab == 'metadata'">
+        <md-tab id="command-tab" aria-controls="Command">
+          <md-tab-label>Command</md-tab-label>
+          <md-tab-body class="sensor-tab-content">
+            <!-- Tab content -->
             <div class="row">
               <div class="col-md-6">
-                <div ng-repeat="(key, val) in sensor.meta_data">
-                  <div class="info-title">{{key}}</div>
-                </div>
+                <div class="info-title">{{sensor.name}}</div>
               </div>
               <div class="col-md-6">
-                <div ng-repeat="(key, val) in sensor.meta_data">
-                  <div class="info-static">{{val}}</div>
+                <div class="btn-row">
+                  <bs-switch id="bs-swistch" ng-model="isSelected" switch-active="{{ isActive }}" type="checkbox" switch-on-text="On" switch-off-text="Off" switch-animate="true" switch-change="CommandSwitch()" />
                 </div>
               </div>
             </div>
-          </div>
-        </md-tab-body>
-      </md-tab>
-      <!-- End of Metadata tab -->
-    </md-tabs>
+          </md-tab-body>
+        </md-tab>
+        <!-- End of Command Tab -->
 
-  </md-content>
+        <md-tab id="metadata-tab" aria-controls="Metadata">
+          <md-tab-label>Metadata</md-tab-label>
+          <md-tab-body class="sensor-tab-content">
+            <!-- Tab content -->
+            <div ng-if="tab == 'metadata'">
+              <div class="row">
+                <div class="col-md-6">
+                  <div ng-repeat="(key, val) in sensor.meta_data">
+                    <div class="info-title">{{key}}</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div ng-repeat="(key, val) in sensor.meta_data">
+                    <div class="info-static">{{val}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </md-tab-body>
+        </md-tab>
+        <!-- End of Metadata tab -->
+      </md-tabs>
+
+    </md-content>
+  </div>
 </md-card>

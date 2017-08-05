@@ -1,9 +1,11 @@
+@import '../constants';
+
 .warning-message {
   display: none;
 }
 
 .stream-card-header {
-    background-color: $primary;
+    background-color: $primary !important;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     padding-left: 15px;
@@ -12,7 +14,7 @@
 .stream-card-content {
   background-color: rgb(255, 255, 255);
   border: 4px;
-  padding: 10px;
+  padding: 10px 15px 10px;
   overflow: hidden;
   padding-left: 15px;
 }
@@ -21,8 +23,12 @@
   background-color: white;
 }
 
-.stream-button {
-    background-color: $primary;
+.stream-list{
+  padding: 0 10px 10px 10px;
+}
+
+.stream-edit-button {
+    background-color: $primary !important;
     color: $primary;
     float: right;
     padding-top: 10px;

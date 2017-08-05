@@ -1,3 +1,4 @@
+@import '../constants';
 
 .sensor-card-content{
   background-color: rgb(255, 255, 255);
@@ -5,6 +6,7 @@
   padding: 10px;
   overflow: hidden;
   padding-left: 15px;
+}
 
 .sensor-card-header {
     background-color: $primary !important;
@@ -26,22 +28,26 @@
   float: right;
 
 }
+
 .config-save-button{
   float: right;
 
 }
+
 .config-cancel-button{
   float: right;
-
-.config-button {
-    background-color: $primary !important
-    float: right;
 }
 
-.edit-button {
+.config-button {
+    float: right;
+    background-color: $primary !important
+
+}
+
+.edit-button{
     padding-top: 10px;
 }
 
-.new-data-input {
+.new-data-input{
   margin-top: 7px;
 }
