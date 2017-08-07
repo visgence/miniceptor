@@ -5,7 +5,7 @@
 }
 
 .sensor-card-header {
-    background-color: $blue;
+    background-color: $primary ;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     padding-left: 15px;
@@ -41,6 +41,7 @@
 
 .config-save-button{
   float: right;
+}
 
 .sensor-tab-content {
     padding: 10px;
