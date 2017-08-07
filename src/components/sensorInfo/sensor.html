@@ -76,7 +76,7 @@
                 <md-list-item>
                   <h5>Description:</h5> <span flex></span>
                   <md-input-container>
-                    <input name="description" ng-model="sensor.description" />
+                    <input aria-label="description field for the sensor" name="description" ng-model="sensor.description" />
                     <div class="hint">Enter a new description</div>
                   </md-input-container>
                 </md-list-item>
@@ -84,7 +84,7 @@
                 <md-list-item>
                   <h5>Units:</h5> <span flex></span>
                   <md-input-container>
-                    <input name="units" ng-model="sensor.units" />
+                    <input aria-label="units fielf for the sensor" name="units" ng-model="sensor.units" />
                     <div class="hint">Enter new units</div>
                   </md-input-container>
                 </md-list-item>
@@ -97,7 +97,7 @@
                 <md-list-item>
                   <h5>Calibration:</h5> <span flex></span>
                   <md-input-container>
-                    <input required type="number" name="last_calibration_coefficients" ng-model="sensor.last_calibration_coefficients" />
+                    <input aria-label = "Coeffecients for senor calibration" required type="number" name="last_calibration_coefficients" ng-model="sensor.last_calibration_coefficients" />
                     <div class="hint">Enter calibration coefficients</div>
                   </md-input-container>
                 </md-list-item>
