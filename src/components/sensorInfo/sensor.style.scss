@@ -20,8 +20,11 @@ md-toolbar:not(.md-menu-toolbar).sensor-card-header {
     margin-top: 7px;
 }
 
-.md-button.md-default-theme.md-primary.md-raised.config-edit-button {
+.md-button.md-default-theme.md-primary.md-raised.config-edit-button,
+.md-button.md-default-theme.md-primary.md-raised.entry-edit-button {
     float: right;
+    background-color: $primary;
+    color: $white;
 }
 
 .sensor-card-content {
@@ -33,6 +36,7 @@ md-toolbar:not(.md-menu-toolbar).sensor-card-header {
 
 .md-button.md-default-theme.md-primary.md-raised.config-save-button {
     float: right;
+    background-color: $primary;
 }
 
 .config-cancel-button {

@@ -35,16 +35,9 @@ md-toolbar:not(.md-menu-toolbar).stream-card-header {
 
 }
 
-.hint {
-    bottom: 7px;
-    color: $grey;
-    font-size: 12px;
-    left: 2px;
-    line-height: 14px;
-    position: absolute;
-    right: auto;
-    transition: all .3s cubic-bezier(.55, 0, .55, .2);
-
+.input-container{
+    margin: 0px;
+    padding-top: 10px;
 }
 
 .md-button.md-default-theme.md-primary.md-raised.stream-save-button {
