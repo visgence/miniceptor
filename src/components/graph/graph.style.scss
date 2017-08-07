@@ -1,9 +1,5 @@
 @import '../constants';
 
-.graph-card {
-    height: 100%;
-}
-
 md-toolbar:not(.md-menu-toolbar).graph-card-header {
     background-color: $primary;
     border-top-left-radius: 4px;
@@ -11,22 +7,30 @@ md-toolbar:not(.md-menu-toolbar).graph-card-header {
     padding: 5px 15px 10px 15px;
 }
 
-.graph-svg {
-    height: 100%;
-    width: 100%;
-}
-
 .tick {
     line {
         stroke: $grey;
     }
+    text {
+        fill: $dark-grey;
+    }
 }
 
-.graph-title {
-    font-size: 13pt;
-    text-align: center;
+.graph-container{
+    height: 350px;
 }
 
 .graph-message {
     display: none;
+}
+
+.graph-message-display {
+    display: block;
+    background-color: $light-yellow;
+    color: $dark-grey;
+    h3 {
+        padding: 20px;
+        margin: 0;
+    }
+    margin: 0;
 }
