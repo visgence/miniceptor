@@ -1,10 +1,9 @@
+<div class = "sensor-card">
 <md-card sensor-card md-theme="default">
-  <div flex>
     <md-toolbar class="sensor-card-header demo-toolbar md-primary">
       <h3 class="stream-card-header-text">Sensor Information</h3>
       <!--"toolbar" used as card header-->
     </md-toolbar>
-
     <md-content class="sensor-card-content md">
       <md-tabs md-dynamic-height md-border-bottom class="ng-isolate-scope md-dynamic height">
         <md-tab id="config-tab" aria-controls="Config">
@@ -76,7 +75,7 @@
                 <md-list-item>
                   <h5>Description:</h5> <span flex></span>
                   <md-input-container>
-                    <input name="description" ng-model="sensor.description" />
+                    <input aria-label="description field for the sensor" name="description" ng-model="sensor.description" />
                     <div class="hint">Enter a new description</div>
                   </md-input-container>
                 </md-list-item>
@@ -84,7 +83,7 @@
                 <md-list-item>
                   <h5>Units:</h5> <span flex></span>
                   <md-input-container>
-                    <input name="units" ng-model="sensor.units" />
+                    <input aria-label="units fielf for the sensor" name="units" ng-model="sensor.units" />
                     <div class="hint">Enter new units</div>
                   </md-input-container>
                 </md-list-item>
@@ -97,7 +96,7 @@
                 <md-list-item>
                   <h5>Calibration:</h5> <span flex></span>
                   <md-input-container>
-                    <input required type="number" name="last_calibration_coefficients" ng-model="sensor.last_calibration_coefficients" />
+                    <input aria-label = "Coeffecients for senor calibration" required type="number" name="last_calibration_coefficients" ng-model="sensor.last_calibration_coefficients" />
                     <div class="hint">Enter calibration coefficients</div>
                   </md-input-container>
                 </md-list-item>
@@ -253,5 +252,5 @@
       </md-tabs>
 
     </md-content>
-  </div>
 </md-card>
+</div>

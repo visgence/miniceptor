@@ -1,4 +1,4 @@
-<div flex>
+<div flex layout = "column">
   <md-card stream-card md-theme="default">
     <!--Encases entire layout in material card container-->
     <md-toolbar class="stream-card-header demo-toolbar md-primary">
@@ -64,7 +64,7 @@
               <md-list-item>
                 <h5>Name:</h5> <span flex></span>
                 <md-input-container>
-                  <input name="name" ng-model="stream.name" />
+                  <input aria-label = "name field for stream name" name="name" ng-model="stream.name" />
                   <div class="hint">Enter a new stream name</div>
                 </md-input-container>
               </md-list-item>
@@ -72,7 +72,7 @@
               <md-list-item>
                 <h5>Description:</h5> <span flex></span>
                 <md-input-container>
-                  <input name="description" ng-model="stream.description" />
+                  <input aria-label = "field for stream description" name="description" ng-model="stream.description" />
                   <div class="hint">Enter a new description</div>
                 </md-input-container>
               </md-list-item>
@@ -80,7 +80,7 @@
               <md-list-item>
                 <h5>Minimum Value:</h5> <span flex></span>
                 <md-input-container>
-                  <input name="minimum" ng-model="stream.min_value" />
+                  <input aria-label ="field for the stream minimum value" name="minimum" ng-model="stream.min_value" />
                   <div class="hint">Enter a new minimum value</div>
                 </md-input-container>
               </md-list-item>
@@ -88,7 +88,7 @@
               <md-list-item>
                 <h5>Maximum Value:</h5><span flex></span>
                 <md-input-container>
-                  <input name="maximum" ng-model="stream.max_value" />
+                  <input aria-label= "field for strem maximum value" name="maximum" ng-model="stream.max_value" />
                   <div class="hint">Enter a new maximum value</div>
                 </md-input-container>
               </md-list-item>
@@ -101,7 +101,7 @@
               <md-list-item ng-repeat="path in stream.paths">
                 <h5>Paths:</h5> <span flex></span>
                 <md-input-container>
-                  <input name="path" ng-model="path.url" />
+                  <input aria-label = "field for stream path value" name="path" ng-model="path.url" />
                   <div class="hint">Enter a new path URL</div>
                 </md-input-container>
               </md-list-item>

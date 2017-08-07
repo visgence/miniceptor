@@ -1,8 +1,8 @@
 @import '../constants';
 
-.time-card {
-    height: 100%;
-}
+// .time-card {
+//     height: 100%;
+// }
 
 .time-card-content {
     background-color: $white;
@@ -11,11 +11,12 @@
     padding: 10px 10px 10px 15px;
 }
 
-.time-card-header {
+md-toolbar:not(.md-menu-toolbar).time-card-header {
     background-color: $primary;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     padding-left: 15px;
+    padding-top: 10px;
 }
 
 .submit-button {
