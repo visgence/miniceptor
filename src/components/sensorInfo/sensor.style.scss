@@ -1,10 +1,27 @@
 @import '../constants';
 
-.sensor-card-header {
-    background-color: $blue;
+.sensor-card {
+    align-items: stretch;
+}
+
+md-toolbar:not(.md-menu-toolbar).sensor-card-header {
+    background-color: $primary;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
-    padding: 10px 10px 10px 15px;
+    padding-left: 15px;
+    padding-top: 10px;
+}
+
+.sensor-tab-content {
+    padding: 10px;
+}
+
+.edit-fields {
+    margin-top: 7px;
+}
+
+.md-button.md-default-theme.md-primary.md-raised.config-edit-button {
+    float: right;
 }
 
 .sensor-card-content {
@@ -14,12 +31,21 @@
     padding: 10px 10px 10px 15px;
 }
 
-.sensor-tab-content {
-    padding: 10px;
+.md-button.md-default-theme.md-primary.md-raised.config-save-button {
+    float: right;
+}
+
+.config-cancel-button {
+    float: right;
 }
 
 .config-button {
+    background-color: $primary;
     float: right;
+}
+
+.edit-button {
+    padding-top: 10px;
 }
 
 .new-data-input {

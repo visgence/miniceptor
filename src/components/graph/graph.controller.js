@@ -1,25 +1,45 @@
 import * as d3 from 'd3';
 
 export default class graphController {
-    constructor(infoService, apiService, $location, $scope) {
+    constructor(infoService, apiService, $location, $scope, $timeout) {
         'ngInject';
         this.$location = $location;
         this.$scope = $scope;
+        this.$timeout = $timeout;
         this.infoService = infoService;
         this.apiService = apiService;
+
+        this.$scope.$watch(() => {
+            return this.infoService.getStream();
+        }, (nv, ov) => {
+            if (nv !== undefined) {
+                document.getElementById('chart-title').innerHTML = nv.name;
+            }
+        });
+
+        this.$scope.$watch(() => {
+            return this.$location.search().ds;
+        }, (nv, ov) => {
+            if (nv !== ov) {
+                this.getData(nv);
+            }
+        });
     }
 
     $onInit() {
-        this.getData();
+        this.retryCounter = 0;
+        // We wait for the dom to render to draw the graph because we make use of clientwidth/height
+        window.onload = () => {
+            this.getData();
+        };
     }
 
-    getData() {
-        const datastream = this.$location.search().ds;
+    getData(stream) {
+        const datastream = stream || this.$location.search().ds;
         if (datastream === undefined) {
             $('#graph-message').toggleClass('alert-warning');
             $('#graph-message').html('Please select a stream.');
             return;
-
         }
 
         const url = 'reading/?' + location.href.split('?')[1];
@@ -28,6 +48,7 @@ export default class graphController {
             .then((success) => {
                 if (success.error !== undefined) {
                     $('#graph-message').toggleClass('alert-danger');
+                    $('#graph-message').toggleClass('graph-message');
                     $('#graph-message').html('No data could be found.');
                 } else {
                     this.drawGraph(success.data);
@@ -41,8 +62,14 @@ export default class graphController {
     }
 
     drawGraph(data) {
-        let width = $('#my-graph')[0].clientWidth;
-        let height = 300;
+        if (data.readings.length < 5) {
+            $('#graph-message').toggleClass('alert-danger');
+            $('#graph-message').toggleClass('graph-message');
+            $('#graph-message').html('Not enough points were returned.');
+            return;
+        }
+        let width = $('#graph-svg')[0].clientWidth;
+        let height = $('#graph-svg')[0].clientHeight;
 
         let min = data.readings[0][1];
         let max = data.readings[0][1];
@@ -76,12 +103,8 @@ export default class graphController {
             left: 10 + (unitSize * 7),
         };
         width = width - margin.left - margin.right;
-        if (width < 0) {
-            return;
-        }
         height = height - margin.top - margin.bottom;
-
-        const newChart = d3.select('#my-graph')
+        const newChart = d3.select('#graph-svg')
             .append('svg')
             .attr('class', 'Chart-Container')
             .attr('width', width + margin.left + margin.right)
@@ -89,6 +112,7 @@ export default class graphController {
             .append('g')
             .attr('transform', 'translate(' + margin.left + ',' + 0 + ')')
             .classed('svg-content-responsive', true);
+        this.chart = newChart;
 
         const xScale = d3.scaleTime()
             .domain([

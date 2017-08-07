@@ -1,3 +1,27 @@
-.main {
-    margin-top: 60px;
+.stretch {
+    height: 100%;
+    padding-bottom: 16px;
+    width: 100%;
+}
+
+.header-override {
+    min-height: 46px;
+}
+
+md-toolbar {
+    h3 {
+        margin-top: 10px;
+    }
+}
+@media (max-width: 960px) {
+    .flex-20.flex-override {
+        max-width: 100%;
+    }
+}
+
+
+@media (max-width: 960px) {
+    .flex-80.flex-override {
+        max-width: 100%;
+    }
 }

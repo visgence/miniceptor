@@ -1,35 +1,26 @@
-<div class="container-fluid">
-    <navcomponent></navcomponent>
-    <div class="row main">
-        <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-12 left-col">
-                    <!--  time controls-->
-                    <timecomponent></timecomponent>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 left-col">
-                    <!-- tree controls -->
-                    <treecomponent></treecomponent>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-9">
-            <div class="row">
-                <div class="col-md-12 right-col">
-                    <!--  graph  -->
-                    <graphcomponent></graphcomponent>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 right-col left-col">
-                    <streamcomponent></streamcomponent>
-                </div>
-                <div class="col-md-6 right-col">
-                    <sensorcomponent></sensorcomponent>
-                </div>
-            </div>
-        </div>
+<!-- <navcomponent></navcomponent> -->
+
+
+<div layout-gt-xs="row" flex>
+    <div layout-gt-sm="column" class = "flex-override" flex = "20">
+
+        <timecomponent></timecomponent>
+        <treecomponent></treecomponent>
+
+  </div>
+
+    <div layout-gt-sm="column" class = "flex-override" flex = "80">
+      <div layout-gt-sm="row" flex>
+
+        <graphcomponent flex></graphcomponent>
+
+      </div>
+
+      <div layout-gt-sm="row" flex>
+
+        <streamcomponent layout-fill flex = "50"></streamcomponent>
+        <sensorcomponent layout-fill flex = "50"></sensorcomponent>
+
+      </div>
     </div>
-</div>
+  </div>
