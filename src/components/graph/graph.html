@@ -1,8 +1,8 @@
-<md-card>
-  <md-toolbar class="stream-card-header demo-toolbar md-primary">
-    <h3 class="info-static">{{success.data.id}}</h3>
+<md-card class="graph-card">
+  <md-toolbar class="graph-card-header demo-toolbar md-primary header-override">
+    <h3 id="chart-title">Title</h3>
   </md-toolbar>
 
-    <div class="alert" id="graph-message" />
-    <div id="my-graph" class="my-graph" />
+    <div class="alert graph-message" id="graph-message"></div>
+    <div id="graph-svg" class="graph-svg" />
 </md-card>

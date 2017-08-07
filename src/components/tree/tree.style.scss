@@ -1,7 +1,11 @@
 @import '../constants';
 
-.tree-container{
-  padding: 15px;
+.tree-card {
+    height:100%;
+}
+
+.tree-container {
+    padding: 15px;
 }
 
 .dropdown-btn {
@@ -13,7 +17,7 @@
     white-space: nowrap;
 
     &:hover {
-        background-color: $primary;
+        background-color: $blue;
         cursor: pointer;
     }
 }
@@ -25,7 +29,6 @@
     padding-left: 15px;
 }
 
-.dropdown-btn:hover{
-  background-color: rgb(16, 108, 200);
-  cursor: pointer;
+.tree-content {
+    padding: 10px;
 }

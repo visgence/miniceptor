@@ -210,6 +210,7 @@ export default class sensorController { // ', ['frapontillo.bootstrap-switch',])
                     this.$scope.isActive = true;
                     // We need to set the preliminary state
                 }
+                $('#sensor-card').css('visibility', 'visible');
             })
             .catch((error) => {
                 console.log('error');

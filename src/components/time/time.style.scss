@@ -8,12 +8,15 @@
   float:right;
 }
 
+.time-card {
+    height: 100%;
+}
+
 .time-card-content {
-  background-color: rgb(255, 255, 255);
-  border: 4px;
-  padding: 10px;
-  overflow: hidden;
-  padding-left: 15px;
+    background-color: $white;
+    border: 4px;
+    overflow: hidden;
+    padding: 10px 10px 10px 15px;
 }
 
 .time-card-header {

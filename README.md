@@ -3,6 +3,13 @@ Setup:
 pip install -r requirements.txt
 npm install
 
+Using docker:
+
+cd docker/app
+sh build.sh
+sh run.sh
+npm install
+
 Usage:
 
 npm run start
@@ -24,3 +31,13 @@ Future updates:
 https://github.com/tempusdominus/bootstrap-3 for timepicker (in alpha)
 bootstrap 4 (in alpha)
 jquery 3 (bootstrap needs update)
+
+
+Notes:
+There is a post install running npm run install on node-sass. Depending on your os, node-sass doesn't always install itself on npm install.
+https://github.com/sass/node-sass/blob/master/TROUBLESHOOTING.md
+
+Bower is currently installed globally, this is because the timepicker requires bower and npm doesn't know how to link it self to bower as a dependency.
+
+TODO:
+Create EntryPoint.sh file and add phantomjs to path
