@@ -1,22 +1,22 @@
 <md-card class="time-card">
-  <md-toolbar class="time-card-header demo-toolbar md-primary header-override">
-    <h3 >Time</h3>
-  </md-toolbar>
-  <md-content class="time-card-content">
+    <md-toolbar class="card-header md-primary header-override">
+        <h3>Time</h3>
+    </md-toolbar>
+    <md-content class="card-content">
 
-      Start time
-      <div class="form-group">
-        <input type="text" class="form-control" id="start-time-picker" />
-    </div>
+        Start time
+        <div class="form-group">
+            <input type="text" class="form-control" id="start-time-picker" />
+        </div>
 
-      End time
-      <input type="text" class="form-control" id="end-time-picker" />
+        End time
+        <input type="text" class="form-control" id="end-time-picker" />
 
-    <div class="submit-button">
-      <button class="md-button md-raised md-primary  md-ink-ripple" ng-click="SubmitDates()">
-                <span class="ng-span" /> Submit
-                  <div class = "md-ripple-container"></div>
-            </button>
-    </div>
-  </md-content>
+        <md-button class="primary-button md-raised md-primary" ng-click="SubmitDates()">
+            <span class="ng-scope" /> Submit
+            <div class="md-ripple-container"></div>
+        </md-button>
+
+
+    </md-content>
 </md-card>

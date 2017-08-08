@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 
 export default class graphController {
-    constructor(infoService, apiService, $location, $scope, $timeout) {
+    constructor(infoService, apiService, $location, $scope, $timeout, $window) {
         'ngInject';
         this.$location = $location;
         this.$scope = $scope;
@@ -9,36 +9,21 @@ export default class graphController {
         this.infoService = infoService;
         this.apiService = apiService;
 
-        this.$scope.$watch(() => {
-            return this.infoService.getStream();
-        }, (nv, ov) => {
-            if (nv !== undefined) {
-                document.getElementById('chart-title').innerHTML = nv.name;
+        // watch window resize
+        angular.element($window).bind('resize', () => {
+            if ($location.search().ds !== undefined) {
+                this.drawGraph(infoService.getReadings());
             }
         });
 
-        this.$scope.$watch(() => {
-            return this.$location.search().ds;
-        }, (nv, ov) => {
-            if (nv !== ov) {
-                this.getData(nv);
-            }
-        });
+        this.getData();
     }
 
-    $onInit() {
-        this.retryCounter = 0;
-        // We wait for the dom to render to draw the graph because we make use of clientwidth/height
-        window.onload = () => {
-            this.getData();
-        };
-    }
-
-    getData(stream) {
-        const datastream = stream || this.$location.search().ds;
+    getData() {
+        const datastream = this.$location.search().ds;
         if (datastream === undefined) {
-            $('#graph-message').toggleClass('alert-warning');
-            $('#graph-message').html('Please select a stream.');
+            $('#graph-message').toggleClass('graph-message-display');
+            $('#graph-message').html('<h3>Please select a stream.</h3>');
             return;
         }
 
@@ -46,10 +31,9 @@ export default class graphController {
 
         this.apiService.get(url)
             .then((success) => {
-                if (success.error !== undefined) {
-                    $('#graph-message').toggleClass('alert-danger');
-                    $('#graph-message').toggleClass('graph-message');
-                    $('#graph-message').html('No data could be found.');
+                if (success.data.error !== undefined) {
+                    $('#graph-message').toggleClass('graph-message-display');
+                    $('#graph-message').html('<h3>No data could be found.</h3>');
                 } else {
                     this.drawGraph(success.data);
                     this.infoService.setReadings(success.data);
@@ -64,12 +48,14 @@ export default class graphController {
     drawGraph(data) {
         if (data.readings.length < 5) {
             $('#graph-message').toggleClass('alert-danger');
-            $('#graph-message').toggleClass('graph-message');
-            $('#graph-message').html('Not enough points were returned.');
+            $('#graph-message').toggleClass('graph-message-display');
+            $('#graph-message').html('<h3>Not enough points were returned.</h3>');
             return;
         }
-        let width = $('#graph-svg')[0].clientWidth;
-        let height = $('#graph-svg')[0].clientHeight;
+        let width = $('#graph-container')[0].clientWidth;
+        let height = 350;
+
+        $('#graph-container').empty();
 
         let min = data.readings[0][1];
         let max = data.readings[0][1];
@@ -94,7 +80,7 @@ export default class graphController {
         start *= 1000;
         end *= 1000;
 
-        const unitSize = 4;
+        const unitSize = ' ' + this.FormatText(max).length;
 
         const margin = {
             top: 20,
@@ -104,7 +90,8 @@ export default class graphController {
         };
         width = width - margin.left - margin.right;
         height = height - margin.top - margin.bottom;
-        const newChart = d3.select('#graph-svg')
+
+        const newChart = d3.select('#graph-container')
             .append('svg')
             .attr('class', 'Chart-Container')
             .attr('width', width + margin.left + margin.right)
@@ -149,12 +136,12 @@ export default class graphController {
             .tickSizeOuter(-10)
             .tickValues(getTic())
             .tickFormat((d) => {
-                return d;
+                return this.FormatText(d);
             });
 
 
         newChart.append('g')
-            .attr('class', 'ChartAxis-Shape')
+            .attr('class', 'chart-axis')
             .call(yAxis);
 
 
@@ -166,7 +153,7 @@ export default class graphController {
             .ticks(12);
 
         newChart.append('g')
-            .attr('class', 'ChartAxis-Shape')
+            .attr('class', 'chart-axisChartAxis-Shape')
             .attr('transform', 'translate(0,' + height + ')')
             .call(xAxis);
 
@@ -175,7 +162,7 @@ export default class graphController {
             .ticks(0);
 
         newChart.append('g')
-            .attr('class', 'ChartAxis-Shape')
+            .attr('class', 'chart-axis')
             .attr('transform', 'translate(0, ' + margin.bottom + ')')
             .call(xAxisTop);
 
@@ -183,7 +170,7 @@ export default class graphController {
             .ticks(0);
 
         newChart.append('g')
-            .attr('class', 'ChartAxis-Shape')
+            .attr('class', 'chart-axis')
             .attr('transform', 'translate(' + width + ', 0)')
             .call(yAxisRight);
 
@@ -346,10 +333,10 @@ export default class graphController {
                 }
                 circleElements[0].attr('transform', 'translate(' + xScale(d[0] * 1000) + ',' + yScale(d[1]) + ')');
                 yLine.attr('transform', 'translate(' + xScale(d[0] * 1000) + ',' + 0 + ')');
-                timeText.text(new Date(d[0] * 1000) + ' | ' + d[1]);
+                timeText.text(new Date(d[0] * 1000) + ' | ' + this.FormatText(d[1]));
 
                 textElements[0]
-                    .text(d[1])
+                    .text(this.FormatText(d[1]))
                     .attr('transform', 'translate(' + (xScale(d[0] * 1000) + 10) + ',' + (yScale(d[1]) - 10) + ')');
 
             })
@@ -370,4 +357,52 @@ export default class graphController {
             })
             .call(drag);
     };
+
+    // Formats text for units display
+    FormatText(d) {
+        let count = 0;
+        while (Math.abs(d) >= 1000) {
+            d /= 1000;
+            count++;
+        }
+        while (Math.abs(d) < 1 && d !== 0) {
+            d *= 1000;
+            count--;
+        }
+        const f = d3.format('.2f');
+        let suffix;
+        switch (count) {
+            case -1:
+                suffix = 'm';
+                break;
+            case -2:
+                suffix = 'u';
+                break;
+            case -3:
+                suffix = 'p';
+                break;
+            case 1:
+                suffix = 'K';
+                break;
+            case 2:
+                suffix = 'M';
+                break;
+            case 3:
+                suffix = 'G';
+                break;
+            default:
+                suffix = '';
+        }
+        let formattedText = f(d) + suffix + ' ';
+
+        const info = this.infoService.getSensor();
+        if (info !== undefined && info.units !== null) {
+            if (info.units === '$') {
+                formattedText = '$' + formattedText;
+            } else {
+                formattedText = formattedText + info.units;
+            }
+        }
+        return formattedText;
+    }
 }
