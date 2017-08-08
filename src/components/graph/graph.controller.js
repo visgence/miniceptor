@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 
 export default class graphController {
-    constructor(infoService, apiService, $location, $scope, $timeout) {
+    constructor(infoService, apiService, $location, $scope, $timeout, $window) {
         'ngInject';
         this.$location = $location;
         this.$scope = $scope;
@@ -9,34 +9,14 @@ export default class graphController {
         this.infoService = infoService;
         this.apiService = apiService;
 
-        // watch for changes in stream
-        // this.$scope.$watch(() => {
-        //     return this.infoService.getStream();
-        // }, (nv, ov) => {
-        //     if (nv !== undefined) {
-        //         document.getElementById('chart-title').innerHTML = nv.name;
-        //     }
-        // });
-
-        // watch for changes in the url
-        this.$scope.$watch(() => {
-            return this.$location.search();
-        }, (nv, ov) => {
-            console.log(nv);
-            console.log(ov)
-            if (nv !== ov) {
-                this.getData();
+        // watch window resize
+        angular.element($window).bind('resize', () => {
+            if ($location.search().ds !== undefined) {
+                this.drawGraph(infoService.getReadings());
             }
         });
 
-        // watch window resize
-    }
-
-    $onInit() {
-        // We wait for the dom to render to draw the graph because we make use of clientwidth/height
-        window.onload = () => {
-            this.getData();
-        };
+        this.getData();
     }
 
     getData() {
@@ -44,16 +24,14 @@ export default class graphController {
         if (datastream === undefined) {
             $('#graph-message').toggleClass('graph-message-display');
             $('#graph-message').html('<h3>Please select a stream.</h3>');
-            console.log('log')
             return;
         }
 
         const url = 'reading/?' + location.href.split('?')[1];
 
-        console.log(url)
         this.apiService.get(url)
             .then((success) => {
-                if (success.error !== undefined) {
+                if (success.data.error !== undefined) {
                     $('#graph-message').toggleClass('graph-message-display');
                     $('#graph-message').html('<h3>No data could be found.</h3>');
                 } else {
@@ -74,9 +52,10 @@ export default class graphController {
             $('#graph-message').html('<h3>Not enough points were returned.</h3>');
             return;
         }
-        console.log('drawing')
         let width = $('#graph-container')[0].clientWidth;
         let height = 350;
+
+        $('#graph-container').empty();
 
         let min = data.readings[0][1];
         let max = data.readings[0][1];
@@ -111,8 +90,6 @@ export default class graphController {
         };
         width = width - margin.left - margin.right;
         height = height - margin.top - margin.bottom;
-
-        console.log(width, height, min, max, start, end)
 
         const newChart = d3.select('#graph-container')
             .append('svg')
