@@ -9,12 +9,6 @@
 .header-override {
     min-height: 46px;
 }
-
-md-toolbar {
-    h3 {
-        margin-top: 10px;
-    }
-}
 @media (max-width: 960px) {
     .flex-20 {
         .flex-override {
@@ -30,12 +24,18 @@ md-toolbar {
     }
 }
 
+md-toolbar {
+    h3 {
+        margin-top: 10px;
+    }
 
-md-toolbar.md-default-theme:not(.md-menu-toolbar){
+    &.md-default-theme {
+        &:not(.md-menu-toolbar) {
             background-color: $primary;
             border-top-left-radius: 4px;
             border-top-right-radius: 4px;
             padding-left: 15px;
             padding-top: 10px;
-
+        }
     }
+}

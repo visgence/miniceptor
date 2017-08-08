@@ -4,11 +4,15 @@
     height: 100%;
 }
 
-md-toolbar:not(.md-menu-toolbar).graph-card-header {
-    background-color: $primary;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    padding: 5px 15px 10px;
+md-toolbar {
+    &:not(.md-menu-toolbar) {
+        &.graph-card-header {
+            background-color: $primary;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            padding: 5px 15px 10px;
+        }
+    }
 }
 
 .tick {
@@ -30,13 +34,13 @@ md-toolbar:not(.md-menu-toolbar).graph-card-header {
 }
 
 .graph-message-display {
-    display: block;
     background-color: $light-yellow;
     color: $dark-grey;
+    display: block;
 
     h3 {
-        padding: 20px;
         margin: 0;
+        padding: 20px;
     }
     margin: 0;
 }

@@ -4,8 +4,6 @@
     align-items: stretch;
 }
 
-
-
 .sensor-tab-content {
     padding: 10px;
 }
@@ -15,12 +13,10 @@
 }
 
 .md-button {
-                    background-color: $primary;
-                    color: $white;
-                    float: right;
-                }
-
-
+    background-color: $primary;
+    color: $white;
+    float: right;
+}
 
 .sensor-card-content {
     background-color: $white;

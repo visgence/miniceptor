@@ -32,16 +32,16 @@ md-toolbar {
 }
 
 .md-button {
-    .md-default-theme {
-        .md-primary {
-            .md-raised {
-                .stream-edit-button {
+    &.md-default-theme {
+        &.md-primary {
+            &.md-raised {
+                &.stream-edit-button {
                     background-color: $primary;
                     color: $white;
                     float: right;
                 }
 
-                .stream-save-button {
+                &.stream-save-button {
                     background-color: $primary;
                     color: $white;
                     float: right;
