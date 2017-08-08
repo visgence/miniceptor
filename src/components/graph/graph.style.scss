@@ -4,17 +4,6 @@
     height: 100%;
 }
 
-md-toolbar {
-    &:not(.md-menu-toolbar) {
-        &.graph-card-header {
-            background-color: $primary;
-            border-top-left-radius: 4px;
-            border-top-right-radius: 4px;
-            padding: 5px 15px 10px;
-        }
-    }
-}
-
 .tick {
     line {
         stroke: $grey;
@@ -27,6 +16,7 @@ md-toolbar {
 
 .graph-container {
     height: 350px;
+    background-color: $white;
 }
 
 .graph-message {

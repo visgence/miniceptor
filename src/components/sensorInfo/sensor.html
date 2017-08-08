@@ -1,17 +1,17 @@
 <div class="sensor-card">
     <md-card sensor-card md-theme="default">
-        <md-toolbar class="sensor-card-header demo-toolbar md-primary">
-            <h3 class="stream-card-header-text">Sensor Information</h3>
+        <md-toolbar class="card-header md-primary">
+            <h3>Sensor Information</h3>
             <!--"toolbar" used as card header-->
         </md-toolbar>
-        <md-content class="sensor-card-content md">
+        <md-content class="card-content md">
             <md-tabs md-dynamic-height md-border-bottom class="ng-isolate-scope md-dynamic height">
                 <md-tab id="config-tab" aria-controls="Config">
                     <md-tab-label>Config</md-tab-label>
                     <md-tab-body class="sensor-tab-content">
                         <!-- Tab content -->
                         <div ng-if="!editing">
-                            <md-list class="stream-list">
+                            <md-list class="list-content">
                                 <md-list-item class="list-entry">
                                     <h5>UUID:</h5> <span flex></span>
                                     <h5>{{sensor.uuid}}</h5>
@@ -48,7 +48,7 @@
                                 </md-list-item>
                                 <md-divider></md-divider>
                                 <div class="edit-button">
-                                    <md-button class="config-edit-button md-button md-raised md-primary md-ink-ripple" ng-click="EditFields(title)">
+                                    <md-button class="primary-button md-button md-raised md-primary md-ink-ripple" ng-click="EditFields(title)">
                                         <span class="ng-span" /> Edit
                                         <div class="md-ripple-container"></div>
                                     </md-button>
@@ -56,7 +56,7 @@
                             </md-list>
                         </div>
                         <div ng-if="editing">
-                            <md-list class="stream-list">
+                            <md-list class="list-content">
                                 <md-list-item class="list-entry">
                                     <h5>UUID:</h5> <span flex></span>
                                     <h5>{{sensor.uuid}}</h5>
@@ -100,12 +100,12 @@
                                 <md-divider></md-divider>
                             </md-list>
 
-                            <md-button class="config-save-button md-raised md-primary md-ink-ripple" ng-click="SaveFields()">
+                            <md-button class="primary-button md-raised md-primary md-ink-ripple" ng-click="SaveFields()">
                                 <span class="ng-scope" /> Save
                                 <div class="md-ripple-container"></div>
                             </md-button>
 
-                            <md-button class="config-cancel-button" ng-click="CancelFields()">
+                            <md-button class = "secondary-button" ng-click="CancelFields()">
                                 <span class="ng-scope" /> Cancel
                                 <div class="md-ripple-container"></div>
                             </md-button>
@@ -125,7 +125,7 @@
                                 </md-input-container>
                             </md-list-item>
                             <md-divider></md-divider>
-                            <md-button class="entry-edit-button md-raised md-primary md-ink-ripple" ng-click="SaveFields()">
+                            <md-button class="primary-button md-raised md-primary md-ink-ripple" ng-click="SaveFields()">
                                 <span class="ng-scope" /> Send
                                 <div class="md-ripple-container"></div>
                             </md-button>
@@ -142,11 +142,11 @@
                         <md-list>
                             <md-list-item>
                                 <h5>Export Data</h5> <span flex></span>
-                                <md-button class="entry-edit-button md-raised md-primary md-ink-ripple" ng-click="ExportES()">
+                                <md-button class="primary-button md-raised md-primary md-ink-ripple" ng-click="ExportES()">
                                     <span class="ng-scope" /> Elastic Search
                                     <div class="md-ripple-container"></div>
                                 </md-button>
-                                <md-button class="entry-edit-button md-raised md-primary md-ink-ripple" ng-click="ExportSQL()">
+                                <md-button class="primary-button md-raised md-primary md-ink-ripple" ng-click="ExportSQL()">
                                     <span class="ng-scope" /> SQL
                                     <div class="md-ripple-container"></div>
                                 </md-button>

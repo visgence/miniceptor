@@ -1,14 +1,14 @@
 <div flex layout = "column">
   <md-card stream-card md-theme="default">
     <!--Encases entire layout in material card container-->
-    <md-toolbar class="stream-card-header demo-toolbar md-primary">
-      <h3 class="stream-card-header-text">Stream Information</h3>
+    <md-toolbar class="card-header md-primary">
+      <h3>Stream Information</h3>
       <!--"toolbar" used as card header-->
     </md-toolbar>
-    <md-content class="stream-card-content md ">
+    <md-content class="card-content md">
       <!-- under header, define text content defined as medium -->
       <div class="alert alert-warning warning-message" id="warning-message"> </div>
-      <md-list class="stream-list">
+      <md-list class="list-content">
         <div class="row">
           <div ng-if="!editing">
             <md-list class="stream-list">
@@ -48,8 +48,7 @@
               </md-list-item>
               <md-divider></md-divider>
             </md-list>
-
-            <md-button class="stream-edit-button md-raised md-primary md-ink-ripple" ng-click="EditFields()">
+            <md-button class="primary-button md-raised md-primary md-ink-ripple" ng-click="EditFields()">
               <span class="ng-scope" /> Edit
               <div class="md-ripple-container"></div>
             </md-button>
@@ -102,34 +101,11 @@
               </md-list-item>
               <md-divider></md-divider>
             </md-list>
-            <!-- <div class="info-static">{{stream.id}}</div>
-            <div class="info-edit">
-              <input ng-model="stream.name" value="{{stream.name}}" />
-            </div>
-            <div class="info-edit">
-              <input ng-model="stream.description" value="{{stream.description}}" />
-            </div>
-            <div class="info-edit">
-              <input ng-model="stream.min_value" value="{{stream.min_value}}" />
-            </div>
-            <div class="info-edit">
-              <input ng-model="stream.max_value" value="{{stream.max_value}}" />
-            </div>
-            <div class="info-static">{{stream.sensor}}</div>
-            <div ng-repeat="path in stream.paths">
-              <div class="info-edit">
-                <input ng-model="path.url" />
-              </div>
-            </div>
-            <button type="button " class="btn btn-sm" ng-click="AddPath()">
-                            <span class="glyphicon glyphicon-plus" />
-          </button> -->
-            <md-button class="stream-save-button md-raised md-primary md-ink-ripple" ng-click="SaveFields()">
+            <md-button class="primary-button md-raised md-primary md-ink-ripple" ng-click="SaveFields()">
               <span class="ng-scope" /> Save
               <div class="md-ripple-container"></div>
             </md-button>
-
-            <md-button class="stream-cancel-button" ng-click="CancelFields()">
+            <md-button class="secondary-button" ng-click="CancelFields()">
               <span class="ng-scope" /> Cancel
               <div class="md-ripple-container"></div>
             </md-button>
