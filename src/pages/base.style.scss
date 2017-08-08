@@ -10,15 +10,15 @@
     min-height: 46px;
 }
 @media (max-width: 960px) {
-    .flex-20 {
-        .flex-override {
+    &.flex-20 {
+        &.flex-override {
             max-width: 100%;
         }
     }
 }
 @media (max-width: 960px) {
-    .flex-80 {
-        .flex-override {
+    &.flex-80 {
+        &.flex-override {
             max-width: 100%;
         }
     }
