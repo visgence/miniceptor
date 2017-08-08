@@ -1,10 +1,5 @@
 @import '../constants';
 
-// .tree-card {
-//     height: 100%;
-//     align-items: stretch;
-// }
-
 .tree-container {
     padding: 15px;
 }
@@ -18,17 +13,16 @@
     white-space: nowrap;
 }
 
-// &:hover {
-//   background-color: $blue;
-//   cursor: pointer;
-// }
-
-md-toolbar:not(.md-menu-toolbar).tree-card-header {
-    background-color: $primary;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    padding-left: 15px;
-    padding-top: 10px;
+md-toolbar {
+    :not(.md-menu-toolbar) {
+        .tree-card-header {
+            background-color: $primary;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            padding-left: 15px;
+            padding-top: 10px;
+        }
+    }
 }
 
 .tree-content {

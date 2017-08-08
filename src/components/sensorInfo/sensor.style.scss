@@ -4,13 +4,7 @@
     align-items: stretch;
 }
 
-md-toolbar:not(.md-menu-toolbar).sensor-card-header {
-    background-color: $primary;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    padding-left: 15px;
-    padding-top: 10px;
-}
+
 
 .sensor-tab-content {
     padding: 10px;
@@ -20,23 +14,19 @@ md-toolbar:not(.md-menu-toolbar).sensor-card-header {
     margin-top: 7px;
 }
 
-.md-button.md-default-theme.md-primary.md-raised.config-edit-button,
-.md-button.md-default-theme.md-primary.md-raised.entry-edit-button {
-    float: right;
-    background-color: $primary;
-    color: $white;
-}
+.md-button {
+                    background-color: $primary;
+                    color: $white;
+                    float: right;
+                }
+
+
 
 .sensor-card-content {
     background-color: $white;
     border: 4px;
     overflow: hidden;
     padding: 10px 10px 10px 15px;
-}
-
-.md-button.md-default-theme.md-primary.md-raised.config-save-button {
-    float: right;
-    background-color: $primary;
 }
 
 .config-cancel-button {

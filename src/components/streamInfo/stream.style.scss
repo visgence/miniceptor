@@ -4,12 +4,16 @@
     display: none;
 }
 
-md-toolbar:not(.md-menu-toolbar).stream-card-header {
-    background-color: $primary;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    padding-left: 15px;
-    padding-top: 10px;
+md-toolbar {
+    :not(.md-menu-toolbar) {
+        .stream-card-header {
+            background-color: $primary;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            padding-left: 15px;
+            padding-top: 10px;
+        }
+    }
 }
 
 .stream-card-content {
@@ -17,7 +21,6 @@ md-toolbar:not(.md-menu-toolbar).stream-card-header {
     border: 4px;
     overflow: hidden;
     padding: 10px 15px;
-    padding-left: 15px;
 }
 
 .stream-card {
@@ -28,22 +31,29 @@ md-toolbar:not(.md-menu-toolbar).stream-card-header {
     padding: 0 10px 10px;
 }
 
-.md-button.md-default-theme.md-primary.md-raised.stream-edit-button {
-    background-color: $primary;
-    color: $white;
-    float: right;
+.md-button {
+    .md-default-theme {
+        .md-primary {
+            .md-raised {
+                .stream-edit-button {
+                    background-color: $primary;
+                    color: $white;
+                    float: right;
+                }
 
+                .stream-save-button {
+                    background-color: $primary;
+                    color: $white;
+                    float: right;
+                }
+            }
+        }
+    }
 }
 
-.input-container{
-    margin: 0px;
+.input-container {
+    margin: 0;
     padding-top: 10px;
-}
-
-.md-button.md-default-theme.md-primary.md-raised.stream-save-button {
-    background-color: $primary;
-    color: $white;
-    float: right;
 }
 
 .stream-cancel-button {
