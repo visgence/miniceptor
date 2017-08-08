@@ -1,6 +1,4 @@
-@import '../constants';
-
-// .time-card {
+@import '../constants'; // .time-card {
 //     height: 100%;
 // }
 
@@ -11,12 +9,16 @@
     padding: 10px 10px 10px 15px;
 }
 
-md-toolbar:not(.md-menu-toolbar).time-card-header {
-    background-color: $primary;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    padding-left: 15px;
-    padding-top: 10px;
+md-toolbar {
+    :not(.md-menu-toolbar) {
+        .time-card-header {
+            background-color: $primary;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            padding-left: 15px;
+            padding-top: 10px;
+        }
+    }
 }
 
 .submit-button {
