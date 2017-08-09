@@ -125,20 +125,16 @@ export default class treeController {
 
         });
 
-        $('#my-tree').on('nodeUnselected', (event, data) => {
-            console.log('unselected');
-        });
-
         const curStream = parseInt(this.$location.search().ds);
         if (!isNaN(curStream)) {
-            for (let i = 0; i < this.$scope.nodeCount; i++) {
-                const curNode = $('#my-tree').treeview('getNode', i);
-                if ('info' in curNode && curNode.id === curStream) {
-                    $('#my-tree').treeview('revealNode', curNode);
-                    $('#my-tree').treeview('selectNode', curNode);
+            $('#my-tree').treeview('getEnabled', 1).forEach((node) => {
+                if (node.id === curStream) {
+                    $('#my-tree').treeview('revealNode', node.nodeId);
+                    $('#my-tree').treeview('selectNode', node.nodeId);
                 }
-            }
+            });
         }
+
         if (data.length === 0) {
             $('#graph-message').toggleClass('alert-danger');
             $('#graph-message').html('There are currently no streams available.');
