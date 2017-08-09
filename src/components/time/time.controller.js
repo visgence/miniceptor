@@ -37,14 +37,14 @@ export default class timeController {
             let startTime = this.$scope.startDate;
             let endTime = this.$scope.endDate;
 
-            if (startTime !== undefined) {
+            if (startTime !== undefined && startTime.toString().length !== 0) {
                 startTime = new Date(startTime);
                 this.$location.search('start', startTime.getTime() / 1000);
             } else {
                 this.$location.search('start', null);
             }
 
-            if (endTime !== undefined) {
+            if (endTime !== undefined && endTime.toString().length !== 0) {
                 endTime = new Date(endTime);
                 this.$location.search('end', endTime.getTime() / 1000);
             } else {
