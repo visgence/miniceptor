@@ -25,7 +25,7 @@ export default class streamController {
 
         this.$scope.AddPath = () => {
             this.$scope.stream.paths.push({
-                url: '/new_path_' + $scope.stream.paths.length,
+                url: '/new_path_' + this.$scope.stream.paths.length,
             });
         };
 

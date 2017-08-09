@@ -66,3 +66,16 @@ md-toolbar {
         float: right;
     }
 }
+
+
+.input-override {
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+// some error thing that screws up input
+md-input-container {
+    .md-errors-spacer {
+        display: none;
+    }
+}
