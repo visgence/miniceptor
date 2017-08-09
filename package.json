@@ -1,6 +1,7 @@
 {
   "author": "Cyrille Gindreau",
   "dependencies": {
+    "adm-dtp": "^1.2.0",
     "angular": "1.6.5",
     "angular-animate": "1.6.5",
     "angular-aria": "1.6.5",
