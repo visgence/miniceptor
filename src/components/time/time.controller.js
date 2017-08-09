@@ -5,34 +5,26 @@ export default class timeController {
 
         this.$scope = $scope;
         this.$location = $location;
-
-        $scope.startDate = new Date();
     }
 
     $onInit() {
 
-        const startTime = parseInt(this.$location.search().start) || Date.now() / 1000 - 3600;
-        const endTime = parseInt(this.$location.search().end) || Date.now() / 1000;
-        $('#start-time-picker').datetimepicker({
-            defaultDate: startTime * 1000,
-        });
-        $('#end-time-picker').datetimepicker({
-            defaultDate: endTime * 1000,
-        });
-
+        this.$scope.startDate = new Date(this.$location.search().start);
+        this.$scope.startDate = new Date(this.$location.search().end);
 
         this.$scope.SubmitDates = () => {
-            console.log(this.$scope);
-            return
-            const startTime = $('#start-time-picker').data('DateTimePicker').date();
-            const endTime = $('#end-time-picker').data('DateTimePicker').date();
-            if (startTime !== null) {
-                this.$location.search('start', startTime.unix());
+            let startTime = this.$scope.startDate;
+            let endTime = this.$scope.endDate;
+            if (startTime !== undefined) {
+                startTime = new Date(startTime);
+                this.$location.search('start', startTime.getTime() / 1000);
             } else {
                 this.$location.search('start', null);
             }
-            if (endTime !== null) {
-                this.$location.search('end', endTime.unix());
+            console.log(endTime)
+            if (endTime !== undefined) {
+                endTime = new Date(endTime)
+                this.$location.search('end', endTime.getTime() / 1000);
             } else {
                 this.$location.search('end', null);
             }
