@@ -1,23 +1,53 @@
 export default class generateJsonController {
-    constructor($scope) {
+    constructor($scope, $mdDialog) {
         'ngInject';
 
         this.$scope = $scope;
+        this.$mdDialog = $mdDialog;
 
     }
     $onInit() {
+        this.$scope.inputItems = [];
+        this.$scope.outputItems = [];
         this.$scope.addInput = () => {
-            $('#input-section').append(this.createSensorInput());
+
+            this.$scope.inputItems.push({
+                name: 'name',
+                type: 'type',
+                units: 'units',
+                description: 'description',
+            });
+
         };
 
+        this.$scope.removeInput = () => {
+
+            this.$scope.inputItems.pop();
+
+        };
+
+        this.$scope.removeOutput = () => {
+
+            this.$scope.outputItems.pop();
+
+        };
+
+
         this.$scope.addOutput = () => {
-            $('#output-section').append(this.createSensorOutput());
+            this.$scope.outputItems.push({
+                name: 'Name',
+                model: 'Model',
+                type: 'Type',
+                units: 'Units',
+                description: 'Description',
+                time_stamp: 'Time Stamp',
+            });
         };
 
         this.$scope.submit = () => {
             const jsonData = {};
 
-            jsonData.uuid = $('#uuid').val();
+            jsonData.uuid = this.$scope.uuid;
             jsonData.model = $('#model').val();
             jsonData.description = $('#description').val();
 
@@ -57,11 +87,19 @@ export default class generateJsonController {
             if ($('#escape').is(':checked')) {
                 json = this.escape(json);
             }
-            $('#json-length').html(jsonLength);
-            $('#json-data').html(json);
-            $('#json-modal').modal('show');
+
+            this.$mdDialog.show(
+                this.$mdDialog.alert()
+                    .parent(angular.element(document.querySelector('#popupContainer')))
+                    .clickOutsideToClose(true)
+                    .title('JSON Data, Length ' + jsonLength + ' bytes')
+                    .textContent(json)
+                    .ariaLabel('Alert Dialog Demo')
+                    .ok('Close'),
+            );
             return false;
         };
+
     }
     escape(text) {
         return text.replace(/"/g, '\\"');
@@ -135,6 +173,7 @@ export default class generateJsonController {
         sensor.append(this.createInput('Units', 'units'));
         sensor.append(this.createInput('Description', 'description'));
         sensor.append(this.createButton('Remove', 'remove', sensor));
+        console.log(sensor);
         return sensor;
     }
 
