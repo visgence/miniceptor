@@ -57,7 +57,6 @@ export default class timeController {
             if (this.$scope.internalSelect) {
                 return;
             }
-            console.log('set')
             let startTime;
             const endTime = parseInt(new Date().getTime());
             switch (tab) {
