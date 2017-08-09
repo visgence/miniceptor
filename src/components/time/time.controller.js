@@ -5,9 +5,12 @@ export default class timeController {
 
         this.$scope = $scope;
         this.$location = $location;
+
+        $scope.startDate = new Date();
     }
 
     $onInit() {
+
         const startTime = parseInt(this.$location.search().start) || Date.now() / 1000 - 3600;
         const endTime = parseInt(this.$location.search().end) || Date.now() / 1000;
         $('#start-time-picker').datetimepicker({
@@ -19,6 +22,8 @@ export default class timeController {
 
 
         this.$scope.SubmitDates = () => {
+            console.log(this.$scope);
+            return
             const startTime = $('#start-time-picker').data('DateTimePicker').date();
             const endTime = $('#end-time-picker').data('DateTimePicker').date();
             if (startTime !== null) {

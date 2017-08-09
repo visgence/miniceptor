@@ -5,11 +5,10 @@
     <md-content class="card-content">
 
         Start time
-
-        <adm-dtp ng-model='date' class="shadow-override"></adm-dtp>
+        <adm-dtp ng-model="startDate"></adm-dtp>
 
         End time
-        <input type="text" class="form-control" id="end-time-picker" />
+        <adm-dtp ng-model="endDate"></adm-dtp>
 
         <md-button class="primary-button md-raised md-primary" ng-click="SubmitDates()">
             <span class="ng-scope" /> Submit
