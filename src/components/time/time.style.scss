@@ -1,3 +1,4 @@
+@import '../constants';
 $shadow-color: rgba(0, 0, 0, .12);
 
 .time-card {
@@ -7,6 +8,21 @@ $shadow-color: rgba(0, 0, 0, .12);
 // sass-lint:disable no-important class-name-format
 .ADMdtp-box {
     box-shadow: 1px 4px 12px $shadow-color, -1px 4px 12px $shadow-color !important;
+
+    &.daysNames>span{
+        color:$primary!important;
+    }
+    &.footer{
+        &.today{
+            color:$grey!important;
+        }
+        &.calTypeContatiner{
+            color:$grey!important;
+        }
+        &.timeSelection{
+            color:$primary!important;
+        }
+    }
 }
 // sass-lint:enable no-important class-name-format
 

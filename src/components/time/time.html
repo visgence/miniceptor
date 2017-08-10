@@ -5,10 +5,10 @@
     <md-content class="card-content">
 
         Start time
-        <adm-dtp ng-model="startDate" options="{default: {startDate}}"></adm-dtp>
+        <adm-dtp class = "date-picker" ng-model="startDate" options="{default: {startDate}}"></adm-dtp>
 
         End time
-        <adm-dtp ng-model="endDate"></adm-dtp>
+        <adm-dtp class="date-picker" ng-model="endDate"></adm-dtp>
 
         <div class="button-container">
             <md-button class="primary-button md-raised md-primary" ng-click="SubmitDates()">
