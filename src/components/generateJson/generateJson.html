@@ -10,20 +10,20 @@
             <md-content class="card-content md" layout="column">
                 <md-input-container class="input-container">
                     <label>UUID</label>
-                    <input aria-label="units fielf for the sensor" name="description" ng-model="uuid" />
+                    <input aria-label="UUID Field to generate JSON" name="uuid" ng-model="uuid" />
                 </md-input-container>
 
                 <md-input-container class="input-container md-block">
                     <label>Model</label>
-                    <input aria-label="units field for the sensor" name="model" ng-model="model" />
+                    <input aria-label="Model field for to generate JSON" name="model" ng-model="model" />
                 </md-input-container>
 
                 <md-input-container class="input-container">
                     <label>Description</label>
-                    <input aria-label="units fielf for the sensor" name="units" ng-model="description" />
+                    <input aria-label="Description field to generate JSON" name="units" ng-model="description" />
                 </md-input-container>
 
-                <md-checkbox aria-label="Escape" ng-model="escape">
+                <md-checkbox aria-label="Escape checkbox for escape character in the JSON" ng-model="escape">
                     Escape
                 </md-checkbox>
 
@@ -51,22 +51,22 @@
                     <div layout="column">
                         <md-input-container class="input-container">
                             <label>Name</label>
-                            <input aria-label="units fielf for the sensor" name="name" ng-model="item.name" />
+                            <input aria-label="Name field for a new input" name="name" ng-model="item.name" />
                         </md-input-container>
 
                         <md-input-container class="input-container">
                             <label>Type</label>
-                            <input aria-label="units field for the sensor" name="item.type" ng-model="item.type" />
+                            <input aria-label="Type field for a new input" name="type" ng-model="item.type" />
                         </md-input-container>
 
                         <md-input-container class="input-container">
                             <label>Units</label>
-                            <input aria-label="units fielf for the sensor" name="item.units" ng-model="item.units" />
+                            <input aria-label="Units field for a new input" name="units" ng-model="item.units" />
                         </md-input-container>
 
                         <md-input-container class="input-container">
                             <label>Description</label>
-                            <input aria-label="units fielf for the sensor" name="description" ng-model="item.description" />
+                            <input aria-label="description field for a new input" name="description" ng-model="item.description" />
                         </md-input-container>
 
                     </div>
@@ -94,37 +94,32 @@
                     <div layout="column">
                         <md-input-container class="input-container">
                             <label>Name</label>
-                            <input aria-label="units fielf for the sensor" name="name" ng-model="item.name" />
+                            <input aria-label="Name field for creating a new output" name="name" ng-model="item.name" />
                         </md-input-container>
 
                         <md-input-container class="input-container md-block">
                             <label>Model</label>
-                            <input aria-label="units field for the sensor" name="model" ng-model="item.model" />
+                            <input aria-label="model field for creating a new output" name="model" ng-model="item.model" />
                         </md-input-container>
 
                         <md-input-container class="input-container">
                             <label>Type</label>
-                            <input aria-label="units fielf for the sensor" name="type" ng-model="item.type" />
+                            <input aria-label="type field for creating a new output" name="type" ng-model="item.type" />
                         </md-input-container>
 
                         <md-input-container class="input-container">
                             <label>Units</label>
-                            <input aria-label="units fielf for the sensor" name="units" ng-model="item.units" />
+                            <input aria-label="units field for creating a new output" name="units" ng-model="item.units" />
                         </md-input-container>
 
                         <md-input-container class="input-container">
                             <label>Description</label>
-                            <input aria-label="units fielf for the sensor" name="description" ng-model="item.description" />
-                        </md-input-container>
-
-                        <md-input-container class="input-container">
-                            <label>Time Stamp</label>
-                            <input aria-label="units fielf for the sensor" name="timestamp" ng-model="item.time_stamp" />
+                            <input aria-label="description field for creating a new output" name="description" ng-model="item.description" />
                         </md-input-container>
 
                         <md-input-container class="input-container">
                             <label>Coefficients</label>
-                            <input aria-label="units fielf for the sensor" name="timestamp" ng-model="item.scale_cof" />
+                            <input aria-label="coefficients field for creating a new output" name="timestamp" ng-model="item.scale_cof" />
                         </md-input-container>
 
                     </div>

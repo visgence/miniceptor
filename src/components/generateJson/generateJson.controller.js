@@ -43,7 +43,6 @@ export default class generateJsonController {
                 type: '',
                 units: '',
                 description: '',
-                time_stamp: '',
                 scale_cof: '',
             });
         };
@@ -71,23 +70,37 @@ export default class generateJsonController {
 
             for (let i = 0; i < this.$scope.outputItems.length; i++) {
                 const output = {};
+
                 output.name = this.$scope.outputItems[i].name;
                 output.model = this.$scope.outputItems[i].model;
                 output.description = this.$scope.outputItems[i].description;
                 output.sensor_type = this.$scope.outputItems[i].type;
                 output.units = this.$scope.outputItems[i].units;
-                output.timestamp = this.$scope.outputItems[i].time_stamp;
+
+                let coefficients = this.$scope.outputItems[i].scale_cof;
+                coefficients = coefficients.split(',');
+                const cleanCoefficients = [];
+
+                coefficients.forEach((coefficients) => {
+                    // only allow 0-9, -, .
+                    cleanCoefficients.push(coefficients.replace(/[^0-9\-\.]/g, ''));
+                });
+
+                output.scale = {
+                    coefficients: cleanCoefficients,
+                    timestamp: new Date().getTime(),
+                };
+
                 outputs.push(output);
             }
 
-            // $('.sensor-output').each((index) => {
-            //
-            //     const scale = [];
-            //     scale.push(Number($('input[name="scale1"]').val()));
-            //     scale.push(Number($('input[name="scale2"]').val()));
-            //     output.scale = scale;
-            //     outputs.push(output);
-            // });
+            $('.sensor-output').each((index) => {
+                const scale = [];
+                scale.push(Number($('input[name="scale1"]').val()));
+                scale.push(Number($('input[name="scale2"]').val()));
+                output.scale = scale;
+                outputs.push(output);
+            });
 
             jsonData.out = outputs;
             jsonData.in = inputs;

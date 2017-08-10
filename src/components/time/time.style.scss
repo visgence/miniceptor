@@ -9,18 +9,21 @@ $shadow-color: rgba(0, 0, 0, .12);
 .ADMdtp-box {
     box-shadow: 1px 4px 12px $shadow-color, -1px 4px 12px $shadow-color !important;
 
-    &.daysNames>span{
-        color:$primary!important;
+    &.daysNames > span {
+        color: $primary !important;
     }
-    &.footer{
-        &.today{
-            color:$grey!important;
+
+    &.footer {
+        &.today {
+            color: $grey !important;
         }
-        &.calTypeContatiner{
-            color:$grey!important;
+
+        &.calTypeContatiner {
+            color: $grey !important;
         }
-        &.timeSelection{
-            color:$primary!important;
+
+        &.timeSelection {
+            color: $primary !important;
         }
     }
 }
