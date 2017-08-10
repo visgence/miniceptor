@@ -17,8 +17,10 @@ import basePage from './pages/base.html';
 import GenerateJson from './pages/generateJson.html';
 
 require ('./../node_modules/angular-material/angular-material.min.css');
+require('./../node_modules/adm-dtp/dist/ADM-dateTimePicker.min.js');
+require('./../node_modules/adm-dtp/dist/ADM-dateTimePicker.min.css');
 
-angular.module('miniceptor', ['ngRoute', 'ngMaterial'])
+angular.module('miniceptor', ['ngRoute', 'ngMaterial', 'ADM-dateTimePicker'])
     .component('graphcomponent', graphcomponent)
     .component('timecomponent', timecomponent)
     .component('treecomponent', treecomponent)
